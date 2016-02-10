@@ -33,7 +33,7 @@ There are 4 ways to control the jumping sumo:
 
 ## Java-Driven (ProgrammaticDriver)
 
-:construction: will folow :construction:
+:construction: will follow :construction:
   
 ## Datei-Driven (FileBasedProgrammaticDriver)
 
