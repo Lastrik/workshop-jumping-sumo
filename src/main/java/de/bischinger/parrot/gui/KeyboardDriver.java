@@ -28,7 +28,7 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
 
         this.speedConfig = speedConfig;
         this.turnspeedConfig = turnspeedConfig;
-        droneController = new DroneController(ip, port, new HandshakeRequest(sumoWlan,"_arsdk-0902._udp"));
+        droneController = new DroneController(ip, port, new HandshakeRequest(sumoWlan, "_arsdk-0902._udp"));
 
         initComponents();
     }
@@ -47,6 +47,7 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
         droneController.addBatteryListener(b -> System.out.println("BatteryState: " + b));
         droneController.addCriticalBatteryListener(b -> System.out.println("Critical-BatteryState: " + b));
         droneController.addPCMDListener(b -> System.out.println("PCMD: " + b));
+        droneController.addOutdoorSpeedListener(b -> System.out.println("Speed: " + b));
 
         getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
     }
@@ -67,7 +68,8 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
                 if (isLeftPressed) direction = -turnspeedConfig;
                 else if (isRightPressed) direction = turnspeedConfig;
 
-                droneController.pcmd(speed, direction);
+                if (speed != 0 || direction != 0)
+                    droneController.pcmd(speed, direction);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -153,9 +155,8 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
                 SECONDS.sleep(1);
                 break;
             case VK_7:
-                //Wegen Devoxx4Kids auskommentiert
-                //droneController.spintoposture();
-                //SECONDS.sleep(1);
+                droneController.spintoposture();
+                SECONDS.sleep(1);
                 break;
             case VK_8:
                 droneController.spiral();
@@ -181,20 +182,21 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
                 SECONDS.sleep(2);
                 break;
             case VK_I:
-                droneController.monsterTheme();
+                droneController.audio().monsterTheme();
                 break;
             case VK_O:
-                droneController.insectTheme();
-                break;
-            case VK_Y:
-                droneController.silent();
-                break;
-            case VK_X:
-                droneController.loud();
+                droneController.audio().insectTheme();
                 break;
             case VK_P:
-                droneController.robotTheme();
+                droneController.audio().robotTheme();
                 break;
+            case VK_Y:
+                droneController.audio().mute();
+                break;
+            case VK_X:
+                droneController.audio().unmute();
+                break;
+
         }
     }
 
