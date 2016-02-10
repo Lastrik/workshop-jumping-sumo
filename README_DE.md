@@ -2,7 +2,7 @@
 
 # Devoxx4Kids - Jumping Sumo
 
-[Anleitung auf Deutsch](README_DE.md)
+[Instructions in english](README.md)
 
 Dieser Prototyp verbindet sich aktuell statisch zu einem JumpingSumo, d.h. 192.168.2.1 Port 44444.
 
