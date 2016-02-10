@@ -36,10 +36,13 @@ Beinhaltet die folgenden 4 Modi:
 3. Datei-Driven (FileBasedProgrammaticDriver)
 
 ```programm.txt``` wird nach Command-Änderung gepollt, die direkt auf dem JumpingSumo weitergeleitet werden
-  - Vor:          Fährt eine Einheit nach vorne
-  - Zurueck:      Fährt eine Einheit nach hinten
-  - Links:        Linksdrehung 90°
-  - Links x:      Linksdrehung um x Grad (Hinweis: 90° entspricht 25)
-  - Rechts x:     Rechtsdrehung um x Grad (Hinweis: 90° entspricht 25)
-  - Springe hoch: Führt einen Hochsprung aus
-  - Springe weit: Führt einen Weitsprung aus
+
+| Befehl       | Jumpin Sumo führt aus:                              |
+| ------------ |:--------------------------------------------------: |
+| Vor          | Fährt eine Einheit nach vorne                       |
+| Zurueck      | Fährt eine Einheit nach hinten                      |
+| Links        | Linksdrehung 90°                                    |
+| Links x      | Linksdrehung um x Grad (Hinweis: 90° entspricht 25) |
+| Rechts x     | Rechtsdrehung um x Grad (Hinweis: 90° entspricht 25)|
+| Springe hoch | Führt einen Hochsprung au                           |
+| Springe weit | Führt einen Weitsprung aus                          |
