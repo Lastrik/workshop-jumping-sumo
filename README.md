@@ -1,5 +1,7 @@
 ![Devoxx4Kids](http://www.devoxx4kids.de/wp-content/uploads/2015/07/cropped-header_hp.jpg)
 
+[![Build Status](https://travis-ci.org/Devoxx4KidsDE/workshop-jumping-sumo.svg?branch=master)](https://travis-ci.org/Devoxx4KidsDE/workshop-jumping-sumo)
+
 # Devoxx4Kids - Jumping Sumo
 
 [Anleitung auf Deutsch](README_DE.md)
