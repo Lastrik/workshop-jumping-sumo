@@ -10,7 +10,7 @@ There are 4 ways to control the jumping sumo:
 
 ```java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|file|swing>```
 
-1. Keyboard-Driven (KeyboardDriver)
+## Keyboard-Driven (KeyboardDriver)
   - Arrow keys: Up, Down, Left, Right
   - Jump: 
       - (H) High
@@ -31,9 +31,11 @@ There are 4 ways to control the jumping sumo:
       - (O) Insect Theme
       - (P) Robot Theme
 
-2. Java-Driven (ProgrammaticDriver)
+## Java-Driven (ProgrammaticDriver)
+
+:construction: will folow :construction:
   
-3. Datei-Driven (FileBasedProgrammaticDriver)
+## Datei-Driven (FileBasedProgrammaticDriver)
 
 ```programm.txt``` will be polled after a command change, which will directly send to the jumping sumo:
 
