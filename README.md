@@ -4,29 +4,29 @@
 
 [Anleitung auf Deutsch](README_DE.md)
 
-Dieser Prototyp verbindet sich aktuell statisch zu einem JumpingSumo, d.h. 192.168.2.1 Port 44444.
+This prototype connects with a jumping sumo over the ip '192.168.2.1'and the port '44444' 
 
-Beinhaltet die folgenden 4 Modi:
+There are 4 ways to control the jumping sumo:
 
 ```java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|file|swing>```
 
 1. Keyboard-Driven (KeyboardDriver)
-  - Pfeiltasten: Vorwärts, Rückwärts, Links, Rechts
-  - Springen: 
-      - (H) Hoch
-      - (W) Weit
-  - Animationen: 
-      - (1) Drehen
-      - (2) Tippen
-      - (3) Schütteln
+  - Arrow keys: Up, Down, Left, Right
+  - Jump: 
+      - (H) High
+      - (W) Far
+  - Animations: 
+      - (1) Turn
+      - (2) Tap
+      - (3) Shaking
       - (4) Metronome
       - (5) Ondulation
-      - (6) Drehsprung
-      - (8) Spirale
+      - (6) Turnjump
+      - (8) Spiral
       - (9) Slalom
   - Sound:
       - (Y) Layout
-      - (X) Ohne Sound
+      - (X) Without Sound
       - (I) Monster Theme
       - (O) Insect Theme
       - (P) Robot Theme
@@ -35,11 +35,11 @@ Beinhaltet die folgenden 4 Modi:
   
 3. Datei-Driven (FileBasedProgrammaticDriver)
 
-```programm.txt``` wird nach Command-Änderung gepollt, die direkt auf dem JumpingSumo weitergeleitet werden
-  - Vor: Fährt eine Einheit nach vorne
-  - Zurueck: Fährt eine Einheit nach hinten
-  - Links: Linksdrehung 90°
-  - Links x: Linksdrehung um x Grad (Hinweis: 90° entspricht 25)
-  - Rechts x: Rechtsdrehung um x Grad (Hinweis: 90° entspricht 25)
-  - Springe hoch: Führt einen Hochsprung aus
-  - Springe weit: Führt einen Weitsprung aus
+```programm.txt``` will be polled after a command change, which will directly send to the jumping sumo:
+  - Vor:          One unit forward
+  - Zurueck:      One unit backward
+  - Links:        Turn left 90°
+  - Links x:      Turn left with x degree (Hint: 90° => 25)
+  - Rechts x:     Turn right with x degree (Hint: 90° => 25)
+  - Springe hoch: Jumps high
+  - Springe weit: Jumps far
