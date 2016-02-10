@@ -8,7 +8,7 @@
 
 This prototype connects with a jumping sumo over the ip '192.168.2.1'and the port '44444' 
 
-There are 4 ways to control the jumping sumo:
+There are 3 ways to control the jumping sumo:
 
 ```java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|file|swing>```
 

@@ -8,7 +8,7 @@
 
 Dieser Prototyp verbindet sich aktuell statisch zu einem JumpingSumo, d.h. 192.168.2.1 Port 44444.
 
-Beinhaltet die folgenden 4 Modi:
+Beinhaltet die folgenden 3 Modi:
 
 ```java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|file|swing>```
 
