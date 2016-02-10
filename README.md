@@ -36,10 +36,13 @@ There are 4 ways to control the jumping sumo:
 3. Datei-Driven (FileBasedProgrammaticDriver)
 
 ```programm.txt``` will be polled after a command change, which will directly send to the jumping sumo:
-  - Vor:          One unit forward
-  - Zurueck:      One unit backward
-  - Links:        Turn left 90°
-  - Links x:      Turn left with x degree (Hint: 90° => 25)
-  - Rechts x:     Turn right with x degree (Hint: 90° => 25)
-  - Springe hoch: Jumps high
-  - Springe weit: Jumps far
+
+| Command      | Jumpin Sumo will do:                      |
+| ------------ |:----------------------------------------: |
+| Vor          | One unit forward                          |
+| Zurueck      | One unit backward                         |
+| Links        | Turn left 90°                             |
+| Links x      | Turn left with x degree (Hint: 90° => 25) |
+| Rechts x     | Turn right with x degree (Hint: 90° => 25)|
+| Springe hoch | Jumps high                                |
+| Springe weit | Jumps far                                 |
