@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Devoxx4KidsDE/workshop-jumping-sumo.svg?branch=master)](https://travis-ci.org/Devoxx4KidsDE/workshop-jumping-sumo)
 
-# Devoxx4Kids - Jumping Sumo
+# Devoxx4Kids Workshop - Jumping Sumo
 
 [Anleitung auf Deutsch](README_DE.md)
 
