@@ -1,0 +1,69 @@
+package de.bischinger.parrot.network.handshake;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import java.net.Socket;
+
+
+/**
+ * Created by Alexander Bischof on 05.10.15.
+ */
+public class TcpHandshake implements AutoCloseable {
+
+    private Socket tcpSocket;
+    private PrintWriter tcpOut;
+    private BufferedReader tcpIn;
+
+    public TcpHandshake(String deviceIp, int tcpPort) throws IOException {
+
+        tcpSocket = new Socket(deviceIp, tcpPort);
+        tcpOut = new PrintWriter(tcpSocket.getOutputStream(), true);
+        tcpIn = new BufferedReader(new InputStreamReader(tcpSocket.getInputStream()));
+    }
+
+    public HandshakeAnswer shake(HandshakeRequest handshakeRequest) throws Exception {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+
+        StringWriter shakeData = new StringWriter();
+        objectMapper.writeValue(shakeData, handshakeRequest);
+
+        return tcpHandshakeResult(shakeData.toString());
+    }
+
+
+    private HandshakeAnswer tcpHandshakeResult(String shakeData) throws IOException {
+
+        // Send to device
+        tcpOut.println(shakeData);
+
+        // Reads json response
+        String responseLine;
+        HandshakeAnswer deviceAnswer = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        while ((responseLine = tcpIn.readLine()) != null) {
+            responseLine = responseLine.substring(0, responseLine.lastIndexOf("}") + 1);
+            deviceAnswer = objectMapper.readValue(responseLine, HandshakeAnswer.class);
+        }
+
+        return deviceAnswer;
+    }
+
+
+    @Override
+    public void close() throws Exception {
+
+        tcpOut.close();
+        tcpSocket.close();
+        tcpIn.close();
+    }
+}

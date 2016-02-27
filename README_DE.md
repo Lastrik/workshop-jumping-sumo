@@ -12,7 +12,7 @@ Beinhaltet die folgenden 3 Modi:
 
 ```java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|file|swing>```
 
-## Keyboard-Driven (KeyboardDriver)
+## Tastatur (KeyboardDriver)
   - Pfeiltasten: Vorwärts, Rückwärts, Links, Rechts
   - Springen: 
       - (H) Hoch
@@ -33,13 +33,16 @@ Beinhaltet die folgenden 3 Modi:
       - (O) Insect Theme
       - (P) Robot Theme
 
-## Java-Driven (ProgrammaticDriver)
+## Programmatisch via Java (ProgrammaticDriver)
 
 :construction: in Arbeit :construction:
-  
-## Datei-Driven (FileBasedProgrammaticDriver)
+
+
+
+## Natührliche Sprache (FileBasedProgrammaticDriver/SwingBasedProgrammaticDriver)
 
 ```programm.txt``` wird nach Command-Änderung gepollt, die direkt auf dem JumpingSumo weitergeleitet werden
+
 
 | Befehl       | Jumpin Sumo führt aus:                              |
 | ------------ |:--------------------------------------------------: |
