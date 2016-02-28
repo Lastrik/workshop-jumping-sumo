@@ -14,9 +14,6 @@ import java.lang.invoke.MethodHandles;
 
 import java.util.logging.Logger;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 import static java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager;
 import static java.awt.event.KeyEvent.KEY_PRESSED;
 import static java.awt.event.KeyEvent.KEY_RELEASED;
@@ -49,7 +46,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 
-public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatcher {
+public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
@@ -74,13 +71,7 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
 
     private void initComponents() {
 
-        setResizable(false);
-        setUndecorated(true);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        setAlwaysOnTop(true);
-        setOpacity(0.8f);
-        setSize(200, 200);
-        setVisible(true);
+        new KeyboardDriverFrame();
         new Thread(this).start();
 
         droneController.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
