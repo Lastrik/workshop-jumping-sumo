@@ -9,7 +9,7 @@ public class CommandReader {
 
     protected CommandReader(byte[] data) {
 
-        this.data = data;
+        this.data = data.clone();
     }
 
     public static CommandReader commandReader(byte[] data) {
