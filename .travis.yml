@@ -6,4 +6,4 @@ jdk:
   - oraclejdk8
 
 after_success:
-  - mvn clean test antlr4:antlr4 jacoco:report coveralls:report
+  - mvn clean antlr4:antlr4 test jacoco:report coveralls:report
