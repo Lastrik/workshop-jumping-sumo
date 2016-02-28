@@ -10,21 +10,44 @@ import static de.bischinger.parrot.commands.FrameType.ARNETWORKAL_FRAME_TYPE_DAT
 /**
  * @author  Alexander Bischof
  */
-public class Pcmd implements Command {
+public final class Pcmd implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(3, 0, 0);
     private final byte speed;
     private final byte turn;
 
-    protected Pcmd(int speed, int turn) {
+    protected Pcmd(int speed, int degrees) {
 
         this.speed = (byte) speed;
-        this.turn = (byte) turn;
+        this.turn = (byte) degreeToPercent(degrees);
     }
 
-    public static Pcmd pcmd(int speed, int turn) {
+    /**
+     * This is one of the main methods to move a parrot drone.
+     *
+     * @param  speed  how fast the electronic engine of the drone should spin
+     * @param  degrees  how much the drone will turn around his own axe in degree (°)
+     *
+     * @return  an immutable command with the given inputs
+     */
+    public static Pcmd pcmd(int speed, int degrees) {
 
-        return new Pcmd(speed, turn);
+        return new Pcmd(speed, degrees);
+    }
+
+
+    /**
+     * Converts the degrees to percent on a circle.
+     *
+     * <p>R/360 = P/100 -> P = R*100/360</p>
+     *
+     * @param  degrees  to convert in percents of a circle
+     *
+     * @return  percents from given degrees
+     */
+    private int degreeToPercent(int degrees) {
+
+        return degrees * 100 / 360;
     }
 
 

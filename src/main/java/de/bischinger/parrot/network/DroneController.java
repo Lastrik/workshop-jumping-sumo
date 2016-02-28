@@ -158,9 +158,9 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController pcmd(int speed, int turn) throws IOException {
+    public DroneController pcmd(int speed, int degree) throws IOException {
 
-        this.sendCommand(Pcmd.pcmd(speed, turn).getBytes(++nonackCounter));
+        this.sendCommand(Pcmd.pcmd(speed, degree).getBytes(++nonackCounter));
 
         return this;
     }
@@ -168,7 +168,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController forward() throws IOException {
 
-        pcmd(60, 0);
+        pcmd(40, 0);
 
         return this;
     }
@@ -192,7 +192,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController left(int degrees) throws IOException {
 
-        pcmd(0, -25 * (degrees % 180) / 90);
+        pcmd(0, degrees);
 
         return this;
     }
@@ -200,7 +200,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController right(int degrees) throws IOException {
 
-        pcmd(0, 25 * (degrees % 180) / 90);
+        pcmd(0, degrees);
 
         return this;
     }
