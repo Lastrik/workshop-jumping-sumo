@@ -62,7 +62,8 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
     private boolean isLeftPressed;
     private boolean isRightPressed;
 
-    public KeyboardDriver(String ip, int port, String sumoWlan, int speedConfig, int turnspeedConfig) throws Exception {
+    public KeyboardDriver(String ip, int port, String sumoWlan, int speedConfig, int turnspeedConfig)
+        throws IOException {
 
         this.speedConfig = speedConfig;
         this.turnspeedConfig = turnspeedConfig;
@@ -119,7 +120,7 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
                 if (speed != 0 || direction != 0) {
                     droneController.pcmd(speed, direction);
                 }
-            } catch (Exception e1) {
+            } catch (IOException | InterruptedException e1) {
                 e1.printStackTrace();
             }
         }

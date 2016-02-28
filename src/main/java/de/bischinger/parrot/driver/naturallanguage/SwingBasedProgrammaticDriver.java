@@ -6,6 +6,8 @@ import de.bischinger.parrot.network.handshake.HandshakeRequest;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import java.io.IOException;
+
 import java.lang.invoke.MethodHandles;
 
 import java.util.logging.Logger;
@@ -28,7 +30,7 @@ public class SwingBasedProgrammaticDriver extends JFrame {
 
     private final DroneController drone;
 
-    public SwingBasedProgrammaticDriver(String ip, int port, String sumoWlan) throws Exception {
+    public SwingBasedProgrammaticDriver(String ip, int port, String sumoWlan) throws IOException {
 
         drone = new DroneController(ip, port, new HandshakeRequest(sumoWlan, "_arsdk-0902._udp"), true);
 

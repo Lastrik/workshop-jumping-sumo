@@ -31,9 +31,9 @@ public class FileBasedProgrammaticDriver {
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
     private static final String FILENAME = "programm.txt";
 
-    private DroneController drone;
+    private final DroneController drone;
 
-    public FileBasedProgrammaticDriver(String ip, int port, String sumoWlan) throws Exception {
+    public FileBasedProgrammaticDriver(String ip, int port, String sumoWlan) throws IOException, URISyntaxException {
 
         drone = new DroneController(ip, port, new HandshakeRequest(sumoWlan, "_arsdk-0902._udp"), true);
         drone.addBatteryListener(b -> System.out.println("BatteryState: " + b));

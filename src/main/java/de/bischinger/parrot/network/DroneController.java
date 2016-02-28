@@ -62,7 +62,7 @@ public class DroneController implements AutoCloseable {
     private byte ackCounter = 0;
 
     public DroneController(String deviceIp, int tcpPort, HandshakeRequest handshakeRequest, boolean postSendTimeout)
-        throws Exception {
+        throws IOException {
 
         LOGGER.info(format("Creating DroneController for %s:%s...", deviceIp, tcpPort));
 
@@ -132,7 +132,7 @@ public class DroneController implements AutoCloseable {
 
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
 
         sendCommand(Disconnect.disconnect().getBytes(ackCounter++));
         controller2DeviceSocket.close();

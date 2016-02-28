@@ -6,10 +6,15 @@ import de.bischinger.parrot.driver.naturallanguage.JumpingSumoLang;
 import de.bischinger.parrot.driver.naturallanguage.SwingBasedProgrammaticDriver;
 import de.bischinger.parrot.driver.programmatic.ProgrammaticDriver;
 
+import java.awt.AWTException;
+
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
+
+import java.net.URISyntaxException;
 
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -27,7 +32,7 @@ public final class Main {
     private Main() {
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException, AWTException {
 
         String ip = "192.168.2.1";
         int port = 44444;

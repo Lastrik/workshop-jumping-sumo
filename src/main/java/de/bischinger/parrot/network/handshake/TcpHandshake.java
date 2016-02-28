@@ -28,7 +28,7 @@ public class TcpHandshake implements AutoCloseable {
         tcpIn = new BufferedReader(new InputStreamReader(tcpSocket.getInputStream()));
     }
 
-    public HandshakeAnswer shake(HandshakeRequest handshakeRequest) throws Exception {
+    public HandshakeAnswer shake(HandshakeRequest handshakeRequest) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -60,7 +60,7 @@ public class TcpHandshake implements AutoCloseable {
 
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
 
         tcpOut.close();
         tcpSocket.close();

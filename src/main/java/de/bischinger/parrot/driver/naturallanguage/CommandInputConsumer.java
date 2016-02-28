@@ -3,6 +3,8 @@ package de.bischinger.parrot.driver.naturallanguage;
 import de.bischinger.parrot.commands.jumpingsumo.Jump;
 import de.bischinger.parrot.network.DroneController;
 
+import java.io.IOException;
+
 import java.lang.invoke.MethodHandles;
 
 import java.util.concurrent.TimeUnit;
@@ -73,7 +75,7 @@ public class CommandInputConsumer implements Consumer<String> {
                         LOGGER.info("Kommando nicht implementiert: " + command);
                     }
             }
-        } catch (Exception e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
