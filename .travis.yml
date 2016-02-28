@@ -1,9 +1,6 @@
 language: java
 
-script: mvn clean antlr4:antlr4 test
+script: mvn clean antlr4:antlr4 test jacoco:report coveralls:report
 
 jdk:
   - oraclejdk8
-
-after_success:
-  - mvn clean antlr4:antlr4 test jacoco:report coveralls:report
