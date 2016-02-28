@@ -16,7 +16,7 @@ public class JumpingSumoLang {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
-    public static final String CMD = "/*\r\n" + "* A simple example demonstrating the basic features.\r\n" + "*/\r\n"
+    private static final String CMD = "/*\r\n" + "* A simple example demonstrating the basic features.\r\n" + "*/\r\n"
         + "delay 300; // sleep for 300ms\r\n"
         + "forward 101;\r\n"
         + "backward 100;\r\n"

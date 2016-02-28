@@ -13,7 +13,7 @@ import java.net.Socket;
 
 
 /**
- * Created by Alexander Bischof on 05.10.15.
+ * @author  Alexander Bischof
  */
 public class TcpHandshake implements AutoCloseable {
 
@@ -51,7 +51,7 @@ public class TcpHandshake implements AutoCloseable {
         ObjectMapper objectMapper = new ObjectMapper();
 
         while ((responseLine = tcpIn.readLine()) != null) {
-            responseLine = responseLine.substring(0, responseLine.lastIndexOf("}") + 1);
+            responseLine = responseLine.substring(0, responseLine.lastIndexOf('}') + 1);
             deviceAnswer = objectMapper.readValue(responseLine, HandshakeAnswer.class);
         }
 

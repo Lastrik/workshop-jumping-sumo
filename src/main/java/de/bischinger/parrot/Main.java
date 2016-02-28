@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import static java.lang.Integer.valueOf;
 
 
-public class Main {
+public final class Main {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 

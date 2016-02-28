@@ -6,6 +6,10 @@ import de.bischinger.parrot.network.handshake.HandshakeRequest;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import java.lang.invoke.MethodHandles;
+
+import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -19,6 +23,8 @@ import static java.util.stream.Stream.of;
 
 
 public class SwingBasedProgrammaticDriver extends JFrame {
+
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
     private final DroneController drone;
 
@@ -55,8 +61,8 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         this.pack();
         setVisible(true);
 
-        drone.addBatteryListener(b -> System.out.println("BatteryState: " + b));
-        drone.addCriticalBatteryListener(b -> System.out.println("Critical-BatteryState: " + b));
-        drone.addPCMDListener(b -> System.out.println("PCMD: " + b));
+        drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
+        drone.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
+        drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
     }
 }

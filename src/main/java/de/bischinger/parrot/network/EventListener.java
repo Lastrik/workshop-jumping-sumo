@@ -1,7 +1,7 @@
 package de.bischinger.parrot.network;
 
 /**
- * Created by Alexander Bischof on 11.10.15.
+ * @author  Alexander Bischof
  */
 @FunctionalInterface
 public interface EventListener {

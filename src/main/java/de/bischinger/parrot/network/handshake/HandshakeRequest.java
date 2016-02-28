@@ -1,7 +1,7 @@
 package de.bischinger.parrot.network.handshake;
 
 /**
- * Created by Alexander Bischof on 21.09.15.
+ * @author  Alexander Bischof
  */
 public class HandshakeRequest {
 

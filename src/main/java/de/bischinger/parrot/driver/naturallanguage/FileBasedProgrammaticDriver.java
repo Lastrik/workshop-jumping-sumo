@@ -29,8 +29,7 @@ import java.util.logging.Logger;
 public class FileBasedProgrammaticDriver {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
-
-    public static final String FILENAME = "programm.txt";
+    private static final String FILENAME = "programm.txt";
 
     private DroneController drone;
 
@@ -50,7 +49,7 @@ public class FileBasedProgrammaticDriver {
         try(final WatchService watchService = FileSystems.getDefault().newWatchService()) {
             Path path = Paths.get(new File("").toURI());
             path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
-            System.out.println("Programm gestartet: Schaue auf " + Paths.get(FILENAME));
+            LOGGER.info("Programm gestartet: Schaue auf " + Paths.get(FILENAME));
 
             while (true) {
                 final WatchKey wk = watchService.take();
@@ -60,7 +59,7 @@ public class FileBasedProgrammaticDriver {
 
                     // System.out.println(changed + " " + changed.equals(FILENAME) + " " + FILENAME);
                     if (changed.endsWith(FILENAME)) {
-                        System.out.println("programm.txt has changed");
+                        LOGGER.info("programm.txt has changed");
                         readCommands();
                     }
                 }

@@ -1,7 +1,7 @@
 package de.bischinger.parrot.commands;
 
 /**
- * Created by Alexander Bischof on 11.10.15.
+ * @author  Alexander Bischof
  */
 public class CommandReader {
 
