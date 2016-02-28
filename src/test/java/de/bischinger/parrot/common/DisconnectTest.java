@@ -1,4 +1,6 @@
-package de.bischinger.parrot.commands.common;
+package de.bischinger.parrot.common;
+
+import de.bischinger.parrot.commands.common.Disconnect;
 
 import org.junit.Test;
 

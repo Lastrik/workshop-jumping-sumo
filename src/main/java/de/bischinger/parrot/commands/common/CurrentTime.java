@@ -9,29 +9,29 @@ import de.bischinger.parrot.commands.FrameType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
-import java.util.Locale;
+import java.time.Clock;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public final class CurrentTime implements Command {
 
-    private static final DateFormat TIME_FORMAT = new SimpleDateFormat("'T'HHmmssZZZ", Locale.getDefault());
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("'T'HHmmssZZZ");
     private final CommandKey commandKey = CommandKey.commandKey(0, 4, 1);
+    private final Clock clock;
 
-    protected CurrentTime() {
+    protected CurrentTime(Clock clock) {
 
-        // use fabric method
+        this.clock = clock;
     }
 
-    public static CurrentTime currentTime() {
+    public static CurrentTime currentTime(Clock clock) {
 
-        return new CurrentTime();
+        return new CurrentTime(clock);
     }
 
 
@@ -46,7 +46,8 @@ public final class CurrentTime implements Command {
 
         try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             outputStream.write(header);
-            outputStream.write(new NullTerminatedString(TIME_FORMAT.format(new Date())).getNullTerminatedString());
+            outputStream.write(new NullTerminatedString(ZonedDateTime.now(clock).format(TIME_FORMATTER))
+                .getNullTerminatedString());
 
             return outputStream.toByteArray();
         } catch (IOException e) {

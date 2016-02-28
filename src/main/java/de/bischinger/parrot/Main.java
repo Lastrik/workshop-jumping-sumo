@@ -26,9 +26,6 @@ public final class Main {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
-    private static final int DEFAULT_TURN_DEGREE = 25;
-    private static final int DEFAULT_SPEED = 50;
-
     private Main() {
     }
 
@@ -49,36 +46,38 @@ public final class Main {
             wlan = properties.getProperty("wlan");
         }
 
-        if (args.length > 0) {
-            switch (args[0].toLowerCase()) {
-                case "keyboard":
+        String driver = "keyboard";
 
-                    int speedConfig = args.length > 1 ? valueOf(args[1]) : DEFAULT_SPEED;
-                    int turnConfig = args.length > 2 ? valueOf(args[2]) : DEFAULT_TURN_DEGREE;
-                    new KeyboardDriver(ip, port, wlan, speedConfig, turnConfig);
-                    break;
+        if (args.length > 1) {
+            driver = args[0].toLowerCase();
+        }
 
-                case "program":
-                    new ProgrammaticDriver(ip, port, wlan).drive();
-                    break;
+        switch (driver) {
+            case "keyboard":
 
-                case "file":
-                    new FileBasedProgrammaticDriver(ip, port, wlan);
-                    break;
+                int speedConfig = args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
+                int turnConfig = args.length > 2 ? valueOf(args[2]) : KeyboardDriver.DEFAULT_TURN_DEGREE;
+                new KeyboardDriver(ip, port, wlan, speedConfig, turnConfig);
+                break;
 
-                case "swing":
-                    new SwingBasedProgrammaticDriver(ip, port, wlan);
-                    break;
+            case "program":
+                new ProgrammaticDriver(ip, port, wlan).drive();
+                break;
 
-                case "ant4lr":
-                    new JumpingSumoLang().execute();
-                    break;
+            case "file":
+                new FileBasedProgrammaticDriver(ip, port, wlan);
+                break;
 
-                default:
-                    LOGGER.info("Argument unbekannt: keyboard | program | file | swing");
-            }
-        } else {
-            new ProgrammaticDriver(ip, port, wlan).drive();
+            case "swing":
+                new SwingBasedProgrammaticDriver(ip, port, wlan);
+                break;
+
+            case "ant4lr":
+                new JumpingSumoLang().execute();
+                break;
+
+            default:
+                LOGGER.info("Argument unbekannt: keyboard | program | file | swing");
         }
     }
 }

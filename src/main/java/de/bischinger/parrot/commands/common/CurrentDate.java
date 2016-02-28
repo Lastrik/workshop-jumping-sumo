@@ -9,12 +9,10 @@ import de.bischinger.parrot.commands.FrameType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.Clock;
 
-import java.util.Date;
-
-import static java.util.Locale.ENGLISH;
+import static java.time.LocalDate.now;
+import static java.time.format.DateTimeFormatter.ISO_DATE;
 
 
 /**
@@ -23,17 +21,17 @@ import static java.util.Locale.ENGLISH;
  */
 public final class CurrentDate implements Command {
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", ENGLISH);
     private final CommandKey commandKey = CommandKey.commandKey(0, 4, 0);
+    private final Clock clock;
 
-    protected CurrentDate() {
+    protected CurrentDate(Clock clock) {
 
-        // use fabric method
+        this.clock = clock;
     }
 
-    public static CurrentDate currentDate() {
+    public static CurrentDate currentDate(Clock clock) {
 
-        return new CurrentDate();
+        return new CurrentDate(clock);
     }
 
 
@@ -48,7 +46,7 @@ public final class CurrentDate implements Command {
 
         try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             outputStream.write(header);
-            outputStream.write(new NullTerminatedString(DATE_FORMAT.format(new Date())).getNullTerminatedString());
+            outputStream.write(new NullTerminatedString(now(clock).format(ISO_DATE)).getNullTerminatedString());
 
             return outputStream.toByteArray();
         } catch (IOException e) {

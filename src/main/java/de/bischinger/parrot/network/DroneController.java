@@ -33,6 +33,8 @@ import java.lang.invoke.MethodHandles;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
+import java.time.Clock;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -76,8 +78,9 @@ public class DroneController implements AutoCloseable {
 
         controller2DeviceSocket = new DatagramSocket();
 
-        sendCommand(CurrentDate.currentDate().getBytes(ackCounter++));
-        sendCommand(CurrentTime.currentTime().getBytes(ackCounter++));
+        Clock clock = Clock.systemDefaultZone();
+        sendCommand(CurrentDate.currentDate(clock).getBytes(ackCounter++));
+        sendCommand(CurrentTime.currentTime(clock).getBytes(ackCounter++));
         sendCommand(VideoStreaming.enableVideoStreaming().getBytes(ackCounter++));
 
         addAnswerSocket();

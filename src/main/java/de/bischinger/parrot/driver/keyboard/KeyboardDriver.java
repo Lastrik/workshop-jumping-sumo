@@ -48,6 +48,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
+    public static final int DEFAULT_TURN_DEGREE = 25;
+    public static final int DEFAULT_SPEED = 50;
+
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
     private final DroneController droneController;
