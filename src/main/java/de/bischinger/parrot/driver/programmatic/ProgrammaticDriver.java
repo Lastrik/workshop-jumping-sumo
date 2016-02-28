@@ -1,5 +1,6 @@
 package de.bischinger.parrot.driver.programmatic;
 
+import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;
 import de.bischinger.parrot.network.DroneController;
 import de.bischinger.parrot.network.handshake.HandshakeRequest;
 
@@ -21,7 +22,7 @@ public class ProgrammaticDriver {
 
     public void drive() throws IOException, InterruptedException {
 
-        drone.forward();
+        drone.audio().theme(AudioTheme.Theme.Monster).volume(120);
         System.exit(0);
     }
 }
