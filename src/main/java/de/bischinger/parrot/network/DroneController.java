@@ -386,9 +386,17 @@ public class DroneController implements AutoCloseable {
         }
 
 
+        public AudioController volume(int volume) throws IOException {
+
+            sendCommand(Volume.volume(volume).getBytes(++ackCounter));
+
+            return this;
+        }
+
+
         public AudioController mute() throws IOException {
 
-            sendCommand(Volume.volume(0).getBytes(++ackCounter));
+            volume(0);
 
             return this;
         }
@@ -396,7 +404,7 @@ public class DroneController implements AutoCloseable {
 
         public AudioController unmute() throws IOException {
 
-            sendCommand(Volume.volume(100).getBytes(++ackCounter));
+            volume(100);
 
             return this;
         }

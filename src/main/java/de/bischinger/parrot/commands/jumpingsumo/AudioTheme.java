@@ -7,12 +7,18 @@ import de.bischinger.parrot.commands.FrameType;
 
 
 /**
+ * Audio theme command.
+ *
+ * <p>Responsible for the selection of the audio theme</p>
+ *
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public final class AudioTheme implements Command {
 
     public enum Theme {
 
+        Default,
         Robot,
         Insect,
         Monster;
@@ -39,7 +45,7 @@ public final class AudioTheme implements Command {
                 (byte) FrameType.ARNETWORKAL_FRAME_TYPE_DATA_WITH_ACK.ordinal(),
                 ChannelType.JUMPINGSUMO_CONTROLLER_TO_DEVICE_ACK_ID.getId(), (byte) counter, 15, 0, 0, 0,
                 commandKey.getProjectId(), commandKey.getClazzId(), commandKey.getCommandId(), 0,
-                (byte) (theme.ordinal() + 1), 0, 0, 0
+                (byte) theme.ordinal(), 0, 0, 0
             };
     }
 }

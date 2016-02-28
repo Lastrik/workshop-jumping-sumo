@@ -8,7 +8,12 @@ import static de.bischinger.parrot.commands.FrameType.ARNETWORKAL_FRAME_TYPE_DAT
 
 
 /**
+ * Parrot command.
+ *
+ * <p>Responsible for the movements of the drone.</p>
+ *
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public final class Pcmd implements Command {
 

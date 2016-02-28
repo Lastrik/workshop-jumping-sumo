@@ -12,10 +12,13 @@ import de.bischinger.parrot.commands.FrameType;
 public final class Volume implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(3, 12, 0);
-
     private final byte volume;
 
     protected Volume(int volume) {
+
+        if (volume < 0 || volume > 100) {
+            throw new IllegalArgumentException("Audio: Volume must be between 0 and 100.");
+        }
 
         this.volume = (byte) volume;
     }
