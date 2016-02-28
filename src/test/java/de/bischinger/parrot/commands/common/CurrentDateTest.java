@@ -1,6 +1,4 @@
-package de.bischinger.parrot.common;
-
-import de.bischinger.parrot.commands.common.CurrentDate;
+package de.bischinger.parrot.commands.common;
 
 import org.junit.Test;
 
