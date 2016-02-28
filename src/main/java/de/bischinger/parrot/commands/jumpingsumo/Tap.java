@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public class Tap implements Command {
+public final class Tap implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(3, 2, 4);
 

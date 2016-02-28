@@ -18,7 +18,7 @@ import java.util.Locale;
 /**
  * @author  Alexander Bischof
  */
-public class CurrentTime implements Command {
+public final class CurrentTime implements Command {
 
     private static final DateFormat TIME_FORMAT = new SimpleDateFormat("'T'HHmmssZZZ", Locale.getDefault());
     private final CommandKey commandKey = CommandKey.commandKey(0, 4, 1);

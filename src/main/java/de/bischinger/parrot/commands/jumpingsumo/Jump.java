@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public class Jump implements Command {
+public final class Jump implements Command {
 
     public enum Type {
 

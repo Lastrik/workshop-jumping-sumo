@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public class AudioTheme implements Command {
+public final class AudioTheme implements Command {
 
     public enum Theme {
 

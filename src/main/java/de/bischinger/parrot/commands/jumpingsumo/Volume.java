@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public class Volume implements Command {
+public final class Volume implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(3, 12, 0);
 

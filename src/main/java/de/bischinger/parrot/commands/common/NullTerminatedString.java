@@ -6,7 +6,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * @author  Alexander Bischof
  */
-public class NullTerminatedString {
+public final class NullTerminatedString {
 
     private final String string;
 

@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public class Disconnect implements Command {
+public final class Disconnect implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(0, 0, 0);
 

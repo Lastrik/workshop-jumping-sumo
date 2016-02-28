@@ -18,7 +18,7 @@ import java.util.Locale;
 /**
  * @author  Alexander Bischof
  */
-public class CurrentDate implements Command {
+public final class CurrentDate implements Command {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
     private final CommandKey commandKey = CommandKey.commandKey(0, 4, 0);

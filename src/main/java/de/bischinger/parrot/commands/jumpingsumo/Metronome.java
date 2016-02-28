@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public class Metronome implements Command {
+public final class Metronome implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(3, 2, 4);
 

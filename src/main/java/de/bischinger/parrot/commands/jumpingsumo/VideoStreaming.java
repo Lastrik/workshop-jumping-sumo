@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public class VideoStreaming implements Command {
+public final class VideoStreaming implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(3, 18, 0);
 

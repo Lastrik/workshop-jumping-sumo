@@ -6,7 +6,7 @@ import de.bischinger.parrot.commands.Command;
 /**
  * @author  Alexander Bischof
  */
-public class Pong implements Command {
+public final class Pong implements Command {
 
     public static Pong pong() {
 

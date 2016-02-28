@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public class SpinToPosture implements Command {
+public final class SpinToPosture implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(3, 2, 4);
 
