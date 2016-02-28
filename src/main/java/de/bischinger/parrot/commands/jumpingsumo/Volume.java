@@ -8,6 +8,7 @@ import de.bischinger.parrot.commands.FrameType;
 
 /**
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public final class Volume implements Command {
 

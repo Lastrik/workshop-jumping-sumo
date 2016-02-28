@@ -2,6 +2,7 @@ package de.bischinger.parrot.commands.common;
 
 import de.bischinger.parrot.commands.ChannelType;
 import de.bischinger.parrot.commands.Command;
+import de.bischinger.parrot.commands.CommandException;
 import de.bischinger.parrot.commands.CommandKey;
 import de.bischinger.parrot.commands.FrameType;
 
@@ -12,15 +13,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
-import java.util.Locale;
+
+import static java.util.Locale.ENGLISH;
 
 
 /**
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public final class CurrentDate implements Command {
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", ENGLISH);
     private final CommandKey commandKey = CommandKey.commandKey(0, 4, 0);
 
     protected CurrentDate() {
@@ -49,9 +52,7 @@ public final class CurrentDate implements Command {
 
             return outputStream.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CommandException("Could not generate CurrentDate command.", e);
         }
-
-        return new byte[] {};
     }
 }

@@ -1,5 +1,6 @@
 package de.bischinger.parrot.network;
 
+import de.bischinger.parrot.commands.CommandException;
 import de.bischinger.parrot.commands.CommandReader;
 import de.bischinger.parrot.commands.common.CurrentDate;
 import de.bischinger.parrot.commands.common.CurrentTime;
@@ -152,7 +153,7 @@ public class DroneController implements AutoCloseable {
             try {
                 MILLISECONDS.sleep(580);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new CommandException("I got interrupted while sleeping. That is not nice from you.", e);
             }
         }
     }

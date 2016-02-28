@@ -2,6 +2,7 @@ package de.bischinger.parrot.commands.common;
 
 import de.bischinger.parrot.commands.ChannelType;
 import de.bischinger.parrot.commands.Command;
+import de.bischinger.parrot.commands.CommandException;
 import de.bischinger.parrot.commands.CommandKey;
 import de.bischinger.parrot.commands.FrameType;
 
@@ -49,9 +50,7 @@ public final class CurrentTime implements Command {
 
             return outputStream.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CommandException("Could not generate CurrentTime command.", e);
         }
-
-        return new byte[] {};
     }
 }
