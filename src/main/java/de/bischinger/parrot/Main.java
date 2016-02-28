@@ -9,15 +9,23 @@ import de.bischinger.parrot.driver.programmatic.ProgrammaticDriver;
 import java.io.File;
 import java.io.FileReader;
 
+import java.lang.invoke.MethodHandles;
+
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import static java.lang.Integer.valueOf;
 
 
 public class Main {
 
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+
     private static final int DEFAULT_TURN_DEGREE = 25;
     private static final int DEFAULT_SPEED = 50;
+
+    private Main() {
+    }
 
     public static void main(String[] args) throws Exception {
 
@@ -62,7 +70,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Argument unbekannt: keyboard | program | file | swing");
+                    LOGGER.info("Argument unbekannt: keyboard | program | file | swing");
             }
         } else {
             new ProgrammaticDriver(ip, port, wlan).drive();

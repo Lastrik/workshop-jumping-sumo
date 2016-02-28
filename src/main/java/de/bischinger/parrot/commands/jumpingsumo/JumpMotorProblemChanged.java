@@ -14,6 +14,8 @@ public class JumpMotorProblemChanged implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(3, 3, 2);
 
     protected JumpMotorProblemChanged() {
+
+        // use fabric method
     }
 
     public static JumpMotorProblemChanged jumpMotorProblemChanged() {

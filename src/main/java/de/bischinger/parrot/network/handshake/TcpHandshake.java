@@ -17,9 +17,9 @@ import java.net.Socket;
  */
 public class TcpHandshake implements AutoCloseable {
 
-    private Socket tcpSocket;
-    private PrintWriter tcpOut;
-    private BufferedReader tcpIn;
+    private final Socket tcpSocket;
+    private final PrintWriter tcpOut;
+    private final BufferedReader tcpIn;
 
     public TcpHandshake(String deviceIp, int tcpPort) throws IOException {
 

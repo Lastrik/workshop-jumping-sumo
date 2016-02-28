@@ -14,6 +14,8 @@ public class SpinJump implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(3, 2, 4);
 
     protected SpinJump() {
+
+        // use fabric method
     }
 
     public static SpinJump spinJump() {

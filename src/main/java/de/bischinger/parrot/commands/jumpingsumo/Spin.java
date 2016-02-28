@@ -14,6 +14,8 @@ public class Spin implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(3, 2, 4);
 
     protected Spin() {
+
+        // use fabric method
     }
 
     public static Spin spin() {

@@ -20,8 +20,7 @@ import static java.util.stream.Stream.of;
 
 public class SwingBasedProgrammaticDriver extends JFrame {
 
-    private DroneController drone;
-    private JTextArea textArea;
+    private final DroneController drone;
 
     public SwingBasedProgrammaticDriver(String ip, int port, String sumoWlan) throws Exception {
 
@@ -41,7 +40,7 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        textArea = new JTextArea("", 5, 10);
+        JTextArea textArea = new JTextArea("", 5, 10);
         textArea.setPreferredSize(new Dimension(600, 700));
 
         JScrollPane scrollPane = new JScrollPane(textArea);

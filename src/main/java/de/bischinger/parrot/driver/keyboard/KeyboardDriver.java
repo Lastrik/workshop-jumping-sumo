@@ -10,6 +10,10 @@ import java.awt.event.KeyEvent;
 
 import java.io.IOException;
 
+import java.lang.invoke.MethodHandles;
+
+import java.util.logging.Logger;
+
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -47,10 +51,12 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatcher {
 
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+
+    private final DroneController droneController;
     private final int speedConfig;
     private final int turnspeedConfig;
 
-    private DroneController droneController;
     private boolean isUpPressed;
     private boolean isDownPressed;
     private boolean isLeftPressed;
@@ -65,7 +71,6 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
 
         setResizable(false);
@@ -77,10 +82,10 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
         setVisible(true);
         new Thread(this).start();
 
-        droneController.addBatteryListener(b -> System.out.println("BatteryState: " + b));
-        droneController.addCriticalBatteryListener(b -> System.out.println("Critical-BatteryState: " + b));
-        droneController.addPCMDListener(b -> System.out.println("PCMD: " + b));
-        droneController.addOutdoorSpeedListener(b -> System.out.println("Speed: " + b));
+        droneController.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
+        droneController.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
+        droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+        droneController.addOutdoorSpeedListener(b -> LOGGER.info("Speed: " + b));
 
         getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
     }
@@ -96,21 +101,24 @@ public class KeyboardDriver extends JFrame implements Runnable, KeyEventDispatch
                 // set speed
                 int speed = 0;
 
-                if (isUpPressed)
+                if (isUpPressed) {
                     speed = speedConfig;
-                else if (isDownPressed)
+                } else if (isDownPressed) {
                     speed = -1 * speedConfig;
+                }
 
                 // set direction
                 int direction = 0;
 
-                if (isLeftPressed)
+                if (isLeftPressed) {
                     direction = -turnspeedConfig;
-                else if (isRightPressed)
+                } else if (isRightPressed) {
                     direction = turnspeedConfig;
+                }
 
-                if (speed != 0 || direction != 0)
+                if (speed != 0 || direction != 0) {
                     droneController.pcmd(speed, direction);
+                }
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

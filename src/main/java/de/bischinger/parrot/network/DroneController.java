@@ -27,6 +27,8 @@ import de.bischinger.parrot.network.handshake.TcpHandshake;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.lang.invoke.MethodHandles;
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
@@ -48,7 +50,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  */
 public class DroneController implements AutoCloseable {
 
-    private Logger logger = Logger.getLogger("DroneController");
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
     private final DatagramSocket controller2DeviceSocket;
     private final String deviceIp;
@@ -62,14 +64,14 @@ public class DroneController implements AutoCloseable {
     public DroneController(String deviceIp, int tcpPort, HandshakeRequest handshakeRequest, boolean postSendTimeout)
         throws Exception {
 
-        logger.info(format("Creating DroneController for %s:%s...", deviceIp, tcpPort));
+        LOGGER.info(format("Creating DroneController for %s:%s...", deviceIp, tcpPort));
 
         this.deviceIp = deviceIp;
         this.postTimeout = postSendTimeout;
 
         HandshakeAnswer handshakeAnswer = new TcpHandshake(deviceIp, tcpPort).shake(handshakeRequest);
         controller2DevicePort = handshakeAnswer.getC2d_port();
-        logger.info(format("Handshake completed with %s", handshakeAnswer));
+        LOGGER.info(format("Handshake completed with %s", handshakeAnswer));
 
         controller2DeviceSocket = new DatagramSocket();
 
@@ -84,7 +86,7 @@ public class DroneController implements AutoCloseable {
 
         new Thread(() -> {
             try(DatagramSocket sumoSocket = new DatagramSocket(controller2DevicePort)) {
-                logger.info(format("Listing for answers on port %s", controller2DevicePort));
+                LOGGER.info(format("Listing for answers on port %s", controller2DevicePort));
 
                 while (true) {
                     byte[] buf = new byte[65000];
@@ -139,7 +141,7 @@ public class DroneController implements AutoCloseable {
 
     public void sendCommand(byte[] packetAsBytes) throws IOException {
 
-        logger.fine(format("Sending command: %s", Arrays.toString(packetAsBytes)));
+        LOGGER.fine(format("Sending command: %s", Arrays.toString(packetAsBytes)));
 
         DatagramPacket packet = new DatagramPacket(packetAsBytes, packetAsBytes.length, getByName(deviceIp),
                 controller2DevicePort);

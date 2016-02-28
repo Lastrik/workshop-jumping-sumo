@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class ProgrammaticDriver {
 
-    private DroneController drone;
+    private final DroneController drone;
 
     public ProgrammaticDriver(String ip, int port, String sumoWlan) throws Exception {
 

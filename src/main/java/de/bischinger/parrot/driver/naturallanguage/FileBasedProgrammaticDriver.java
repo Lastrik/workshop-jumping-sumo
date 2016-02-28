@@ -6,6 +6,8 @@ import de.bischinger.parrot.network.handshake.HandshakeRequest;
 import java.io.File;
 import java.io.IOException;
 
+import java.lang.invoke.MethodHandles;
+
 import java.net.URISyntaxException;
 
 import java.nio.file.FileSystems;
@@ -18,12 +20,15 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 
 /**
  * @author  Alexander Bischof
  */
 public class FileBasedProgrammaticDriver {
+
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
     public static final String FILENAME = "programm.txt";
 
@@ -63,7 +68,7 @@ public class FileBasedProgrammaticDriver {
                 boolean valid = wk.reset();
 
                 if (!valid) {
-                    System.out.println("Key has been unregisterede");
+                    LOGGER.info("Key has been unregisterede");
                 }
             }
         } catch (URISyntaxException | IOException | InterruptedException e) {

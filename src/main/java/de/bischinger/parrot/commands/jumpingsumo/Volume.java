@@ -11,9 +11,9 @@ import de.bischinger.parrot.commands.FrameType;
  */
 public class Volume implements Command {
 
-    private CommandKey commandKey = CommandKey.commandKey(3, 12, 0);
+    private final CommandKey commandKey = CommandKey.commandKey(3, 12, 0);
 
-    private byte volume;
+    private final byte volume;
 
     protected Volume(int volume) {
 

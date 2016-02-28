@@ -14,6 +14,8 @@ public class SpinToPosture implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(3, 2, 4);
 
     protected SpinToPosture() {
+
+        // use fabric method
     }
 
     public static SpinToPosture spinToPosture() {

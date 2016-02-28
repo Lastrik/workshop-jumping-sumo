@@ -14,6 +14,8 @@ public class SlowShake implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(3, 2, 4);
 
     protected SlowShake() {
+
+        // use fabric method
     }
 
     public static SlowShake slowShake() {

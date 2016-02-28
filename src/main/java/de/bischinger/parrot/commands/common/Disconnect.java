@@ -14,6 +14,8 @@ public class Disconnect implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(0, 0, 0);
 
     protected Disconnect() {
+
+        // use fabric method
     }
 
     public static Disconnect disconnect() {

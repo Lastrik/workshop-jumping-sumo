@@ -14,6 +14,8 @@ public class Slalom implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(3, 2, 4);
 
     protected Slalom() {
+
+        // use fabric method
     }
 
     public static Slalom slalom() {

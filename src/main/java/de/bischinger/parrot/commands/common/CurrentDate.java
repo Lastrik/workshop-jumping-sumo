@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -19,10 +20,12 @@ import java.util.Date;
  */
 public class CurrentDate implements Command {
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
     private final CommandKey commandKey = CommandKey.commandKey(0, 4, 0);
 
     protected CurrentDate() {
+
+        // use fabric method
     }
 
     public static CurrentDate currentDate() {
@@ -49,6 +52,6 @@ public class CurrentDate implements Command {
             e.printStackTrace();
         }
 
-        return null;
+        return new byte[] {};
     }
 }

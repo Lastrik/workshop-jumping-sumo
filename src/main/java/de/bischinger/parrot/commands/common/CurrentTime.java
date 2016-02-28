@@ -24,6 +24,8 @@ public class CurrentTime implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(0, 4, 1);
 
     protected CurrentTime() {
+
+        // use fabric method
     }
 
     public static CurrentTime currentTime() {
@@ -50,6 +52,6 @@ public class CurrentTime implements Command {
             e.printStackTrace();
         }
 
-        return null;
+        return new byte[] {};
     }
 }

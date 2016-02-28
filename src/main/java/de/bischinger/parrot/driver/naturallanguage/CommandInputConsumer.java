@@ -3,8 +3,11 @@ package de.bischinger.parrot.driver.naturallanguage;
 import de.bischinger.parrot.commands.jumpingsumo.Jump;
 import de.bischinger.parrot.network.DroneController;
 
+import java.lang.invoke.MethodHandles;
+
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import static java.lang.Integer.parseInt;
 
@@ -13,6 +16,8 @@ import static java.lang.Integer.parseInt;
  * @author  Alexander Bischof
  */
 public class CommandInputConsumer implements Consumer<String> {
+
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
     private final DroneController drone;
 
@@ -65,7 +70,7 @@ public class CommandInputConsumer implements Consumer<String> {
                         int degrees = parseInt(lowercaseCommand.split(" ")[1]);
                         drone.right(degrees);
                     } else {
-                        System.out.println("Kommando nicht implementiert: " + command);
+                        LOGGER.info("Kommando nicht implementiert: " + command);
                     }
             }
         } catch (Exception e) {
