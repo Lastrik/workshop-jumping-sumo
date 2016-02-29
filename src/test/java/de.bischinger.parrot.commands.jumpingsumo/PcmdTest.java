@@ -14,6 +14,20 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class PcmdTest {
 
+    @Test(expected = IllegalArgumentException.class)
+    public void getBytesOverflowInSpeedLow() {
+
+        Pcmd.pcmd(-129, 0);
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getBytesOverflowInSpeedHigh() {
+
+        Pcmd.pcmd(128, 0);
+    }
+
+
     @Test
     public void getBytesWIthCorrect180DegreeTo50Percent() {
 

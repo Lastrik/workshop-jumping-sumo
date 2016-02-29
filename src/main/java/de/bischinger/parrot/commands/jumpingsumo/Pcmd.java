@@ -6,6 +6,8 @@ import de.bischinger.parrot.commands.CommandKey;
 import static de.bischinger.parrot.commands.ChannelType.JUMPINGSUMO_CONTROLLER_TO_DEVICE_NONACK_ID;
 import static de.bischinger.parrot.commands.FrameType.ARNETWORKAL_FRAME_TYPE_DATA;
 
+import static java.lang.String.format;
+
 
 /**
  * Parrot command.
@@ -22,6 +24,10 @@ public final class Pcmd implements Command {
     private final byte turn;
 
     protected Pcmd(int speed, int degrees) {
+
+        if (speed < -128 || speed > 127) {
+            throw new IllegalArgumentException(format("Movement: Speed must be between -128 and 127 but is %s", speed));
+        }
 
         this.speed = (byte) speed;
         this.turn = (byte) degreeToPercent(degrees);
