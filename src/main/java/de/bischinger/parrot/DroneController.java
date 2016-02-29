@@ -1,4 +1,4 @@
-package de.bischinger.parrot.network;
+package de.bischinger.parrot;
 
 import de.bischinger.parrot.commands.common.CurrentDate;
 import de.bischinger.parrot.commands.common.CurrentTime;
@@ -23,6 +23,7 @@ import de.bischinger.parrot.listener.BatteryState;
 import de.bischinger.parrot.listener.CriticalBatteryListener;
 import de.bischinger.parrot.listener.OutdoorSpeedListener;
 import de.bischinger.parrot.listener.PCMDListener;
+import de.bischinger.parrot.network.DroneConnection;
 
 import java.io.IOException;
 

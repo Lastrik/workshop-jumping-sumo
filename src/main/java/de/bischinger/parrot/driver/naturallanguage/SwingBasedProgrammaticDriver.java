@@ -1,7 +1,7 @@
 package de.bischinger.parrot.driver.naturallanguage;
 
+import de.bischinger.parrot.DroneController;
 import de.bischinger.parrot.network.DroneConnection;
-import de.bischinger.parrot.network.DroneController;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
