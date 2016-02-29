@@ -1,4 +1,4 @@
-package de.bischinger.parrot.network;
+package de.bischinger.parrot.listener;
 
 public enum BatteryState {
 

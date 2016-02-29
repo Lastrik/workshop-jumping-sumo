@@ -62,9 +62,8 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         this.pack();
         setVisible(true);
 
-        // FIXME
-        // drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
-        // drone.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
-        // drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+        drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
+        drone.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
+        drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
     }
 }

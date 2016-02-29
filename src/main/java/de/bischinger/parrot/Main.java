@@ -37,7 +37,7 @@ public final class Main {
 
         String ip = "192.168.2.1";
         int port = 44444;
-        String wlan = "JS-Alex";
+        String wlanName = "JS-Alex";
 
         File configFile = new File("config.properties");
 
@@ -47,16 +47,16 @@ public final class Main {
 
             ip = properties.getProperty("ip");
             port = valueOf(properties.getProperty("port"));
-            wlan = properties.getProperty("wlan");
+            wlanName = properties.getProperty("wlan");
         }
 
-        String driver = "keyboard";
+        String driver = "program";
 
         if (args.length > 1) {
             driver = args[0].toLowerCase();
         }
 
-        DroneConnection droneConnection = new DroneConnection(ip, port);
+        DroneConnection droneConnection = new DroneConnection(ip, port, wlanName);
 
         switch (driver) {
             case "keyboard":

@@ -10,6 +10,10 @@ import java.awt.event.KeyEvent;
 
 import java.io.IOException;
 
+import java.lang.invoke.MethodHandles;
+
+import java.util.logging.Logger;
+
 import static java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager;
 import static java.awt.event.KeyEvent.KEY_PRESSED;
 import static java.awt.event.KeyEvent.KEY_RELEASED;
@@ -47,7 +51,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
     public static final int DEFAULT_TURN_DEGREE = 25;
     public static final int DEFAULT_SPEED = 50;
 
-//    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
     private final DroneController droneController;
     private final int straightSpeed;
@@ -72,10 +76,10 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
         new KeyboardDriverFrame();
         new Thread(this).start();
 
-//        droneController.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
-//        droneController.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
-//        droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
-//        droneController.addOutdoorSpeedListener(b -> LOGGER.info("Speed: " + b));
+        droneController.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
+        droneController.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
+        droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+        droneController.addOutdoorSpeedListener(b -> LOGGER.info("Speed: " + b));
 
         getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
     }

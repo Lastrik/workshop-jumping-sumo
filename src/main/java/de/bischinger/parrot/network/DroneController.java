@@ -18,6 +18,11 @@ import de.bischinger.parrot.commands.jumpingsumo.StopAnimation;
 import de.bischinger.parrot.commands.jumpingsumo.Tap;
 import de.bischinger.parrot.commands.jumpingsumo.VideoStreaming;
 import de.bischinger.parrot.commands.jumpingsumo.Volume;
+import de.bischinger.parrot.listener.BatteryListener;
+import de.bischinger.parrot.listener.BatteryState;
+import de.bischinger.parrot.listener.CriticalBatteryListener;
+import de.bischinger.parrot.listener.OutdoorSpeedListener;
+import de.bischinger.parrot.listener.PCMDListener;
 
 import java.io.IOException;
 
@@ -25,17 +30,20 @@ import java.lang.invoke.MethodHandles;
 
 import java.time.Clock;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 
 /**
+ * Controller to control the drone connected by the {@link DroneConnection}.
+ *
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public class DroneController implements AutoCloseable {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
-//    private final List<EventListener> eventListeners = new ArrayList<>();
     private final DroneConnection droneConnection;
 
     private byte noAckCounter = 0;
@@ -206,71 +214,51 @@ public class DroneController implements AutoCloseable {
     }
 
 
-//
-//    public DroneController addCriticalBatteryListener(Consumer<BatteryState> consumer) {
-//
-//        this.eventListeners.add(data -> {
-//            if (filterProject(data, 3, 1, 1)) {
-//                consumer.accept(BatteryState.values()[data[11]]);
-//            }
-//        });
-//
-//        return this;
-//    }
-//
-//
-//    public DroneController addBatteryListener(Consumer<Byte> consumer) {
-//
-//        this.eventListeners.add(data -> {
-//            if (filterProject(data, 0, 5, 1)) {
-//                consumer.accept(data[11]);
-//            }
-//        });
-//
-//        return this;
-//    }
-//
-//
-//    public DroneController addPCMDListener(Consumer<String> consumer) {
-//
-//        this.eventListeners.add(data -> {
-//            if (filterProject(data, 3, 1, 0)) {
-//                consumer.accept("" + data[11]);
-//            }
-//        });
-//
-//        return this;
-//    }
-//
-//
-//    public DroneController addOutdoorSpeedListener(Consumer<String> consumer) {
-//
-//        this.eventListeners.add(data -> {
-//            if (filterProject(data, 3, 17, 0)) {
-//                consumer.accept("" + data[11]);
-//            }
-//        });
-//
-//        return this;
-//    }
+    public DroneController addCriticalBatteryListener(Consumer<BatteryState> consumer) {
+
+        droneConnection.addEventListener(CriticalBatteryListener.criticalBatteryListener(consumer));
+
+        return this;
+    }
+
+
+    public DroneController addBatteryListener(Consumer<Byte> consumer) {
+
+        droneConnection.addEventListener(BatteryListener.batteryListener(consumer));
+
+        return this;
+    }
+
+
+    public DroneController addPCMDListener(Consumer<String> consumer) {
+
+        droneConnection.addEventListener(PCMDListener.PCMDListener(consumer));
+
+        return this;
+    }
+
+
+    public DroneController addOutdoorSpeedListener(Consumer<String> consumer) {
+
+        droneConnection.addEventListener(OutdoorSpeedListener.outdoorSpeedListener(consumer));
+
+        return this;
+    }
+
 
     public AudioController audio() {
 
-        return new AudioController();
+        return new AudioController(this);
     }
 
-//    private boolean filterChannel(byte[] data, int frametype, int channel) {
-//
-//        return data[0] == frametype && data[1] == channel;
-//    }
-//
-//
-//    private boolean filterProject(byte[] data, int project, int clazz, int cmd) {
-//
-//        return data[7] == project && data[8] == clazz && data[9] == cmd;
-//    }
-
     public class AudioController {
+
+        private final DroneController droneController;
+
+        public AudioController(DroneController droneController) {
+
+            this.droneController = droneController;
+        }
 
         public AudioController theme(AudioTheme.Theme theme) throws IOException {
 
@@ -301,6 +289,12 @@ public class DroneController implements AutoCloseable {
             volume(100);
 
             return this;
+        }
+
+
+        public DroneController drone() {
+
+            return droneController;
         }
     }
 }
