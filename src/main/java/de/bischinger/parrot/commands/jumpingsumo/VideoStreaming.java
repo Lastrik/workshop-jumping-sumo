@@ -9,11 +9,11 @@ import de.bischinger.parrot.commands.FrameType;
 
 /**
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public final class VideoStreaming implements Command {
 
     private final CommandKey commandKey = CommandKey.commandKey(3, 18, 0);
-
     private final byte enable;
 
     protected VideoStreaming(byte enable) {

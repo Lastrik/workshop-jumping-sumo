@@ -27,8 +27,10 @@ public class ProgrammaticDriver {
 
     public void drive() throws IOException, InterruptedException {
 
-        drone.addOutdoorSpeedListener(b -> System.out.println("Speed: " + b)).addPCMDListener(b ->
-                    System.out.println("PCMD: " + b)).addBatteryListener(aByte ->
-                System.out.println("Batterylevel: " + aByte.toString() + "%"));
+        drone.video().enableVideo().drone().right(360);
+
+//        drone.addOutdoorSpeedListener(b -> System.out.println("Speed: " + b)).addPCMDListener(b ->
+//                    System.out.println("PCMD: " + b)).addBatteryListener(aByte ->
+//                System.out.println("Batterylevel: " + aByte.toString() + "%")).video().enableVideo();
     }
 }

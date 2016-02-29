@@ -14,12 +14,14 @@ import de.bischinger.parrot.commands.jumpingsumo.SpinToPosture;
 import de.bischinger.parrot.commands.jumpingsumo.Spiral;
 import de.bischinger.parrot.commands.jumpingsumo.StopAnimation;
 import de.bischinger.parrot.commands.jumpingsumo.Tap;
+import de.bischinger.parrot.commands.jumpingsumo.VideoStreaming;
 import de.bischinger.parrot.commands.jumpingsumo.Volume;
 import de.bischinger.parrot.listener.BatteryListener;
 import de.bischinger.parrot.listener.BatteryState;
 import de.bischinger.parrot.listener.CriticalBatteryListener;
 import de.bischinger.parrot.listener.OutdoorSpeedListener;
 import de.bischinger.parrot.listener.PCMDListener;
+import de.bischinger.parrot.listener.VideoListener;
 import de.bischinger.parrot.network.DroneConnection;
 import de.bischinger.parrot.network.WirelessLanDroneConnection;
 
@@ -49,8 +51,6 @@ public class DroneController implements AutoCloseable {
         this.droneConnection = droneConnection;
 
         droneConnection.connect();
-
-//        droneConnection.sendCommand(VideoStreaming.enableVideoStreaming().getBytes(ackCounter++));
     }
 
     @Override
@@ -242,6 +242,12 @@ public class DroneController implements AutoCloseable {
         return new AudioController(this);
     }
 
+
+    public VideoController video() {
+
+        return new VideoController(this);
+    }
+
     public class AudioController {
 
         private final DroneController droneController;
@@ -278,6 +284,38 @@ public class DroneController implements AutoCloseable {
         public AudioController unmute() throws IOException {
 
             volume(100);
+
+            return this;
+        }
+
+
+        public DroneController drone() {
+
+            return droneController;
+        }
+    }
+
+    public class VideoController {
+
+        private final DroneController droneController;
+
+        public VideoController(DroneController droneController) {
+
+            this.droneController = droneController;
+        }
+
+        public VideoController enableVideo() throws IOException {
+
+            droneConnection.addEventListener(VideoListener.videoListener());
+            droneConnection.sendCommand(VideoStreaming.enableVideoStreaming());
+
+            return this;
+        }
+
+
+        public VideoController disableVideo() throws IOException {
+
+            droneConnection.sendCommand(VideoStreaming.disableVideoStreaming());
 
             return this;
         }

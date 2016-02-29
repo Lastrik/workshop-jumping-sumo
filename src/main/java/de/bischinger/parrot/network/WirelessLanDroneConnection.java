@@ -150,16 +150,7 @@ public class WirelessLanDroneConnection implements DroneConnection {
                         sendCommand(Pong.pong(data[3]));
                     }
 
-//                    if (data[1] == 125) {
-//                        // videoStream.write();
-//                        try(FileOutputStream fos = new FileOutputStream("video.jpeg")) {
-//                            fos.write(getJpegDate(data));
-//                        }
-//
-//                        continue;
-//                    }
-//
-//                    // FIXME
+                    // FIXME
 //                    CommandReader commandReader = CommandReader.commandReader(data);
 //
 //                    if (commandReader.isPing() || commandReader.isLinkQualityChanged()
@@ -174,14 +165,6 @@ public class WirelessLanDroneConnection implements DroneConnection {
         }).start();
     }
 
-
-//    private byte[] getJpegDate(byte[] data) {
-//
-//        byte[] jpegData = new byte[data.length];
-//        System.arraycopy(data, 12, jpegData, 0, data.length - 12);
-//
-//        return jpegData;
-//    }
 
     @Override
     public void close() {
