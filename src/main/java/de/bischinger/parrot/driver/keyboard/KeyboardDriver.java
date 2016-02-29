@@ -236,7 +236,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                 break;
 
             case VK_0:
-                droneController.stopAnnimation();
+                droneController.stopAnimation();
                 break;
 
             case VK_A:

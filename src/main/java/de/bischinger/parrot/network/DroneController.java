@@ -226,7 +226,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController stopAnnimation() throws IOException {
+    public DroneController stopAnimation() throws IOException {
 
         this.sendCommand(StopAnimation.stopAnimation().getBytes(++ackCounter));
 
