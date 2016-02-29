@@ -1,7 +1,5 @@
 package de.bischinger.parrot;
 
-import de.bischinger.parrot.commands.common.CurrentDate;
-import de.bischinger.parrot.commands.common.CurrentTime;
 import de.bischinger.parrot.commands.common.Disconnect;
 import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;
 import de.bischinger.parrot.commands.jumpingsumo.Jump;
@@ -16,7 +14,6 @@ import de.bischinger.parrot.commands.jumpingsumo.SpinToPosture;
 import de.bischinger.parrot.commands.jumpingsumo.Spiral;
 import de.bischinger.parrot.commands.jumpingsumo.StopAnimation;
 import de.bischinger.parrot.commands.jumpingsumo.Tap;
-import de.bischinger.parrot.commands.jumpingsumo.VideoStreaming;
 import de.bischinger.parrot.commands.jumpingsumo.Volume;
 import de.bischinger.parrot.listener.BatteryListener;
 import de.bischinger.parrot.listener.BatteryState;
@@ -24,19 +21,18 @@ import de.bischinger.parrot.listener.CriticalBatteryListener;
 import de.bischinger.parrot.listener.OutdoorSpeedListener;
 import de.bischinger.parrot.listener.PCMDListener;
 import de.bischinger.parrot.network.DroneConnection;
+import de.bischinger.parrot.network.WirelessLanDroneConnection;
 
 import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
-
-import java.time.Clock;
 
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 
 /**
- * Controller to control the drone connected by the {@link DroneConnection}.
+ * Controller to control the drone connected by the {@link WirelessLanDroneConnection}.
  *
  * @author  Alexander Bischof
  * @author  Tobias Schneider
@@ -47,9 +43,6 @@ public class DroneController implements AutoCloseable {
 
     private final DroneConnection droneConnection;
 
-    private byte noAckCounter = 0;
-    private byte ackCounter = 0;
-
     public DroneController(DroneConnection droneConnection) throws IOException {
 
         LOGGER.info("Creating DroneController");
@@ -57,23 +50,20 @@ public class DroneController implements AutoCloseable {
 
         droneConnection.connect();
 
-        Clock clock = Clock.systemDefaultZone();
-        droneConnection.sendCommand(CurrentDate.currentDate(clock).getBytes(ackCounter++));
-        droneConnection.sendCommand(CurrentTime.currentTime(clock).getBytes(ackCounter++));
-        droneConnection.sendCommand(VideoStreaming.enableVideoStreaming().getBytes(ackCounter++));
+//        droneConnection.sendCommand(VideoStreaming.enableVideoStreaming().getBytes(ackCounter++));
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() throws Exception {
 
-        droneConnection.sendCommand(Disconnect.disconnect().getBytes(ackCounter++));
+        droneConnection.sendCommand(Disconnect.disconnect());
         droneConnection.close();
     }
 
 
     public DroneController pcmd(int speed, int degree) throws IOException {
 
-        this.droneConnection.sendCommand(Pcmd.pcmd(speed, degree).getBytes(++noAckCounter));
+        this.droneConnection.sendCommand(Pcmd.pcmd(speed, degree));
 
         return this;
     }
@@ -129,7 +119,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController jump(Jump.Type jumpType) throws IOException {
 
-        this.droneConnection.sendCommand(Jump.jump(jumpType).getBytes(++ackCounter));
+        this.droneConnection.sendCommand(Jump.jump(jumpType));
 
         return this;
     }
@@ -137,7 +127,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController stopAnimation() throws IOException {
 
-        this.droneConnection.sendCommand(StopAnimation.stopAnimation().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(StopAnimation.stopAnimation());
 
         return this;
     }
@@ -145,7 +135,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController spin() throws IOException {
 
-        this.droneConnection.sendCommand(Spin.spin().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(Spin.spin());
 
         return this;
     }
@@ -153,7 +143,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController tap() throws IOException {
 
-        this.droneConnection.sendCommand(Tap.tap().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(Tap.tap());
 
         return this;
     }
@@ -161,7 +151,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController slowShake() throws IOException {
 
-        this.droneConnection.sendCommand(SlowShake.slowShake().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(SlowShake.slowShake());
 
         return this;
     }
@@ -169,7 +159,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController metronome() throws IOException {
 
-        this.droneConnection.sendCommand(Metronome.metronome().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(Metronome.metronome());
 
         return this;
     }
@@ -177,7 +167,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController ondulation() throws IOException {
 
-        this.droneConnection.sendCommand(Ondulation.ondulation().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(Ondulation.ondulation());
 
         return this;
     }
@@ -185,7 +175,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController spinJump() throws IOException {
 
-        this.droneConnection.sendCommand(SpinJump.spinJump().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(SpinJump.spinJump());
 
         return this;
     }
@@ -193,7 +183,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController spinToPosture() throws IOException {
 
-        this.droneConnection.sendCommand(SpinToPosture.spinToPosture().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(SpinToPosture.spinToPosture());
 
         return this;
     }
@@ -201,7 +191,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController spiral() throws IOException {
 
-        this.droneConnection.sendCommand(Spiral.spiral().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(Spiral.spiral());
 
         return this;
     }
@@ -209,7 +199,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController slalom() throws IOException {
 
-        this.droneConnection.sendCommand(Slalom.slalom().getBytes(++ackCounter));
+        this.droneConnection.sendCommand(Slalom.slalom());
 
         return this;
     }
@@ -263,7 +253,7 @@ public class DroneController implements AutoCloseable {
 
         public AudioController theme(AudioTheme.Theme theme) throws IOException {
 
-            droneConnection.sendCommand(AudioTheme.audioTheme(theme).getBytes(++ackCounter));
+            droneConnection.sendCommand(AudioTheme.audioTheme(theme));
 
             return this;
         }
@@ -271,7 +261,7 @@ public class DroneController implements AutoCloseable {
 
         public AudioController volume(int volume) throws IOException {
 
-            droneConnection.sendCommand(Volume.volume(volume).getBytes(++ackCounter));
+            droneConnection.sendCommand(Volume.volume(volume));
 
             return this;
         }
