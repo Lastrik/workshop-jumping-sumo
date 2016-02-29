@@ -1,7 +1,7 @@
 package de.bischinger.parrot.driver.naturallanguage;
 
+import de.bischinger.parrot.network.DroneConnection;
 import de.bischinger.parrot.network.DroneController;
-import de.bischinger.parrot.network.handshake.HandshakeRequest;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,10 +33,12 @@ public class FileBasedProgrammaticDriver {
 
     private final DroneController drone;
 
-    public FileBasedProgrammaticDriver(String ip, int port, String sumoWlan) throws IOException, URISyntaxException {
+    public FileBasedProgrammaticDriver(DroneConnection droneConnection) throws IOException, URISyntaxException {
 
-        drone = new DroneController(ip, port, new HandshakeRequest(sumoWlan, "_arsdk-0902._udp"), true);
-        drone.addBatteryListener(b -> System.out.println("BatteryState: " + b));
+        drone = new DroneController(droneConnection);
+
+        // FIXME
+        // drone.addBatteryListener(b -> System.out.println("BatteryState: " + b));
         drone.pcmd(0, 0);
 
         new Thread(this::startFileWatcher).start();
@@ -57,6 +59,7 @@ public class FileBasedProgrammaticDriver {
                 for (WatchEvent<?> event : wk.pollEvents()) {
                     final Path changed = (Path) event.context();
 
+                    // FIXME
                     // System.out.println(changed + " " + changed.equals(FILENAME) + " " + FILENAME);
                     if (changed.endsWith(FILENAME)) {
                         LOGGER.info("programm.txt has changed");

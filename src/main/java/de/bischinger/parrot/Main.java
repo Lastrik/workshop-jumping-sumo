@@ -5,6 +5,7 @@ import de.bischinger.parrot.driver.naturallanguage.FileBasedProgrammaticDriver;
 import de.bischinger.parrot.driver.naturallanguage.JumpingSumoLang;
 import de.bischinger.parrot.driver.naturallanguage.SwingBasedProgrammaticDriver;
 import de.bischinger.parrot.driver.programmatic.ProgrammaticDriver;
+import de.bischinger.parrot.network.DroneConnection;
 
 import java.awt.AWTException;
 
@@ -55,24 +56,26 @@ public final class Main {
             driver = args[0].toLowerCase();
         }
 
+        DroneConnection droneConnection = new DroneConnection(ip, port);
+
         switch (driver) {
             case "keyboard":
 
                 int speedConfig = args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
                 int turnConfig = args.length > 2 ? valueOf(args[2]) : KeyboardDriver.DEFAULT_TURN_DEGREE;
-                new KeyboardDriver(ip, port, wlan, speedConfig, turnConfig);
+                new KeyboardDriver(droneConnection, speedConfig, turnConfig);
                 break;
 
             case "program":
-                new ProgrammaticDriver(ip, port, wlan).drive();
+                new ProgrammaticDriver(droneConnection).drive();
                 break;
 
             case "file":
-                new FileBasedProgrammaticDriver(ip, port, wlan);
+                new FileBasedProgrammaticDriver(droneConnection);
                 break;
 
             case "swing":
-                new SwingBasedProgrammaticDriver(ip, port, wlan);
+                new SwingBasedProgrammaticDriver(droneConnection);
                 break;
 
             case "ant4lr":

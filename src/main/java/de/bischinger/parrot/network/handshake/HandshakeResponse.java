@@ -3,7 +3,7 @@ package de.bischinger.parrot.network.handshake;
 /**
  * @author  Alexander Bischof
  */
-public class HandshakeAnswer {
+public class HandshakeResponse {
 
     private String status;
     private int c2d_port;

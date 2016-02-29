@@ -28,7 +28,7 @@ public class TcpHandshake implements AutoCloseable {
         tcpIn = new BufferedReader(new InputStreamReader(tcpSocket.getInputStream()));
     }
 
-    public HandshakeAnswer shake(HandshakeRequest handshakeRequest) throws IOException {
+    public HandshakeResponse shake(HandshakeRequest handshakeRequest) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -40,19 +40,19 @@ public class TcpHandshake implements AutoCloseable {
     }
 
 
-    private HandshakeAnswer tcpHandshakeResult(String shakeData) throws IOException {
+    private HandshakeResponse tcpHandshakeResult(String shakeData) throws IOException {
 
         // Send to device
         tcpOut.println(shakeData);
 
         // Reads json response
         String responseLine;
-        HandshakeAnswer deviceAnswer = null;
+        HandshakeResponse deviceAnswer = null;
         ObjectMapper objectMapper = new ObjectMapper();
 
         while ((responseLine = tcpIn.readLine()) != null) {
             responseLine = responseLine.substring(0, responseLine.lastIndexOf('}') + 1);
-            deviceAnswer = objectMapper.readValue(responseLine, HandshakeAnswer.class);
+            deviceAnswer = objectMapper.readValue(responseLine, HandshakeResponse.class);
         }
 
         return deviceAnswer;

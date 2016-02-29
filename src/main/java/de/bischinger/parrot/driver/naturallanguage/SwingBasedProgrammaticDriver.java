@@ -1,7 +1,7 @@
 package de.bischinger.parrot.driver.naturallanguage;
 
+import de.bischinger.parrot.network.DroneConnection;
 import de.bischinger.parrot.network.DroneController;
-import de.bischinger.parrot.network.handshake.HandshakeRequest;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -27,12 +27,11 @@ import static java.util.stream.Stream.of;
 public class SwingBasedProgrammaticDriver extends JFrame {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
-
     private final DroneController drone;
 
-    public SwingBasedProgrammaticDriver(String ip, int port, String sumoWlan) throws IOException {
+    public SwingBasedProgrammaticDriver(DroneConnection droneConnection) throws IOException {
 
-        drone = new DroneController(ip, port, new HandshakeRequest(sumoWlan, "_arsdk-0902._udp"), true);
+        drone = new DroneController(droneConnection);
 
         initComponents();
     }
@@ -63,8 +62,9 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         this.pack();
         setVisible(true);
 
-        drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
-        drone.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
-        drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+        // FIXME
+        // drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
+        // drone.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
+        // drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
     }
 }

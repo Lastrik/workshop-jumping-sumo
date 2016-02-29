@@ -2,17 +2,13 @@ package de.bischinger.parrot.driver.keyboard;
 
 import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;
 import de.bischinger.parrot.commands.jumpingsumo.Jump;
+import de.bischinger.parrot.network.DroneConnection;
 import de.bischinger.parrot.network.DroneController;
-import de.bischinger.parrot.network.handshake.HandshakeRequest;
 
 import java.awt.KeyEventDispatcher;
 import java.awt.event.KeyEvent;
 
 import java.io.IOException;
-
-import java.lang.invoke.MethodHandles;
-
-import java.util.logging.Logger;
 
 import static java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager;
 import static java.awt.event.KeyEvent.KEY_PRESSED;
@@ -51,23 +47,22 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
     public static final int DEFAULT_TURN_DEGREE = 25;
     public static final int DEFAULT_SPEED = 50;
 
-    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+//    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
     private final DroneController droneController;
-    private final int speedConfig;
-    private final int turnspeedConfig;
+    private final int straightSpeed;
+    private final int turnSpeed;
 
     private boolean isUpPressed;
     private boolean isDownPressed;
     private boolean isLeftPressed;
     private boolean isRightPressed;
 
-    public KeyboardDriver(String ip, int port, String sumoWlan, int speedConfig, int turnspeedConfig)
-        throws IOException {
+    public KeyboardDriver(DroneConnection droneConnection, int straightSpeed, int turnSpeed) throws IOException {
 
-        this.speedConfig = speedConfig;
-        this.turnspeedConfig = turnspeedConfig;
-        droneController = new DroneController(ip, port, new HandshakeRequest(sumoWlan, "_arsdk-0902._udp"), false);
+        this.straightSpeed = straightSpeed;
+        this.turnSpeed = turnSpeed;
+        this.droneController = new DroneController(droneConnection);
 
         initComponents();
     }
@@ -77,10 +72,10 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
         new KeyboardDriverFrame();
         new Thread(this).start();
 
-        droneController.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
-        droneController.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
-        droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
-        droneController.addOutdoorSpeedListener(b -> LOGGER.info("Speed: " + b));
+//        droneController.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
+//        droneController.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
+//        droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+//        droneController.addOutdoorSpeedListener(b -> LOGGER.info("Speed: " + b));
 
         getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
     }
@@ -97,18 +92,18 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                 int speed = 0;
 
                 if (isUpPressed) {
-                    speed = speedConfig;
+                    speed = this.straightSpeed;
                 } else if (isDownPressed) {
-                    speed = -1 * speedConfig;
+                    speed = -1 * this.straightSpeed;
                 }
 
                 // set direction
                 int direction = 0;
 
                 if (isLeftPressed) {
-                    direction = -turnspeedConfig;
+                    direction = -turnSpeed;
                 } else if (isRightPressed) {
-                    direction = turnspeedConfig;
+                    direction = turnSpeed;
                 }
 
                 if (speed != 0 || direction != 0) {
