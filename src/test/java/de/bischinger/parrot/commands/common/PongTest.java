@@ -17,7 +17,8 @@ public class PongTest {
     @Test
     public void getBytes() {
 
-        byte[] bytesPackage = Pong.pong().getBytes(1);
+        int notNeededCounter = 2;
+        byte[] bytesPackage = Pong.pong(1).getBytes(notNeededCounter);
 
         assertThat(bytesPackage, is(new byte[] { 1, -2, 1, 8, 0, 0, 0, 1 }));
     }

@@ -1,5 +1,6 @@
 package de.bischinger.parrot.commands.jumpingsumo;
 
+import de.bischinger.parrot.commands.Acknowledge;
 import de.bischinger.parrot.commands.ChannelType;
 import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.CommandKey;
@@ -40,5 +41,12 @@ public final class Jump implements Command {
                 commandKey.getProjectId(), commandKey.getClazzId(), commandKey.getCommandId(), 0, (byte) type.ordinal(),
                 0, 0, 0
             };
+    }
+
+
+    @Override
+    public Acknowledge getAcknowledge() {
+
+        return Acknowledge.AckBefore;
     }
 }

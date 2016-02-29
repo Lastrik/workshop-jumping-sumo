@@ -6,6 +6,7 @@ import de.bischinger.parrot.driver.naturallanguage.JumpingSumoLang;
 import de.bischinger.parrot.driver.naturallanguage.SwingBasedProgrammaticDriver;
 import de.bischinger.parrot.driver.programmatic.ProgrammaticDriver;
 import de.bischinger.parrot.network.DroneConnection;
+import de.bischinger.parrot.network.WirelessLanDroneConnection;
 
 import java.awt.AWTException;
 
@@ -56,7 +57,7 @@ public final class Main {
             driver = args[0].toLowerCase();
         }
 
-        DroneConnection droneConnection = new DroneConnection(ip, port, wlanName);
+        DroneConnection droneConnection = new WirelessLanDroneConnection(ip, port, wlanName);
 
         switch (driver) {
             case "keyboard":

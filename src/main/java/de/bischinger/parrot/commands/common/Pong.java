@@ -1,5 +1,6 @@
 package de.bischinger.parrot.commands.common;
 
+import de.bischinger.parrot.commands.Acknowledge;
 import de.bischinger.parrot.commands.Command;
 
 
@@ -8,15 +9,29 @@ import de.bischinger.parrot.commands.Command;
  */
 public final class Pong implements Command {
 
-    public static Pong pong() {
+    private int counter;
 
-        return new Pong();
+    public Pong(int counter) {
+
+        this.counter = counter;
+    }
+
+    public static Pong pong(int counter) {
+
+        return new Pong(counter);
     }
 
 
     @Override
     public byte[] getBytes(int counter) {
 
-        return new byte[] { 1, (byte) 0xfe, (byte) counter, 8, 0, 0, 0, (byte) counter };
+        return new byte[] { 1, (byte) 0xfe, (byte) this.counter, 8, 0, 0, 0, (byte) this.counter };
+    }
+
+
+    @Override
+    public Acknowledge getAcknowledge() {
+
+        return Acknowledge.None;
     }
 }

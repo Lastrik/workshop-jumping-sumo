@@ -1,5 +1,6 @@
 package de.bischinger.parrot.commands.jumpingsumo;
 
+import de.bischinger.parrot.commands.Acknowledge;
 import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.CommandKey;
 
@@ -72,5 +73,12 @@ public final class Pcmd implements Command {
                 (byte) counter, 14, 0, 0, 0, commandKey.getProjectId(), commandKey.getClazzId(),
                 commandKey.getCommandId(), 0, touchscreen, speed, turn
             };
+    }
+
+
+    @Override
+    public Acknowledge getAcknowledge() {
+
+        return Acknowledge.NoAckBefore;
     }
 }

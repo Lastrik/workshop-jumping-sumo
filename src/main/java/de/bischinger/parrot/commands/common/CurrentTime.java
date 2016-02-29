@@ -1,5 +1,6 @@
 package de.bischinger.parrot.commands.common;
 
+import de.bischinger.parrot.commands.Acknowledge;
 import de.bischinger.parrot.commands.ChannelType;
 import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.CommandException;
@@ -53,5 +54,12 @@ public final class CurrentTime implements Command {
         } catch (IOException e) {
             throw new CommandException("Could not generate CurrentTime command.", e);
         }
+    }
+
+
+    @Override
+    public Acknowledge getAcknowledge() {
+
+        return Acknowledge.AckAfter;
     }
 }
