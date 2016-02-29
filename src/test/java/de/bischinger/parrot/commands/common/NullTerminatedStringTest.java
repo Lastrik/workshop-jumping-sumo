@@ -25,6 +25,6 @@ public class NullTerminatedStringTest {
         byte[] bytesPackage = new NullTerminatedString(now(Clock.systemDefaultZone()).format(ISO_DATE))
             .getNullTerminatedString();
 
-        assertThat(bytesPackage, is(new byte[] { 50, 48, 49, 54, 45, 48, 50, 45, 50, 56, 0 }));
+        assertThat(bytesPackage, is(new byte[] { 50, 48, 49, 54, 45, 48, 50, 45, 50, 57, 0 }));
     }
 }
