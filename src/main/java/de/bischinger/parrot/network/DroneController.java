@@ -196,7 +196,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController left(int degrees) throws IOException {
 
-        pcmd(0, degrees);
+        pcmd(0, -degrees);
 
         return this;
     }
