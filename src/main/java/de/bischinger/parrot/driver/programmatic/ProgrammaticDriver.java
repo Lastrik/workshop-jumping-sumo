@@ -22,7 +22,7 @@ public class ProgrammaticDriver {
 
     public void drive() throws IOException, InterruptedException {
 
-        drone.audio().theme(AudioTheme.Theme.Monster).volume(120);
+        drone.audio().theme(AudioTheme.Theme.Monster).volume(100);
         System.exit(0);
     }
 }
