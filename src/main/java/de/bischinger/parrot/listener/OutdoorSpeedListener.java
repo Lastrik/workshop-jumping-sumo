@@ -6,9 +6,9 @@ import java.util.function.Consumer;
 /**
  * @author  Tobias Schneider
  */
-public class OutdoorSpeedListener implements EventListener {
+public final class OutdoorSpeedListener implements EventListener {
 
-    private Consumer<String> consumer;
+    private final Consumer<String> consumer;
 
     protected OutdoorSpeedListener(Consumer<String> consumer) {
 

@@ -6,16 +6,16 @@ import java.util.function.Consumer;
 /**
  * @author  Tobias Schneider
  */
-public class PCMDListener implements EventListener {
+public final class PCMDListener implements EventListener {
 
-    private Consumer<String> consumer;
+    private final Consumer<String> consumer;
 
     protected PCMDListener(Consumer<String> consumer) {
 
         this.consumer = consumer;
     }
 
-    public static PCMDListener PCMDListener(Consumer<String> consumer) {
+    public static PCMDListener pcmdlistener(Consumer<String> consumer) {
 
         return new PCMDListener(consumer);
     }

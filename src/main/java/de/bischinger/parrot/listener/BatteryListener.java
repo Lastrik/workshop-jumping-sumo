@@ -6,9 +6,9 @@ import java.util.function.Consumer;
 /**
  * @author  Tobias Schneider
  */
-public class BatteryListener implements EventListener {
+public final class BatteryListener implements EventListener {
 
-    private Consumer<Byte> consumer;
+    private final Consumer<Byte> consumer;
 
     protected BatteryListener(Consumer<Byte> consumer) {
 

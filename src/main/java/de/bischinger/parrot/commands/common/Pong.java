@@ -9,7 +9,7 @@ import de.bischinger.parrot.commands.Command;
  */
 public final class Pong implements Command {
 
-    private int counter;
+    private final int counter;
 
     public Pong(int counter) {
 

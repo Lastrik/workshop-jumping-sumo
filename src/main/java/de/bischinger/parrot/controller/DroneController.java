@@ -223,7 +223,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController addPCMDListener(Consumer<String> consumer) {
 
-        droneConnection.addEventListener(PCMDListener.PCMDListener(consumer));
+        droneConnection.addEventListener(PCMDListener.pcmdlistener(consumer));
 
         return this;
     }
