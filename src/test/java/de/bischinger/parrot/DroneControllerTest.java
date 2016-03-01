@@ -73,8 +73,8 @@ public class DroneControllerTest {
     @Test
     public void pcmd() throws IOException {
 
-        DroneController pcmd = sut.pcmd(100, 180);
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.pcmd(100, 180);
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Pcmd.class));
     }
@@ -83,8 +83,8 @@ public class DroneControllerTest {
     @Test
     public void forward() throws IOException {
 
-        DroneController pcmd = sut.forward();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.forward();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Pcmd.class));
     }
@@ -93,8 +93,8 @@ public class DroneControllerTest {
     @Test
     public void backward() throws IOException {
 
-        DroneController pcmd = sut.backward();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.backward();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Pcmd.class));
     }
@@ -103,8 +103,8 @@ public class DroneControllerTest {
     @Test
     public void left() throws IOException {
 
-        DroneController pcmd = sut.left();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.left();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Pcmd.class));
     }
@@ -113,8 +113,8 @@ public class DroneControllerTest {
     @Test
     public void leftWithArguments() throws IOException {
 
-        DroneController pcmd = sut.left(90);
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.left(90);
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Pcmd.class));
     }
@@ -123,8 +123,8 @@ public class DroneControllerTest {
     @Test
     public void right() throws IOException {
 
-        DroneController pcmd = sut.right();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.right();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Pcmd.class));
     }
@@ -133,8 +133,8 @@ public class DroneControllerTest {
     @Test
     public void rightWithArguments() throws IOException {
 
-        DroneController pcmd = sut.right(100);
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.right(100);
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Pcmd.class));
     }
@@ -143,8 +143,8 @@ public class DroneControllerTest {
     @Test
     public void jump() throws IOException {
 
-        DroneController pcmd = sut.jump(Jump.Type.Long);
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.jump(Jump.Type.Long);
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Jump.class));
     }
@@ -153,8 +153,8 @@ public class DroneControllerTest {
     @Test
     public void stopAnimation() throws IOException {
 
-        DroneController pcmd = sut.stopAnimation();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.stopAnimation();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(StopAnimation.class));
     }
@@ -163,8 +163,8 @@ public class DroneControllerTest {
     @Test
     public void spin() throws IOException {
 
-        DroneController pcmd = sut.spin();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.spin();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Spin.class));
     }
@@ -173,8 +173,8 @@ public class DroneControllerTest {
     @Test
     public void tap() throws IOException {
 
-        DroneController pcmd = sut.tap();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.tap();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Tap.class));
     }
@@ -183,8 +183,8 @@ public class DroneControllerTest {
     @Test
     public void slowShake() throws IOException {
 
-        DroneController pcmd = sut.slowShake();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.slowShake();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(SlowShake.class));
     }
@@ -193,8 +193,8 @@ public class DroneControllerTest {
     @Test
     public void metronome() throws IOException {
 
-        DroneController pcmd = sut.metronome();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.metronome();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Metronome.class));
     }
@@ -203,8 +203,8 @@ public class DroneControllerTest {
     @Test
     public void ondulation() throws IOException {
 
-        DroneController pcmd = sut.ondulation();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.ondulation();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Ondulation.class));
     }
@@ -213,8 +213,8 @@ public class DroneControllerTest {
     @Test
     public void spinJump() throws IOException {
 
-        DroneController pcmd = sut.spinJump();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.spinJump();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(SpinJump.class));
     }
@@ -223,8 +223,8 @@ public class DroneControllerTest {
     @Test
     public void spinToPosture() throws IOException {
 
-        DroneController pcmd = sut.spinToPosture();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.spinToPosture();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(SpinToPosture.class));
     }
@@ -233,8 +233,8 @@ public class DroneControllerTest {
     @Test
     public void spiral() throws IOException {
 
-        DroneController pcmd = sut.spiral();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.spiral();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Spiral.class));
     }
@@ -243,8 +243,8 @@ public class DroneControllerTest {
     @Test
     public void slalom() throws IOException {
 
-        DroneController pcmd = sut.slalom();
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.slalom();
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).sendCommand(any(Slalom.class));
     }
@@ -253,8 +253,8 @@ public class DroneControllerTest {
     @Test
     public void addCriticalBatteryListener() {
 
-        DroneController pcmd = sut.addCriticalBatteryListener(b -> { });
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.addCriticalBatteryListener(b -> { });
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).addEventListener(any(CriticalBatteryListener.class));
     }
@@ -263,8 +263,8 @@ public class DroneControllerTest {
     @Test
     public void addBatteryListener() {
 
-        DroneController pcmd = sut.addBatteryListener(b -> { });
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.addBatteryListener(b -> { });
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).addEventListener(any(BatteryListener.class));
     }
@@ -273,8 +273,8 @@ public class DroneControllerTest {
     @Test
     public void addPCMDListener() {
 
-        DroneController pcmd = sut.addPCMDListener(b -> { });
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.addPCMDListener(b -> { });
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).addEventListener(any(PCMDListener.class));
     }
@@ -283,8 +283,8 @@ public class DroneControllerTest {
     @Test
     public void addOutdoorSpeedListener() {
 
-        DroneController pcmd = sut.addOutdoorSpeedListener(b -> { });
-        assertThat(pcmd, is(sut));
+        DroneController droneController = sut.addOutdoorSpeedListener(b -> { });
+        assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).addEventListener(any(OutdoorSpeedListener.class));
     }
