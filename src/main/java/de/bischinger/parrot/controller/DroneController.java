@@ -23,7 +23,6 @@ import de.bischinger.parrot.listener.OutdoorSpeedListener;
 import de.bischinger.parrot.listener.PCMDListener;
 import de.bischinger.parrot.listener.VideoListener;
 import de.bischinger.parrot.network.DroneConnection;
-import de.bischinger.parrot.network.WirelessLanDroneConnection;
 
 import java.io.IOException;
 
@@ -34,7 +33,7 @@ import java.util.logging.Logger;
 
 
 /**
- * Controller to control the drone connected by the {@link WirelessLanDroneConnection}.
+ * Controller to control the drone connected by the {@link DroneConnection}.
  *
  * @author  Alexander Bischof
  * @author  Tobias Schneider
