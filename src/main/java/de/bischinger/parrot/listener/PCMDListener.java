@@ -25,7 +25,7 @@ public final class PCMDListener implements EventListener {
     public void eventFired(byte[] data) {
 
         if (filterProject(data, 3, 1, 0)) {
-            consumer.accept("" + data[11]);
+            consumer.accept(Byte.toString(data[11]));
         }
     }
 }
