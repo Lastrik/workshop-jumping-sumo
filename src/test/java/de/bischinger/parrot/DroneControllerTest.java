@@ -13,6 +13,7 @@ import de.bischinger.parrot.commands.jumpingsumo.SpinToPosture;
 import de.bischinger.parrot.commands.jumpingsumo.Spiral;
 import de.bischinger.parrot.commands.jumpingsumo.StopAnimation;
 import de.bischinger.parrot.commands.jumpingsumo.Tap;
+import de.bischinger.parrot.controller.DroneController;
 import de.bischinger.parrot.listener.BatteryListener;
 import de.bischinger.parrot.listener.CriticalBatteryListener;
 import de.bischinger.parrot.listener.OutdoorSpeedListener;

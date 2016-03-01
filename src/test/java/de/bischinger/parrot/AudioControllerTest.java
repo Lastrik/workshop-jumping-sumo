@@ -2,6 +2,7 @@ package de.bischinger.parrot;
 
 import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;
 import de.bischinger.parrot.commands.jumpingsumo.Volume;
+import de.bischinger.parrot.controller.DroneController;
 import de.bischinger.parrot.network.DroneConnection;
 
 import org.junit.Before;
@@ -14,8 +15,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
-
-import static de.bischinger.parrot.DroneController.*;
 
 import static org.hamcrest.CoreMatchers.is;
 

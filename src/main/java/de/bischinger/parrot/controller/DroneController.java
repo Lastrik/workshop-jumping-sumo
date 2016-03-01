@@ -1,4 +1,4 @@
-package de.bischinger.parrot;
+package de.bischinger.parrot.controller;
 
 import de.bischinger.parrot.commands.common.Disconnect;
 import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;

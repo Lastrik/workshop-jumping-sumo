@@ -1,8 +1,8 @@
 package de.bischinger.parrot.driver.keyboard;
 
-import de.bischinger.parrot.DroneController;
 import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;
 import de.bischinger.parrot.commands.jumpingsumo.Jump;
+import de.bischinger.parrot.controller.DroneController;
 import de.bischinger.parrot.network.DroneConnection;
 
 import java.awt.KeyEventDispatcher;
