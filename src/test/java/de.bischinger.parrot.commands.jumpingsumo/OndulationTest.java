@@ -11,18 +11,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**
- * Unit test of {@link Metronome}.
+ * Unit test of {@link Ondulation}.
  *
  * @author  Tobias Schneider
  */
-public class MetronomeTest {
+public class OndulationTest {
 
-    private Metronome sut;
+    private Ondulation sut;
 
     @Before
     public void setUp() throws Exception {
 
-        sut = Metronome.metronome();
+        sut = Ondulation.ondulation();
     }
 
 
@@ -31,7 +31,7 @@ public class MetronomeTest {
 
         byte[] bytesPackage = sut.getBytes(1);
 
-        assertThat(bytesPackage, is(new byte[] { 4, 11, 1, 15, 0, 0, 0, 3, 2, 4, 0, 4, 0, 0, 0 }));
+        assertThat(bytesPackage, is(new byte[] { 4, 11, 1, 15, 0, 0, 0, 3, 2, 4, 0, 5, 0, 0, 0 }));
     }
 
 
