@@ -6,6 +6,7 @@ import de.bischinger.parrot.network.DroneConnection;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
@@ -54,16 +55,19 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         this.add(scrollPane, CENTER);
 
         JButton jbStart = new JButton("Start");
-        jbStart.addActionListener(e -> {
-            String text = textArea.getText();
-            of(text.split("\\r?\\n")).map(c -> c.toLowerCase().trim()).forEach(new CommandInputConsumer(drone));
-        });
+        jbStart.addActionListener(plainActionListener(textArea));
         this.add(jbStart, SOUTH);
         this.pack();
-        setVisible(true);
 
         drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
         drone.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
         drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+    }
+
+    private ActionListener plainActionListener(JTextArea textArea) {
+        return e -> {
+            String text = textArea.getText();
+            of(text.split("\\r?\\n")).map(c -> c.toLowerCase().trim()).forEach(new CommandInputConsumer(drone));
+        };
     }
 }

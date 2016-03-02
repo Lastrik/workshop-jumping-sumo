@@ -76,7 +76,7 @@ public final class Main {
                 break;
 
             case "swing":
-                new SwingBasedProgrammaticDriver(droneConnection);
+                new SwingBasedProgrammaticDriver(droneConnection).setVisible(true);
                 break;
 
             case "ant4lr":
