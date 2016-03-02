@@ -38,7 +38,6 @@ Beinhaltet die folgenden 3 Modi:
 :construction: in Arbeit :construction:
 
 
-
 ## Natührliche Sprache (FileBasedProgrammaticDriver/SwingBasedProgrammaticDriver)
 
 ```programm.txt``` wird nach Command-Änderung gepollt, die direkt auf dem JumpingSumo weitergeleitet werden
