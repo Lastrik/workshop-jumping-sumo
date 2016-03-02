@@ -1,5 +1,6 @@
 package de.bischinger.parrot;
 
+import de.bischinger.parrot.controller.DroneController;
 import de.bischinger.parrot.driver.keyboard.KeyboardDriver;
 import de.bischinger.parrot.driver.naturallanguage.FileBasedProgrammaticDriver;
 import de.bischinger.parrot.driver.naturallanguage.JumpingSumoLang;
@@ -27,6 +28,8 @@ import static java.lang.Integer.valueOf;
 public final class Main {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+
+    public static DroneController SINGLETON;
 
     private Main() {
     }
@@ -76,7 +79,8 @@ public final class Main {
                 break;
 
             case "swing":
-                new SwingBasedProgrammaticDriver(droneConnection).setVisible(true);
+                SINGLETON = new DroneController(droneConnection);
+                new SwingBasedProgrammaticDriver(SINGLETON).setVisible(true);
                 break;
 
             case "ant4lr":

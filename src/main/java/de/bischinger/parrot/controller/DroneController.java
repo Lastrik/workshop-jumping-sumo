@@ -173,7 +173,7 @@ public class DroneController implements AutoCloseable {
 
 
     public DroneController spinJump() throws IOException {
-
+        System.out.println("kjhsdkjhsdkjhsdk");
         this.droneConnection.sendCommand(SpinJump.spinJump());
 
         return this;
