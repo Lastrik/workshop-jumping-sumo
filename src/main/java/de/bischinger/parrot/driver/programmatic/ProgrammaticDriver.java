@@ -22,7 +22,6 @@ public class ProgrammaticDriver {
     public ProgrammaticDriver(DroneConnection droneConnection) throws IOException {
 
         drone = new DroneController(droneConnection);
-        drone.pcmd(0, 0);
     }
 
     public void drive() throws IOException, InterruptedException {
