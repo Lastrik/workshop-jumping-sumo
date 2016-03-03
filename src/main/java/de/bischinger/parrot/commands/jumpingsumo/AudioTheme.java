@@ -56,4 +56,12 @@ public final class AudioTheme implements Command {
 
         return Acknowledge.AckBefore;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "AudioTheme{"
+            + "theme=" + theme + '}';
+    }
 }

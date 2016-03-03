@@ -9,6 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 
 /**
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public final class Jump implements Command {
 
@@ -48,5 +49,12 @@ public final class Jump implements Command {
     public Acknowledge getAcknowledge() {
 
         return Acknowledge.AckBefore;
+    }
+
+
+    @Override
+    public String toString() {
+
+        return "Jump";
     }
 }

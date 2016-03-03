@@ -9,6 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 
 /**
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public final class SpinToPosture implements Command {
 
@@ -40,5 +41,12 @@ public final class SpinToPosture implements Command {
     public Acknowledge getAcknowledge() {
 
         return Acknowledge.AckBefore;
+    }
+
+
+    @Override
+    public String toString() {
+
+        return "SpinToPosture";
     }
 }

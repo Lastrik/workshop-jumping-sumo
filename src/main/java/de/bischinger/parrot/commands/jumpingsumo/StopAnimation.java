@@ -41,4 +41,11 @@ public final class StopAnimation implements Command {
 
         return Acknowledge.AckBefore;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "StopAnimation";
+    }
 }

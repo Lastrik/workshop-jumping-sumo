@@ -47,4 +47,12 @@ public final class Volume implements Command {
 
         return Acknowledge.AckBefore;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "Volume{"
+            + "volume=" + volume + '}';
+    }
 }

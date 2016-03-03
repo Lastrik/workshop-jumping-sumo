@@ -41,4 +41,11 @@ public final class Tap implements Command {
 
         return Acknowledge.AckBefore;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "Tap";
+    }
 }
