@@ -61,4 +61,11 @@ public final class CurrentDate implements Command {
 
         return Acknowledge.AckAfter;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "CurrentDate{" + clock.instant() + '}';
+    }
 }

@@ -41,4 +41,11 @@ public final class Disconnect implements Command {
 
         return Acknowledge.AckAfter;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "Disconnect";
+    }
 }

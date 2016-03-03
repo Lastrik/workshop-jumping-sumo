@@ -62,4 +62,11 @@ public final class CurrentTime implements Command {
 
         return Acknowledge.AckAfter;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "CurrentTime{" + clock.instant() + '}';
+    }
 }
