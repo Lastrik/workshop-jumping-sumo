@@ -45,6 +45,7 @@ public class WirelessLanDroneConnection implements DroneConnection {
     private final String deviceIp;
     private final int tcpPort;
     private final String wlanName;
+    private final Clock clock;
 
     private int devicePort;
     private byte noAckCounter = 0;
@@ -56,6 +57,7 @@ public class WirelessLanDroneConnection implements DroneConnection {
         this.deviceIp = deviceIp;
         this.tcpPort = tcpPort;
         this.wlanName = wlanName;
+        this.clock = Clock.systemDefaultZone();
     }
 
     @Override
@@ -68,7 +70,6 @@ public class WirelessLanDroneConnection implements DroneConnection {
         devicePort = handshakeResponse.getC2d_port();
         LOGGER.info(format("Connected: Handshake completed with %s", handshakeResponse));
 
-        Clock clock = Clock.systemDefaultZone();
         sendCommand(CurrentDate.currentDate(clock));
         sendCommand(CurrentTime.currentTime(clock));
 
@@ -133,6 +134,8 @@ public class WirelessLanDroneConnection implements DroneConnection {
             try(DatagramSocket sumoSocket = new DatagramSocket(devicePort)) {
                 LOGGER.info(format("Listing for answers on port %s", devicePort));
 
+                int pingCounter = 0;
+
                 while (true) {
                     byte[] buf = new byte[65000];
 
@@ -142,12 +145,21 @@ public class WirelessLanDroneConnection implements DroneConnection {
 
                     byte[] data = packet.getData();
 
-                    eventListeners.stream().forEach(eventListener -> eventListener.eventFired(data));
-
                     // Answer with a Pong
                     if (data[1] == 126) {
                         sendCommand(Pong.pong(data[3]));
+
+                        if (pingCounter > 10 && pingCounter % 10 == 1) {
+                            sendCommand(CurrentDate.currentDate(clock));
+                            sendCommand(CurrentTime.currentTime(clock));
+                        }
+
+                        pingCounter++;
+
+                        continue;
                     }
+
+                    eventListeners.stream().forEach(eventListener -> eventListener.eventFired(data));
 
                     // FIXME
 //                    CommandReader commandReader = CommandReader.commandReader(data);
