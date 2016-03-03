@@ -20,7 +20,6 @@ import java.net.DatagramSocket;
 import java.time.Clock;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -82,7 +81,7 @@ public class WirelessLanDroneConnection implements DroneConnection {
 
         byte[] packet = command.getBytes(changeAndGetCounter(command));
 
-        LOGGER.fine(format("Sending command: %s", Arrays.toString(packet)));
+        LOGGER.info(format("Sending command: %s", command));
         datagramSocket.send(new DatagramPacket(packet, packet.length, getByName(deviceIp), devicePort));
 
         // TODO FIX TRUE

@@ -81,4 +81,13 @@ public final class Pcmd implements Command {
 
         return Acknowledge.NoAckBefore;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "Pcmd{"
+            + "turn=" + turn
+            + ", speed=" + speed + '}';
+    }
 }

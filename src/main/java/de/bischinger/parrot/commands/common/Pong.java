@@ -34,4 +34,11 @@ public final class Pong implements Command {
 
         return Acknowledge.None;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "Pong";
+    }
 }
