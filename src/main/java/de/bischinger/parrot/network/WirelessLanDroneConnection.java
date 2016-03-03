@@ -84,6 +84,7 @@ public class WirelessLanDroneConnection implements DroneConnection {
 
         LOGGER.info(format("Sending command: %s", command));
         datagramSocket.send(new DatagramPacket(packet, packet.length, getByName(deviceIp), devicePort));
+        // TODO catch IOException here
 
         // TODO FIX TRUE
         if (true) {
@@ -101,9 +102,6 @@ public class WirelessLanDroneConnection implements DroneConnection {
         int counter = 0;
 
         switch (command.getAcknowledge()) {
-            case None:
-                break;
-
             case AckBefore:
                 counter = ++ackCounter;
                 break;
@@ -114,6 +112,10 @@ public class WirelessLanDroneConnection implements DroneConnection {
 
             case NoAckBefore:
                 counter = ++noAckCounter;
+                break;
+
+            case None:
+            default:
                 break;
         }
 
