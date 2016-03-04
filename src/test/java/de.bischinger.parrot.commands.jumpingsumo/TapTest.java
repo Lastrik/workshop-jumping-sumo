@@ -41,4 +41,11 @@ public class TapTest {
         Acknowledge acknowledge = sut.getAcknowledge();
         assertThat(acknowledge, is(Acknowledge.AckBefore));
     }
+
+
+    @Test
+    public void toStringTest() {
+
+        assertThat(sut.toString(), is("Tap"));
+    }
 }
