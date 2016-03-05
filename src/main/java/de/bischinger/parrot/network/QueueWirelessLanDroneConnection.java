@@ -33,44 +33,45 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 
 /**
- * Represents the wireless lan connection to the drone.
+ * Represents the queue wireless lan connection to the drone.
  *
  * @author  Tobias Schneider
  */
 public class QueueWirelessLanDroneConnection implements DroneConnection {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+    private static final String CONTROLLER_TYPE = "_arsdk-0902._udp";
 
     private final BlockingQueue<Command> queue = new ArrayBlockingQueue<>(25);
     private final List<EventListener> eventListeners = new ArrayList<>();
 
     private final String deviceIp;
     private final int tcpPort;
-    private final String wlanName;
+    private final String wirelessLanName;
     private final Clock clock;
 
     private int devicePort;
     private byte noAckCounter = 0;
     private byte ackCounter = 0;
 
-    public QueueWirelessLanDroneConnection(String deviceIp, int tcpPort, String wlanName) {
+    public QueueWirelessLanDroneConnection(String deviceIp, int tcpPort, String wirelessLanName) {
 
-        LOGGER.info(format("Creating DroneConnector for %s:%s...", deviceIp, tcpPort));
+        LOGGER.info(format("Creating " + this.getClass().getSimpleName() + " for %s:%s...", deviceIp, tcpPort));
         this.deviceIp = deviceIp;
         this.tcpPort = tcpPort;
-        this.wlanName = wlanName;
+        this.wirelessLanName = wirelessLanName;
         this.clock = Clock.systemDefaultZone();
     }
 
     @Override
     public void connect() throws IOException {
 
-        LOGGER.info("Connecting to drone...");
+        LOGGER.fine("Connecting to drone...");
 
-        HandshakeRequest handshakeRequest = new HandshakeRequest(wlanName, "_arsdk-0902._udp");
+        HandshakeRequest handshakeRequest = new HandshakeRequest(wirelessLanName, CONTROLLER_TYPE);
         HandshakeResponse handshakeResponse = new TcpHandshake(deviceIp, tcpPort).shake(handshakeRequest);
         devicePort = handshakeResponse.getC2d_port();
-        LOGGER.info(format("Connected: Handshake completed with %s", handshakeResponse));
+        LOGGER.info(format("Connected to drone - Handshake completed with %s", handshakeResponse));
 
         sendCommand(CurrentDate.currentDate(clock));
         sendCommand(CurrentTime.currentTime(clock));
@@ -83,12 +84,12 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
     @Override
     public void sendCommand(Command command) {
 
-        LOGGER.info("ADDED " + command);
+        LOGGER.config("Add command to queue: " + command);
 
         try {
             queue.put(command);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.info("Could not add " + command);
         }
     }
 
@@ -104,22 +105,21 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
 
         new Thread(() -> {
             try(DatagramSocket sumoSocket = new DatagramSocket(devicePort)) {
-                LOGGER.finest(format("Listing for answers on port %s", devicePort));
+                LOGGER.info(format("Listing for response on port %s", devicePort));
 
                 int pingCounter = 0;
 
                 while (true) {
-                    byte[] buf = new byte[65000];
+                    byte[] buffer = new byte[65000];
 
-                    DatagramPacket packet = new DatagramPacket(buf, buf.length);
+                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                     sumoSocket.receive(packet);
-                    LOGGER.finest(format("Listing for answers on port %s", devicePort));
 
                     byte[] data = packet.getData();
 
                     // Answer with a Pong
                     if (data[1] == 126) {
-                        LOGGER.finest("Ping");
+                        LOGGER.config("Ping");
                         sendCommand(Pong.pong(data[3]));
 
                         if (pingCounter > 10 && pingCounter % 10 == 1) {
@@ -135,8 +135,7 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
                     eventListeners.stream().forEach(eventListener -> eventListener.eventFired(data));
                 }
             } catch (IOException e) {
-                // TODO own exception with handling?
-                e.printStackTrace();
+                LOGGER.warning("Error occurred while receiving packets from the drone.");
             }
         }).start();
     }
@@ -164,7 +163,7 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.warning("Error occurred while sending packets to the drone.");
             }
         }).start();
     }
