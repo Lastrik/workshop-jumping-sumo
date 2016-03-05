@@ -87,7 +87,7 @@ public final class Pcmd implements Command {
     public String toString() {
 
         return "Pcmd{"
-            + "turn=" + turn
-            + ", speed=" + speed + '}';
+            + "speed=" + speed
+            + ", turn=" + turn + '}';
     }
 }
