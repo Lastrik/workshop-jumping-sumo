@@ -1,6 +1,6 @@
 package de.bischinger.parrot.driver.keyboard;
 
-import de.bischinger.parrot.commands.movement.Jump;
+import de.bischinger.parrot.commands.movement.Pcmd;
 import de.bischinger.parrot.controller.DroneController;
 import de.bischinger.parrot.network.DroneConnection;
 
@@ -13,6 +13,8 @@ import java.lang.invoke.MethodHandles;
 
 import java.util.logging.Logger;
 
+import static de.bischinger.parrot.commands.movement.Jump.Type.High;
+import static de.bischinger.parrot.commands.movement.Jump.Type.Long;
 import static de.bischinger.parrot.commands.multimedia.AudioTheme.Theme.Insect;
 import static de.bischinger.parrot.commands.multimedia.AudioTheme.Theme.Monster;
 import static de.bischinger.parrot.commands.multimedia.AudioTheme.Theme.Robot;
@@ -45,6 +47,8 @@ import static java.awt.event.KeyEvent.VK_UP;
 import static java.awt.event.KeyEvent.VK_X;
 import static java.awt.event.KeyEvent.VK_Y;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+
 
 public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
@@ -55,17 +59,17 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
     private final DroneController droneController;
     private final int straightSpeed;
-    private final int turnSpeed;
+    private final int turnDegrees;
 
     private boolean isUpPressed;
     private boolean isDownPressed;
     private boolean isLeftPressed;
     private boolean isRightPressed;
 
-    public KeyboardDriver(DroneConnection droneConnection, int straightSpeed, int turnSpeed) throws IOException {
+    public KeyboardDriver(DroneConnection droneConnection, int straightSpeed, int turnDegrees) throws IOException {
 
         this.straightSpeed = straightSpeed;
-        this.turnSpeed = turnSpeed;
+        this.turnDegrees = turnDegrees;
         this.droneController = new DroneController(droneConnection);
 
         initComponents();
@@ -90,6 +94,8 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
         while (true) {
             try {
+                MILLISECONDS.sleep(100);
+
                 // set speed
                 int speed = 0;
 
@@ -99,19 +105,19 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                     speed = -1 * this.straightSpeed;
                 }
 
-                // set direction
-                int direction = 0;
+                // set turn degrees
+                int degrees = 0;
 
                 if (isLeftPressed) {
-                    direction = -turnSpeed;
+                    degrees = isDownPressed ? turnDegrees : -turnDegrees;
                 } else if (isRightPressed) {
-                    direction = turnSpeed;
+                    degrees = isDownPressed ? -turnDegrees : turnDegrees;
                 }
 
-                if (speed != 0 || direction != 0) {
-                    droneController.pcmd(speed, direction);
+                if (speed != 0 || degrees != 0) {
+                    droneController.send(Pcmd.pcmd(speed, degrees, 0));
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -179,11 +185,11 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                 break;
 
             case VK_H:
-                droneController.jump(Jump.Type.High);
+                droneController.jump(High);
                 break;
 
             case VK_J:
-                droneController.jump(Jump.Type.Long);
+                droneController.jump(Long);
                 break;
 
             case VK_1:
@@ -227,15 +233,15 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                 break;
 
             case VK_A:
-                turn90Left();
+                droneController.pcmd(0, -90);
                 break;
 
             case VK_D:
-                turn90Right();
+                droneController.pcmd(0, 90);
                 break;
 
             case VK_S:
-                turn180();
+                droneController.pcmd(0, 180);
                 break;
 
             case VK_I:
@@ -258,23 +264,5 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                 droneController.audio().unmute();
                 break;
         }
-    }
-
-
-    private void turn90Right() throws IOException {
-
-        droneController.pcmd(0, 25);
-    }
-
-
-    private void turn90Left() throws IOException {
-
-        droneController.pcmd(0, -25);
-    }
-
-
-    private void turn180() throws IOException {
-
-        droneController.pcmd(0, 50);
     }
 }

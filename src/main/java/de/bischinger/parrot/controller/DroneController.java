@@ -1,5 +1,6 @@
 package de.bischinger.parrot.controller;
 
+import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.animation.Metronome;
 import de.bischinger.parrot.commands.animation.Ondulation;
 import de.bischinger.parrot.commands.animation.Slalom;
@@ -57,6 +58,14 @@ public class DroneController implements AutoCloseable {
 
         droneConnection.sendCommand(Disconnect.disconnect());
         droneConnection.close();
+    }
+
+
+    public DroneController send(Command command) throws IOException {
+
+        this.droneConnection.sendCommand(command);
+
+        return this;
     }
 
 

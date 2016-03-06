@@ -23,8 +23,14 @@ public final class Pcmd implements Command {
     private final CommandKey commandKey = CommandKey.commandKey(3, 0, 0);
     private final byte speed;
     private final byte turn;
+    private final Integer waitingTime;
 
-    protected Pcmd(int speed, int degrees) {
+    protected Pcmd(int speed, int degrees, Integer waitingTime) {
+
+        if (waitingTime != null && waitingTime < 0) {
+            throw new IllegalArgumentException(format("Waiting time must be greater or equal zero but is %s",
+                    waitingTime));
+        }
 
         if (speed < -128 || speed > 127) {
             throw new IllegalArgumentException(format("Movement: Speed must be between -128 and 127 but is %s", speed));
@@ -32,6 +38,7 @@ public final class Pcmd implements Command {
 
         this.speed = (byte) speed;
         this.turn = (byte) degreeToPercent(degrees);
+        this.waitingTime = waitingTime;
     }
 
     /**
@@ -44,7 +51,22 @@ public final class Pcmd implements Command {
      */
     public static Pcmd pcmd(int speed, int degrees) {
 
-        return new Pcmd(speed, degrees);
+        return new Pcmd(speed, degrees, null);
+    }
+
+
+    /**
+     * This is one of the main methods to move a parrot drone.
+     *
+     * @param  speed  how fast the electronic engine of the drone should spin
+     * @param  degrees  how much the drone will turn around his own axe in degree (°)
+     * @param  waitingTime  set the waiting time to send the next command
+     *
+     * @return  an immutable command with the given inputs
+     */
+    public static Pcmd pcmd(int speed, int degrees, int waitingTime) {
+
+        return new Pcmd(speed, degrees, waitingTime);
     }
 
 
@@ -89,5 +111,16 @@ public final class Pcmd implements Command {
         return "Pcmd{"
             + "speed=" + speed
             + ", turn=" + turn + '}';
+    }
+
+
+    @Override
+    public int waitingTime() {
+
+        if (waitingTime == null) {
+            return Command.super.waitingTime();
+        }
+
+        return this.waitingTime;
     }
 }
