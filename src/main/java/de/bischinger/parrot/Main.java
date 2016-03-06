@@ -80,7 +80,7 @@ public final class Main {
 
             case "swing":
                 SINGLETON = new DroneController(droneConnection);
-                new SwingBasedProgrammaticDriver(SINGLETON).setVisible(true);
+                new SwingBasedProgrammaticDriver(SINGLETON).withDynamicCompilation().setVisible(true);
                 break;
 
             case "ant4lr":
