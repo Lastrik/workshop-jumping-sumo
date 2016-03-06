@@ -1,7 +1,6 @@
 package de.bischinger.parrot.network;
 
 import de.bischinger.parrot.commands.Command;
-import de.bischinger.parrot.commands.CommandException;
 import de.bischinger.parrot.commands.common.CurrentDate;
 import de.bischinger.parrot.commands.common.CurrentTime;
 import de.bischinger.parrot.commands.common.Pong;
@@ -27,11 +26,9 @@ import static java.lang.String.format;
 
 import static java.net.InetAddress.getByName;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-
 
 /**
- * Represents the connection to the drone.
+ * Represents the wireless lan connection to the drone.
  *
  * @author  Tobias Schneider
  */
@@ -85,15 +82,60 @@ public class WirelessLanDroneConnection implements DroneConnection {
         LOGGER.info(format("Sending command: %s", command));
         datagramSocket.send(new DatagramPacket(packet, packet.length, getByName(deviceIp), devicePort));
         // TODO catch IOException here
+    }
 
-        // TODO FIX TRUE
-        if (true) {
-            try {
-                MILLISECONDS.sleep(580);
-            } catch (InterruptedException e) {
-                throw new CommandException("I got interrupted while sleeping. That is not nice from you.", e);
+
+    @Override
+    public void addEventListener(EventListener eventListener) {
+
+        this.eventListeners.add(eventListener);
+    }
+
+
+    @Override
+    public void close() {
+
+        datagramSocket.close();
+    }
+
+
+    private void addAnswerSocket() {
+
+        new Thread(() -> {
+            try(DatagramSocket sumoSocket = new DatagramSocket(devicePort)) {
+                LOGGER.info(format("Listing for answers on port %s", devicePort));
+
+                int pingCounter = 0;
+
+                while (true) {
+                    byte[] buf = new byte[65000];
+
+                    DatagramPacket packet = new DatagramPacket(buf, buf.length);
+                    sumoSocket.receive(packet);
+
+                    byte[] data = packet.getData();
+
+                    // Answer with a Pong
+                    if (data[1] == 126) {
+                        LOGGER.info("Ping");
+                        sendCommand(Pong.pong(data[3]));
+
+                        if (pingCounter > 10 && pingCounter % 10 == 1) {
+                            sendCommand(CurrentDate.currentDate(clock));
+                            sendCommand(CurrentTime.currentTime(clock));
+                        }
+
+                        pingCounter++;
+
+                        continue;
+                    }
+
+                    eventListeners.stream().forEach(eventListener -> eventListener.eventFired(data));
+                }
+            } catch (IOException e) {
+                LOGGER.warning("Error occurred while receiving packets from the drone.");
             }
-        }
+        }).start();
     }
 
 
@@ -120,68 +162,5 @@ public class WirelessLanDroneConnection implements DroneConnection {
         }
 
         return counter;
-    }
-
-
-    @Override
-    public void addEventListener(EventListener eventListener) {
-
-        this.eventListeners.add(eventListener);
-    }
-
-
-    private void addAnswerSocket() {
-
-        new Thread(() -> {
-            try(DatagramSocket sumoSocket = new DatagramSocket(devicePort)) {
-                LOGGER.info(format("Listing for answers on port %s", devicePort));
-
-                int pingCounter = 0;
-
-                while (true) {
-                    byte[] buf = new byte[65000];
-
-                    DatagramPacket packet = new DatagramPacket(buf, buf.length);
-                    sumoSocket.receive(packet);
-                    LOGGER.config(format("Listing for answers on port %s", devicePort));
-
-                    byte[] data = packet.getData();
-
-                    // Answer with a Pong
-                    if (data[1] == 126) {
-                        sendCommand(Pong.pong(data[3]));
-
-                        if (pingCounter > 10 && pingCounter % 10 == 1) {
-                            sendCommand(CurrentDate.currentDate(clock));
-                            sendCommand(CurrentTime.currentTime(clock));
-                        }
-
-                        pingCounter++;
-
-                        continue;
-                    }
-
-                    eventListeners.stream().forEach(eventListener -> eventListener.eventFired(data));
-
-                    // FIXME
-//                    CommandReader commandReader = CommandReader.commandReader(data);
-//
-//                    if (commandReader.isPing() || commandReader.isLinkQualityChanged()
-//                            || commandReader.isWifiSignalChanged()) {
-//                        continue;
-//                    }
-                }
-            } catch (IOException e) {
-                // TODO own exception with handling?
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
-
-    @Override
-    public void close() {
-
-        datagramSocket.close();
     }
 }
