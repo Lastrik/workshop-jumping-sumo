@@ -56,7 +56,7 @@ public final class Main {
 
         String driver = "program";
 
-        if (args.length > 1) {
+        if (args.length >= 1) {
             driver = args[0].toLowerCase();
         }
 
