@@ -11,7 +11,12 @@ import java.util.logging.Logger;
 
 
 /**
+ * ProgrammaticDriver.
+ *
+ * <p>Predefine the moves of the drone</p>
+ *
  * @author  Alexander Bischof
+ * @author  Tobias Schneider
  */
 public class ProgrammaticDriver {
 
@@ -22,14 +27,14 @@ public class ProgrammaticDriver {
     public ProgrammaticDriver(DroneConnection droneConnection) throws IOException {
 
         drone = new DroneController(droneConnection);
+
+        drone.addOutdoorSpeedListener(b -> LOGGER.info("Speed: " + b));
+        drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+        drone.addBatteryListener(aByte -> LOGGER.info("Batterylevel: " + aByte.toString() + "%"));
     }
 
     public void drive() throws IOException, InterruptedException {
 
-        drone.video().enableVideo().drone().right(360);
-
-//        drone.addOutdoorSpeedListener(b -> System.out.println("Speed: " + b)).addPCMDListener(b ->
-//                    System.out.println("PCMD: " + b)).addBatteryListener(aByte ->
-//                System.out.println("Batterylevel: " + aByte.toString() + "%")).video().enableVideo();
+        drone.metronome().tap().right().left();
     }
 }
