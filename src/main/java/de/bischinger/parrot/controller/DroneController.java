@@ -32,6 +32,9 @@ import java.lang.invoke.MethodHandles;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import static de.bischinger.parrot.commands.movement.Jump.Type.High;
+import static de.bischinger.parrot.commands.movement.Jump.Type.Long;
+
 
 /**
  * Controller to control the drone connected by the {@link DroneConnection}.
@@ -128,6 +131,22 @@ public class DroneController implements AutoCloseable {
     public DroneController jump(Jump.Type jumpType) throws IOException {
 
         this.droneConnection.sendCommand(Jump.jump(jumpType));
+
+        return this;
+    }
+
+
+    public DroneController jumpHigh() throws IOException {
+
+        this.droneConnection.sendCommand(Jump.jump(High));
+
+        return this;
+    }
+
+
+    public DroneController jumpLong() throws IOException {
+
+        this.droneConnection.sendCommand(Jump.jump(Long));
 
         return this;
     }
