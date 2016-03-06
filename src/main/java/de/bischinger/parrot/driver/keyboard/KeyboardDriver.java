@@ -1,7 +1,6 @@
 package de.bischinger.parrot.driver.keyboard;
 
-import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;
-import de.bischinger.parrot.commands.jumpingsumo.Jump;
+import de.bischinger.parrot.commands.movement.Jump;
 import de.bischinger.parrot.controller.DroneController;
 import de.bischinger.parrot.network.DroneConnection;
 
@@ -13,6 +12,10 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
 import java.util.logging.Logger;
+
+import static de.bischinger.parrot.commands.multimedia.AudioTheme.Theme.Insect;
+import static de.bischinger.parrot.commands.multimedia.AudioTheme.Theme.Monster;
+import static de.bischinger.parrot.commands.multimedia.AudioTheme.Theme.Robot;
 
 import static java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager;
 import static java.awt.event.KeyEvent.KEY_PRESSED;
@@ -41,9 +44,6 @@ import static java.awt.event.KeyEvent.VK_S;
 import static java.awt.event.KeyEvent.VK_UP;
 import static java.awt.event.KeyEvent.VK_X;
 import static java.awt.event.KeyEvent.VK_Y;
-
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 
 public class KeyboardDriver implements Runnable, KeyEventDispatcher {
@@ -90,8 +90,6 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
         while (true) {
             try {
-                MILLISECONDS.sleep(100);
-
                 // set speed
                 int speed = 0;
 
@@ -113,8 +111,8 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                 if (speed != 0 || direction != 0) {
                     droneController.pcmd(speed, direction);
                 }
-            } catch (IOException | InterruptedException e1) {
-                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -182,7 +180,6 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
             case VK_H:
                 droneController.jump(Jump.Type.High);
-                SECONDS.sleep(2);
                 break;
 
             case VK_J:
@@ -191,47 +188,38 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
             case VK_1:
                 droneController.spin();
-                SECONDS.sleep(1);
                 break;
 
             case VK_2:
                 droneController.tap();
-                SECONDS.sleep(1);
                 break;
 
             case VK_3:
                 droneController.slowShake();
-                SECONDS.sleep(1);
                 break;
 
             case VK_4:
                 droneController.metronome();
-                SECONDS.sleep(1);
                 break;
 
             case VK_5:
                 droneController.ondulation();
-                SECONDS.sleep(1);
                 break;
 
             case VK_6:
                 droneController.spinJump();
-                SECONDS.sleep(1);
                 break;
 
             case VK_7:
                 droneController.spinToPosture();
-                SECONDS.sleep(1);
                 break;
 
             case VK_8:
                 droneController.spiral();
-                SECONDS.sleep(1);
                 break;
 
             case VK_9:
                 droneController.slalom();
-                SECONDS.sleep(1);
                 break;
 
             case VK_0:
@@ -240,29 +228,26 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
             case VK_A:
                 turn90Left();
-                SECONDS.sleep(2);
                 break;
 
             case VK_D:
                 turn90Right();
-                SECONDS.sleep(2);
                 break;
 
             case VK_S:
                 turn180();
-                SECONDS.sleep(2);
                 break;
 
             case VK_I:
-                droneController.audio().theme(AudioTheme.Theme.Monster);
+                droneController.audio().theme(Monster);
                 break;
 
             case VK_O:
-                droneController.audio().theme(AudioTheme.Theme.Insect);
+                droneController.audio().theme(Insect);
                 break;
 
             case VK_P:
-                droneController.audio().theme(AudioTheme.Theme.Robot);
+                droneController.audio().theme(Robot);
                 break;
 
             case VK_Y:

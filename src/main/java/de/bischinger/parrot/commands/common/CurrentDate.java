@@ -68,4 +68,11 @@ public final class CurrentDate implements Command {
 
         return "CurrentDate{" + clock.instant() + '}';
     }
+
+
+    @Override
+    public int waitingTime() {
+
+        return 150;
+    }
 }

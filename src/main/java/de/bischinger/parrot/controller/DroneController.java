@@ -1,21 +1,21 @@
 package de.bischinger.parrot.controller;
 
+import de.bischinger.parrot.commands.animation.Metronome;
+import de.bischinger.parrot.commands.animation.Ondulation;
+import de.bischinger.parrot.commands.animation.Slalom;
+import de.bischinger.parrot.commands.animation.SlowShake;
+import de.bischinger.parrot.commands.animation.Spin;
+import de.bischinger.parrot.commands.animation.SpinJump;
+import de.bischinger.parrot.commands.animation.SpinToPosture;
+import de.bischinger.parrot.commands.animation.Spiral;
+import de.bischinger.parrot.commands.animation.StopAnimation;
+import de.bischinger.parrot.commands.animation.Tap;
 import de.bischinger.parrot.commands.common.Disconnect;
-import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;
-import de.bischinger.parrot.commands.jumpingsumo.Jump;
-import de.bischinger.parrot.commands.jumpingsumo.Metronome;
-import de.bischinger.parrot.commands.jumpingsumo.Ondulation;
-import de.bischinger.parrot.commands.jumpingsumo.Pcmd;
-import de.bischinger.parrot.commands.jumpingsumo.Slalom;
-import de.bischinger.parrot.commands.jumpingsumo.SlowShake;
-import de.bischinger.parrot.commands.jumpingsumo.Spin;
-import de.bischinger.parrot.commands.jumpingsumo.SpinJump;
-import de.bischinger.parrot.commands.jumpingsumo.SpinToPosture;
-import de.bischinger.parrot.commands.jumpingsumo.Spiral;
-import de.bischinger.parrot.commands.jumpingsumo.StopAnimation;
-import de.bischinger.parrot.commands.jumpingsumo.Tap;
-import de.bischinger.parrot.commands.jumpingsumo.VideoStreaming;
-import de.bischinger.parrot.commands.jumpingsumo.Volume;
+import de.bischinger.parrot.commands.movement.Jump;
+import de.bischinger.parrot.commands.movement.Pcmd;
+import de.bischinger.parrot.commands.multimedia.AudioTheme;
+import de.bischinger.parrot.commands.multimedia.VideoStreaming;
+import de.bischinger.parrot.commands.multimedia.Volume;
 import de.bischinger.parrot.listener.BatteryListener;
 import de.bischinger.parrot.listener.BatteryState;
 import de.bischinger.parrot.listener.CriticalBatteryListener;
@@ -173,7 +173,7 @@ public class DroneController implements AutoCloseable {
 
 
     public DroneController spinJump() throws IOException {
-        System.out.println("kjhsdkjhsdkjhsdk");
+
         this.droneConnection.sendCommand(SpinJump.spinJump());
 
         return this;

@@ -41,4 +41,11 @@ public final class Pong implements Command {
 
         return "Pong";
     }
+
+
+    @Override
+    public int waitingTime() {
+
+        return 150;
+    }
 }

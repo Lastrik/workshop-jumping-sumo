@@ -40,6 +40,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 public class QueueWirelessLanDroneConnection implements DroneConnection {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+
     private static final String CONTROLLER_TYPE = "_arsdk-0902._udp";
 
     private final BlockingQueue<Command> queue = new ArrayBlockingQueue<>(25);
@@ -157,7 +158,7 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
                         sumoSocket.send(new DatagramPacket(packet, packet.length, getByName(deviceIp), devicePort));
                         LOGGER.info(format("Sending command: %s", command));
 
-                        MILLISECONDS.sleep(500);
+                        MILLISECONDS.sleep(command.waitingTime());
                     } catch (InterruptedException e) {
                         throw new CommandException("Got interrupted while getting command", e);
                     }

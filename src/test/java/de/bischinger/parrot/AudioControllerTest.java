@@ -1,7 +1,7 @@
 package de.bischinger.parrot;
 
-import de.bischinger.parrot.commands.jumpingsumo.AudioTheme;
-import de.bischinger.parrot.commands.jumpingsumo.Volume;
+import de.bischinger.parrot.commands.multimedia.AudioTheme;
+import de.bischinger.parrot.commands.multimedia.Volume;
 import de.bischinger.parrot.controller.DroneController;
 import de.bischinger.parrot.network.DroneConnection;
 

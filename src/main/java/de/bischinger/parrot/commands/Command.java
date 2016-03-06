@@ -21,7 +21,20 @@ public interface Command {
 
 
     /**
+     * TODO Describe why this is needed.
+     *
      * @return
      */
     Acknowledge getAcknowledge();
+
+
+    /**
+     * Define the time to wait after a command was send to the drone to wait until the next command should be fired.
+     *
+     * @return  time to wait until send next command to the drone
+     */
+    default int waitingTime() {
+
+        return 500;
+    }
 }
