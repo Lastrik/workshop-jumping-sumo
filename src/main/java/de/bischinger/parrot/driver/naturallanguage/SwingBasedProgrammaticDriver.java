@@ -2,6 +2,8 @@ package de.bischinger.parrot.driver.naturallanguage;
 
 import de.bischinger.parrot.controller.DroneController;
 
+import net.openhft.compiler.CachedCompiler;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,8 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
-
-import static net.openhft.compiler.CompilerUtils.CACHED_COMPILER;
 
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.SOUTH;
@@ -114,7 +114,7 @@ public class SwingBasedProgrammaticDriver extends JFrame {
                     + "}\n", text);
 
             try {
-                Class aClass = CACHED_COMPILER.loadFromJava(className, javaCode);
+                Class aClass = new CachedCompiler(null, null).loadFromJava(className, javaCode);
                 Runnable runner = (Runnable) aClass.newInstance();
                 runner.run();
             } catch (Exception e1) {
