@@ -38,7 +38,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  *
  * @author  Tobias Schneider
  */
-public class QueueWirelessLanDroneConnection implements DroneConnection {
+public class WirelessLanDroneConnection implements DroneConnection {
 
     private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
 
@@ -57,7 +57,7 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
     private byte noAckCounter = 0;
     private byte ackCounter = 0;
 
-    public QueueWirelessLanDroneConnection(String deviceIp, int tcpPort, String wirelessLanName) {
+    public WirelessLanDroneConnection(String deviceIp, int tcpPort, String wirelessLanName) {
 
         LOGGER.info(format("Creating " + this.getClass().getSimpleName() + " for %s:%s...", deviceIp, tcpPort));
 
