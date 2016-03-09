@@ -1,6 +1,4 @@
-package de.bischinger.parrot.commands.movement;
-
-import de.bischinger.parrot.lib.command.multimedia.AudioTheme;
+package de.bischinger.parrot.lib.command.multimedia;
 
 import org.junit.Test;
 

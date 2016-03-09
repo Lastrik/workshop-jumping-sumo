@@ -1,6 +1,4 @@
-package de.bischinger.parrot.commands.movement;
-
-import de.bischinger.parrot.lib.command.movement.Jump;
+package de.bischinger.parrot.lib.command.movement;
 
 import org.junit.Test;
 

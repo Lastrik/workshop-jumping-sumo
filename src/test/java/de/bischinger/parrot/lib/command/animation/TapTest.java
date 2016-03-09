@@ -1,7 +1,6 @@
-package de.bischinger.parrot.commands.movement;
+package de.bischinger.parrot.lib.command.animation;
 
 import de.bischinger.parrot.lib.command.Acknowledge;
-import de.bischinger.parrot.lib.command.animation.Ondulation;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,18 +11,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**
- * Unit test of {@link Ondulation}.
+ * Unit test of {@link Tap}.
  *
  * @author  Tobias Schneider
  */
-public class OndulationTest {
+public class TapTest {
 
-    private Ondulation sut;
+    private Tap sut;
 
     @Before
     public void setUp() throws Exception {
 
-        sut = Ondulation.ondulation();
+        sut = Tap.tap();
     }
 
 
@@ -32,7 +31,7 @@ public class OndulationTest {
 
         byte[] bytesPackage = sut.getBytes(1);
 
-        assertThat(bytesPackage, is(new byte[] { 4, 11, 1, 15, 0, 0, 0, 3, 2, 4, 0, 5, 0, 0, 0 }));
+        assertThat(bytesPackage, is(new byte[] { 4, 11, 1, 15, 0, 0, 0, 3, 2, 4, 0, 2, 0, 0, 0 }));
     }
 
 
@@ -41,5 +40,12 @@ public class OndulationTest {
 
         Acknowledge acknowledge = sut.getAcknowledge();
         assertThat(acknowledge, is(Acknowledge.AckBefore));
+    }
+
+
+    @Test
+    public void toStringTest() {
+
+        assertThat(sut.toString(), is("Tap"));
     }
 }

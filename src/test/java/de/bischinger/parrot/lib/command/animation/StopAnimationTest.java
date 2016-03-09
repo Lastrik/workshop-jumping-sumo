@@ -1,8 +1,6 @@
-package de.bischinger.parrot.commands.movement;
+package de.bischinger.parrot.lib.command.animation;
 
 import de.bischinger.parrot.lib.command.Acknowledge;
-import de.bischinger.parrot.lib.command.animation.SpinToPosture;
-import de.bischinger.parrot.lib.command.animation.Spiral;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,18 +11,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**
- * Unit test of {@link SpinToPosture}.
+ * Unit test of {@link StopAnimation}.
  *
  * @author  Tobias Schneider
  */
-public class SpiralTest {
+public class StopAnimationTest {
 
-    private Spiral sut;
+    private StopAnimation sut;
 
     @Before
     public void setUp() throws Exception {
 
-        sut = Spiral.spiral();
+        sut = StopAnimation.stopAnimation();
     }
 
 
@@ -33,7 +31,7 @@ public class SpiralTest {
 
         byte[] bytesPackage = sut.getBytes(1);
 
-        assertThat(bytesPackage, is(new byte[] { 4, 11, 1, 15, 0, 0, 0, 3, 2, 4, 0, 8, 0, 0, 0 }));
+        assertThat(bytesPackage, is(new byte[] { 4, 11, 1, 15, 0, 0, 0, 3, 2, 4, 0, 0, 0, 0, 0 }));
     }
 
 

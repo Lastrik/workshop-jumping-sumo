@@ -1,6 +1,5 @@
-package de.bischinger.parrot;
+package de.bischinger.parrot.control;
 
-import de.bischinger.parrot.control.DroneController;
 import de.bischinger.parrot.lib.command.animation.Metronome;
 import de.bischinger.parrot.lib.command.animation.Ondulation;
 import de.bischinger.parrot.lib.command.animation.Slalom;

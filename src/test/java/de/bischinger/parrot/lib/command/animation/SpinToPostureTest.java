@@ -1,7 +1,6 @@
-package de.bischinger.parrot.commands.movement;
+package de.bischinger.parrot.lib.command.animation;
 
 import de.bischinger.parrot.lib.command.Acknowledge;
-import de.bischinger.parrot.lib.command.animation.SpinJump;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,18 +11,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**
- * Unit test of {@link SpinJump}.
+ * Unit test of {@link SpinToPosture}.
  *
  * @author  Tobias Schneider
  */
-public class SpinJumpTest {
+public class SpinToPostureTest {
 
-    private SpinJump sut;
+    private SpinToPosture sut;
 
     @Before
     public void setUp() throws Exception {
 
-        sut = SpinJump.spinJump();
+        sut = SpinToPosture.spinToPosture();
     }
 
 
@@ -32,7 +31,7 @@ public class SpinJumpTest {
 
         byte[] bytesPackage = sut.getBytes(1);
 
-        assertThat(bytesPackage, is(new byte[] { 4, 11, 1, 15, 0, 0, 0, 3, 2, 4, 0, 6, 0, 0, 0 }));
+        assertThat(bytesPackage, is(new byte[] { 4, 11, 1, 15, 0, 0, 0, 3, 2, 4, 0, 7, 0, 0, 0 }));
     }
 
 

@@ -1,7 +1,6 @@
-package de.bischinger.parrot.commands.movement;
+package de.bischinger.parrot.lib.command.animation;
 
 import de.bischinger.parrot.lib.command.Acknowledge;
-import de.bischinger.parrot.lib.command.animation.Slalom;
 
 import org.junit.Before;
 import org.junit.Test;
