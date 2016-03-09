@@ -2,9 +2,9 @@ package de.bischinger.parrot.commands.animation;
 
 import de.bischinger.parrot.commands.Acknowledge;
 import de.bischinger.parrot.commands.ChannelType;
-import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.CommandKey;
 import de.bischinger.parrot.commands.FrameType;
+import de.bischinger.parrot.lib.command.Command;
 
 
 /**

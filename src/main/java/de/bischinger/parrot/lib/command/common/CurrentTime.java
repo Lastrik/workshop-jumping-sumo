@@ -1,8 +1,7 @@
-package de.bischinger.parrot.commands.common;
+package de.bischinger.parrot.lib.command.common;
 
 import de.bischinger.parrot.commands.Acknowledge;
 import de.bischinger.parrot.commands.ChannelType;
-import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.CommandException;
 import de.bischinger.parrot.commands.CommandKey;
 import de.bischinger.parrot.commands.FrameType;
@@ -11,28 +10,28 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import java.time.Clock;
-
-import static java.time.LocalDate.now;
-import static java.time.format.DateTimeFormatter.ISO_DATE;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
  * @author  Alexander Bischof
  * @author  Tobias Schneider
  */
-public final class CurrentDate implements Command {
+public final class CurrentTime implements CommonCommand {
 
-    private final CommandKey commandKey = CommandKey.commandKey(0, 4, 0);
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("'T'HHmmssZZZ");
+    private final CommandKey commandKey = CommandKey.commandKey(0, 4, 1);
     private final Clock clock;
 
-    protected CurrentDate(Clock clock) {
+    protected CurrentTime(Clock clock) {
 
         this.clock = clock;
     }
 
-    public static CurrentDate currentDate(Clock clock) {
+    public static CurrentTime currentTime(Clock clock) {
 
-        return new CurrentDate(clock);
+        return new CurrentTime(clock);
     }
 
 
@@ -47,11 +46,12 @@ public final class CurrentDate implements Command {
 
         try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             outputStream.write(header);
-            outputStream.write(new NullTerminatedString(now(clock).format(ISO_DATE)).getNullTerminatedString());
+            outputStream.write(new NullTerminatedString(ZonedDateTime.now(clock).format(TIME_FORMATTER))
+                .getNullTerminatedString());
 
             return outputStream.toByteArray();
         } catch (IOException e) {
-            throw new CommandException("Could not generate CurrentDate command.", e);
+            throw new CommandException("Could not generate CurrentTime command.", e);
         }
     }
 
@@ -66,7 +66,7 @@ public final class CurrentDate implements Command {
     @Override
     public String toString() {
 
-        return "CurrentDate{" + clock.instant() + '}';
+        return "CurrentTime{" + clock.instant() + '}';
     }
 
 

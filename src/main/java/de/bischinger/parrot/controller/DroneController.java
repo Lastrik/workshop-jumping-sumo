@@ -1,6 +1,5 @@
 package de.bischinger.parrot.controller;
 
-import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.animation.Metronome;
 import de.bischinger.parrot.commands.animation.Ondulation;
 import de.bischinger.parrot.commands.animation.Slalom;
@@ -11,19 +10,20 @@ import de.bischinger.parrot.commands.animation.SpinToPosture;
 import de.bischinger.parrot.commands.animation.Spiral;
 import de.bischinger.parrot.commands.animation.StopAnimation;
 import de.bischinger.parrot.commands.animation.Tap;
-import de.bischinger.parrot.commands.common.Disconnect;
 import de.bischinger.parrot.commands.movement.Jump;
 import de.bischinger.parrot.commands.movement.Pcmd;
 import de.bischinger.parrot.commands.multimedia.AudioTheme;
 import de.bischinger.parrot.commands.multimedia.VideoStreaming;
 import de.bischinger.parrot.commands.multimedia.Volume;
+import de.bischinger.parrot.lib.command.Command;
+import de.bischinger.parrot.lib.command.common.Disconnect;
+import de.bischinger.parrot.lib.network.DroneConnection;
 import de.bischinger.parrot.listener.BatteryListener;
 import de.bischinger.parrot.listener.BatteryState;
 import de.bischinger.parrot.listener.CriticalBatteryListener;
 import de.bischinger.parrot.listener.OutdoorSpeedListener;
 import de.bischinger.parrot.listener.PCMDListener;
 import de.bischinger.parrot.listener.VideoListener;
-import de.bischinger.parrot.network.DroneConnection;
 
 import java.io.IOException;
 
@@ -60,7 +60,6 @@ public class DroneController implements AutoCloseable {
     public void close() throws Exception {
 
         droneConnection.sendCommand(Disconnect.disconnect());
-        droneConnection.close();
     }
 
 

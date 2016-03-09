@@ -10,15 +10,15 @@ import de.bischinger.parrot.commands.animation.SpinToPosture;
 import de.bischinger.parrot.commands.animation.Spiral;
 import de.bischinger.parrot.commands.animation.StopAnimation;
 import de.bischinger.parrot.commands.animation.Tap;
-import de.bischinger.parrot.commands.common.Disconnect;
 import de.bischinger.parrot.commands.movement.Jump;
 import de.bischinger.parrot.commands.movement.Pcmd;
 import de.bischinger.parrot.controller.DroneController;
+import de.bischinger.parrot.lib.command.common.Disconnect;
+import de.bischinger.parrot.lib.network.DroneConnection;
 import de.bischinger.parrot.listener.BatteryListener;
 import de.bischinger.parrot.listener.CriticalBatteryListener;
 import de.bischinger.parrot.listener.OutdoorSpeedListener;
 import de.bischinger.parrot.listener.PCMDListener;
-import de.bischinger.parrot.network.DroneConnection;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -67,7 +67,6 @@ public class DroneControllerTest {
         sut.close();
 
         verify(droneConnectionMock).sendCommand(any(Disconnect.class));
-        verify(droneConnectionMock).close();
     }
 
 

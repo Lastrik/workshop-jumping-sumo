@@ -2,7 +2,7 @@ package de.bischinger.parrot.driver.keyboard;
 
 import de.bischinger.parrot.commands.movement.Pcmd;
 import de.bischinger.parrot.controller.DroneController;
-import de.bischinger.parrot.network.DroneConnection;
+import de.bischinger.parrot.lib.network.DroneConnection;
 
 import java.awt.KeyEventDispatcher;
 import java.awt.event.KeyEvent;

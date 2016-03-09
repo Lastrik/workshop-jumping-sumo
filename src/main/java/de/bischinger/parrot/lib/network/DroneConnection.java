@@ -1,6 +1,6 @@
-package de.bischinger.parrot.network;
+package de.bischinger.parrot.lib.network;
 
-import de.bischinger.parrot.commands.Command;
+import de.bischinger.parrot.lib.command.Command;
 import de.bischinger.parrot.listener.EventListener;
 
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * @author  Tobias Schneider
  */
-public interface DroneConnection extends AutoCloseable {
+public interface DroneConnection {
 
     /**
      * Connect with the drone with the constructor injected credentials.

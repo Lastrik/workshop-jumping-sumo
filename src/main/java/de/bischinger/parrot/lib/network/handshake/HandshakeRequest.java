@@ -1,4 +1,4 @@
-package de.bischinger.parrot.network.handshake;
+package de.bischinger.parrot.lib.network.handshake;
 
 /**
  * @author  Alexander Bischof

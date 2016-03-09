@@ -1,14 +1,15 @@
-package de.bischinger.parrot.network;
+package de.bischinger.parrot.lib.network;
 
-import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.CommandException;
-import de.bischinger.parrot.commands.common.CurrentDate;
-import de.bischinger.parrot.commands.common.CurrentTime;
-import de.bischinger.parrot.commands.common.Pong;
+import de.bischinger.parrot.lib.command.Command;
+import de.bischinger.parrot.lib.command.common.CommonCommand;
+import de.bischinger.parrot.lib.command.common.CurrentDate;
+import de.bischinger.parrot.lib.command.common.CurrentTime;
+import de.bischinger.parrot.lib.command.common.Pong;
+import de.bischinger.parrot.lib.network.handshake.HandshakeRequest;
+import de.bischinger.parrot.lib.network.handshake.HandshakeResponse;
+import de.bischinger.parrot.lib.network.handshake.TcpHandshake;
 import de.bischinger.parrot.listener.EventListener;
-import de.bischinger.parrot.network.handshake.HandshakeRequest;
-import de.bischinger.parrot.network.handshake.HandshakeResponse;
-import de.bischinger.parrot.network.handshake.TcpHandshake;
 
 import java.io.IOException;
 
@@ -43,7 +44,8 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
 
     private static final String CONTROLLER_TYPE = "_arsdk-0902._udp";
 
-    private final BlockingQueue<Command> queue = new ArrayBlockingQueue<>(25);
+    private final BlockingQueue<Command> commonCommandQueue = new ArrayBlockingQueue<>(25);
+    private final BlockingQueue<Command> commandQueue = new ArrayBlockingQueue<>(25);
     private final List<EventListener> eventListeners = new ArrayList<>();
 
     private final String deviceIp;
@@ -58,6 +60,7 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
     public QueueWirelessLanDroneConnection(String deviceIp, int tcpPort, String wirelessLanName) {
 
         LOGGER.info(format("Creating " + this.getClass().getSimpleName() + " for %s:%s...", deviceIp, tcpPort));
+
         this.deviceIp = deviceIp;
         this.tcpPort = tcpPort;
         this.wirelessLanName = wirelessLanName;
@@ -77,20 +80,23 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
         sendCommand(CurrentDate.currentDate(clock));
         sendCommand(CurrentTime.currentTime(clock));
 
-        addAnswerSocket();
-        runCommandConsumer();
+        runResponseHandler();
+        runConsumer(commandQueue);
+        runConsumer(commonCommandQueue);
     }
 
 
     @Override
     public void sendCommand(Command command) {
 
-        LOGGER.config("Add command to queue: " + command);
-
         try {
-            queue.put(command);
+            if (command instanceof CommonCommand) {
+                commonCommandQueue.put(command);
+            } else {
+                commandQueue.put(command);
+            }
         } catch (InterruptedException e) {
-            LOGGER.info("Could not add " + command);
+            LOGGER.info("Could not add " + command + " to a queue.");
         }
     }
 
@@ -102,7 +108,13 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
     }
 
 
-    private void addAnswerSocket() {
+    /**
+     * Drone response handler.
+     *
+     * <p>Will listen to the udp packages send from the drone to the receiver and looks up what command it is and react
+     * to it</p>
+     */
+    private void runResponseHandler() {
 
         new Thread(() -> {
             try(DatagramSocket sumoSocket = new DatagramSocket(devicePort)) {
@@ -142,14 +154,12 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
     }
 
 
-    private void runCommandConsumer() {
+    private void runConsumer(BlockingQueue<Command> queue) {
 
-        LOGGER.info("Create Consumer Thread...");
+        LOGGER.info("Creating a specific command queue consumer...");
 
         new Thread(() -> {
             try(DatagramSocket sumoSocket = new DatagramSocket()) {
-                LOGGER.info("CommandConsumer started...");
-
                 while (true) {
                     try {
                         Command command = queue.take();
@@ -160,7 +170,7 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
 
                         MILLISECONDS.sleep(command.waitingTime());
                     } catch (InterruptedException e) {
-                        throw new CommandException("Got interrupted while getting command", e);
+                        throw new CommandException("Got interrupted while taking a command", e);
                     }
                 }
             } catch (IOException e) {
@@ -193,10 +203,5 @@ public class QueueWirelessLanDroneConnection implements DroneConnection {
         }
 
         return counter;
-    }
-
-
-    @Override
-    public void close() throws Exception {
     }
 }

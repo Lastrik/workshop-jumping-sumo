@@ -1,5 +1,7 @@
 package de.bischinger.parrot.commands.common;
 
+import de.bischinger.parrot.lib.command.common.NullTerminatedString;
+
 import org.junit.Test;
 
 import java.time.LocalDate;

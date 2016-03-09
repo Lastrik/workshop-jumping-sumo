@@ -1,8 +1,7 @@
-package de.bischinger.parrot.commands.common;
+package de.bischinger.parrot.lib.command.common;
 
 import de.bischinger.parrot.commands.Acknowledge;
 import de.bischinger.parrot.commands.ChannelType;
-import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.CommandKey;
 import de.bischinger.parrot.commands.FrameType;
 
@@ -10,7 +9,7 @@ import de.bischinger.parrot.commands.FrameType;
 /**
  * @author  Alexander Bischof
  */
-public final class Disconnect implements Command {
+public final class Disconnect implements CommonCommand {
 
     private final CommandKey commandKey = CommandKey.commandKey(0, 0, 0);
 

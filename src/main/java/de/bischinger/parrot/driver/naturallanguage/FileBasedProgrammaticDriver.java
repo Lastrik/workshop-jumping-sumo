@@ -1,7 +1,7 @@
 package de.bischinger.parrot.driver.naturallanguage;
 
 import de.bischinger.parrot.controller.DroneController;
-import de.bischinger.parrot.network.DroneConnection;
+import de.bischinger.parrot.lib.network.DroneConnection;
 
 import java.io.File;
 import java.io.IOException;

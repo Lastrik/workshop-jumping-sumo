@@ -1,8 +1,8 @@
 package de.bischinger.parrot.commands.movement;
 
 import de.bischinger.parrot.commands.Acknowledge;
-import de.bischinger.parrot.commands.Command;
 import de.bischinger.parrot.commands.CommandKey;
+import de.bischinger.parrot.lib.command.Command;
 
 import static de.bischinger.parrot.commands.ChannelType.JUMPINGSUMO_CONTROLLER_TO_DEVICE_NONACK_ID;
 import static de.bischinger.parrot.commands.FrameType.ARNETWORKAL_FRAME_TYPE_DATA;

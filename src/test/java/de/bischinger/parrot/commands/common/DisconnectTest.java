@@ -1,5 +1,7 @@
 package de.bischinger.parrot.commands.common;
 
+import de.bischinger.parrot.lib.command.common.Disconnect;
+
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

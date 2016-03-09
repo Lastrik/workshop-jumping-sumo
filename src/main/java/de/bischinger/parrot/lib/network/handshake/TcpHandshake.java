@@ -1,4 +1,4 @@
-package de.bischinger.parrot.network.handshake;
+package de.bischinger.parrot.lib.network.handshake;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

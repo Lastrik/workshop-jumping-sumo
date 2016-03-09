@@ -1,4 +1,7 @@
-package de.bischinger.parrot.commands;
+package de.bischinger.parrot.lib.command;
+
+import de.bischinger.parrot.commands.Acknowledge;
+
 
 /**
  * This interface represents a command sent to the jumping sumo.

@@ -6,8 +6,8 @@ import de.bischinger.parrot.driver.naturallanguage.FileBasedProgrammaticDriver;
 import de.bischinger.parrot.driver.naturallanguage.JumpingSumoLang;
 import de.bischinger.parrot.driver.naturallanguage.SwingBasedProgrammaticDriver;
 import de.bischinger.parrot.driver.programmatic.ProgrammaticDriver;
-import de.bischinger.parrot.network.DroneConnection;
-import de.bischinger.parrot.network.QueueWirelessLanDroneConnection;
+import de.bischinger.parrot.lib.network.DroneConnection;
+import de.bischinger.parrot.lib.network.QueueWirelessLanDroneConnection;
 
 import java.awt.AWTException;
 

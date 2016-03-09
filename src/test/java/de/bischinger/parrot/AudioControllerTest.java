@@ -3,7 +3,7 @@ package de.bischinger.parrot;
 import de.bischinger.parrot.commands.multimedia.AudioTheme;
 import de.bischinger.parrot.commands.multimedia.Volume;
 import de.bischinger.parrot.controller.DroneController;
-import de.bischinger.parrot.network.DroneConnection;
+import de.bischinger.parrot.lib.network.DroneConnection;
 
 import org.junit.Before;
 import org.junit.Test;

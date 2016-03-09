@@ -1,13 +1,12 @@
-package de.bischinger.parrot.commands.common;
+package de.bischinger.parrot.lib.command.common;
 
 import de.bischinger.parrot.commands.Acknowledge;
-import de.bischinger.parrot.commands.Command;
 
 
 /**
  * @author  Alexander Bischof
  */
-public final class Pong implements Command {
+public final class Pong implements CommonCommand {
 
     private final int counter;
 

@@ -1,4 +1,4 @@
-package de.bischinger.parrot.commands.common;
+package de.bischinger.parrot.lib.command.common;
 
 import java.io.UnsupportedEncodingException;
 
