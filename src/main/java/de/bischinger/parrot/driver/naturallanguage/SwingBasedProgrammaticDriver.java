@@ -4,6 +4,7 @@ import de.bischinger.parrot.controller.DroneController;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import java.io.IOException;
 
@@ -51,13 +52,14 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         setUndecorated(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
-        setPreferredSize(new Dimension(700, 800));
+        setPreferredSize(new Dimension(1200, 800));
 
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         textArea = new JTextArea("", 5, 10);
         textArea.setPreferredSize(new Dimension(600, 700));
+        textArea.setFont(new Font("serif", Font.PLAIN, 20));
 
         JScrollPane scrollPane = new JScrollPane(textArea);
         this.add(scrollPane, CENTER);
@@ -91,7 +93,7 @@ public class SwingBasedProgrammaticDriver extends JFrame {
             text -> {
             long currentTimeMillis = System.currentTimeMillis();
 
-            text = text.replaceAll("JumpingSumo\\.", "");
+            text = text.replaceAll("(?i)jumpingsumo\\.", "");
 
             String className = "mypackage.MyClass" + currentTimeMillis;
             String javaCode = String.format("package mypackage;\n"
