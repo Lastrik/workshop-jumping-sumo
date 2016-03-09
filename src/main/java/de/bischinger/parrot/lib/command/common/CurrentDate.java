@@ -1,10 +1,10 @@
 package de.bischinger.parrot.lib.command.common;
 
-import de.bischinger.parrot.commands.Acknowledge;
-import de.bischinger.parrot.commands.ChannelType;
-import de.bischinger.parrot.commands.CommandException;
-import de.bischinger.parrot.commands.CommandKey;
-import de.bischinger.parrot.commands.FrameType;
+import de.bischinger.parrot.lib.command.Acknowledge;
+import de.bischinger.parrot.lib.command.ChannelType;
+import de.bischinger.parrot.lib.command.CommandException;
+import de.bischinger.parrot.lib.command.CommandKey;
+import de.bischinger.parrot.lib.command.FrameType;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

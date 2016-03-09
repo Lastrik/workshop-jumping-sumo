@@ -1,6 +1,6 @@
 package de.bischinger.parrot.lib.command.common;
 
-import de.bischinger.parrot.commands.Acknowledge;
+import de.bischinger.parrot.lib.command.Acknowledge;
 
 
 /**

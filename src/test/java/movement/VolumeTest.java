@@ -1,6 +1,6 @@
 package de.bischinger.parrot.commands.movement;
 
-import de.bischinger.parrot.commands.multimedia.Volume;
+import de.bischinger.parrot.lib.command.multimedia.Volume;
 
 import org.junit.Test;
 

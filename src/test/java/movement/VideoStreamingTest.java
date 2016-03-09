@@ -1,7 +1,7 @@
 package de.bischinger.parrot.commands.movement;
 
-import de.bischinger.parrot.commands.Acknowledge;
-import de.bischinger.parrot.commands.multimedia.VideoStreaming;
+import de.bischinger.parrot.lib.command.Acknowledge;
+import de.bischinger.parrot.lib.command.multimedia.VideoStreaming;
 
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package de.bischinger.parrot.commands.movement;
 
-import de.bischinger.parrot.commands.Acknowledge;
-import de.bischinger.parrot.commands.animation.SlowShake;
+import de.bischinger.parrot.lib.command.Acknowledge;
+import de.bischinger.parrot.lib.command.animation.SlowShake;
 
 import org.junit.Before;
 import org.junit.Test;

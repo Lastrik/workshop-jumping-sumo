@@ -1,6 +1,7 @@
 package de.bischinger.parrot.driver.naturallanguage;
 
-import de.bischinger.parrot.controller.DroneController;
+import de.bischinger.parrot.control.DroneController;
+import de.bischinger.parrot.control.driver.naturallanguage.SwingBasedProgrammaticDriver;
 import de.bischinger.parrot.lib.network.DroneConnection;
 
 import org.junit.Test;

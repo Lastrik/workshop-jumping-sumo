@@ -1,11 +1,11 @@
 package de.bischinger.parrot;
 
-import de.bischinger.parrot.controller.DroneController;
-import de.bischinger.parrot.driver.keyboard.KeyboardDriver;
-import de.bischinger.parrot.driver.naturallanguage.FileBasedProgrammaticDriver;
-import de.bischinger.parrot.driver.naturallanguage.JumpingSumoLang;
-import de.bischinger.parrot.driver.naturallanguage.SwingBasedProgrammaticDriver;
-import de.bischinger.parrot.driver.programmatic.ProgrammaticDriver;
+import de.bischinger.parrot.control.DroneController;
+import de.bischinger.parrot.control.driver.keyboard.KeyboardDriver;
+import de.bischinger.parrot.control.driver.naturallanguage.FileBasedProgrammaticDriver;
+import de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoLang;
+import de.bischinger.parrot.control.driver.naturallanguage.SwingBasedProgrammaticDriver;
+import de.bischinger.parrot.control.driver.programmatic.ProgrammaticDriver;
 import de.bischinger.parrot.lib.network.DroneConnection;
 import de.bischinger.parrot.lib.network.WirelessLanDroneConnection;
 

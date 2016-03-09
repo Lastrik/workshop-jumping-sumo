@@ -1,5 +1,7 @@
 package de.bischinger.parrot.commands.movement;
 
+import de.bischinger.parrot.lib.command.movement.Pcmd;
+
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

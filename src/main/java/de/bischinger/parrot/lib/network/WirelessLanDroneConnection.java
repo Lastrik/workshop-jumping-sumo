@@ -1,15 +1,15 @@
 package de.bischinger.parrot.lib.network;
 
-import de.bischinger.parrot.commands.CommandException;
 import de.bischinger.parrot.lib.command.Command;
+import de.bischinger.parrot.lib.command.CommandException;
 import de.bischinger.parrot.lib.command.common.CommonCommand;
 import de.bischinger.parrot.lib.command.common.CurrentDate;
 import de.bischinger.parrot.lib.command.common.CurrentTime;
 import de.bischinger.parrot.lib.command.common.Pong;
+import de.bischinger.parrot.lib.listener.EventListener;
 import de.bischinger.parrot.lib.network.handshake.HandshakeRequest;
 import de.bischinger.parrot.lib.network.handshake.HandshakeResponse;
 import de.bischinger.parrot.lib.network.handshake.TcpHandshake;
-import de.bischinger.parrot.listener.EventListener;
 
 import java.io.IOException;
 

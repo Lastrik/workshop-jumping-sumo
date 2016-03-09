@@ -1,7 +1,7 @@
 package de.bischinger.parrot.lib.network;
 
 import de.bischinger.parrot.lib.command.Command;
-import de.bischinger.parrot.listener.EventListener;
+import de.bischinger.parrot.lib.listener.EventListener;
 
 import java.io.IOException;
 
