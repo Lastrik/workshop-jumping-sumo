@@ -1,8 +1,8 @@
 package de.bischinger.parrot.control;
 
-import de.bischinger.parrot.lib.command.multimedia.AudioTheme;
-import de.bischinger.parrot.lib.command.multimedia.Volume;
-import de.bischinger.parrot.lib.network.DroneConnection;
+import de.devoxx4kids.dronecontroller.command.multimedia.AudioTheme;
+import de.devoxx4kids.dronecontroller.command.multimedia.Volume;
+import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
 import org.junit.Before;
 import org.junit.Test;

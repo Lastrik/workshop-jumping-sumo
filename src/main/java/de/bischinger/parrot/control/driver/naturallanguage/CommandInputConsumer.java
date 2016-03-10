@@ -1,7 +1,8 @@
 package de.bischinger.parrot.control.driver.naturallanguage;
 
 import de.bischinger.parrot.control.DroneController;
-import de.bischinger.parrot.lib.command.movement.Jump;
+
+import de.devoxx4kids.dronecontroller.command.movement.Jump;
 
 import java.io.IOException;
 

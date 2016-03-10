@@ -1,29 +1,29 @@
 package de.bischinger.parrot.control;
 
-import de.bischinger.parrot.lib.command.Command;
-import de.bischinger.parrot.lib.command.animation.Metronome;
-import de.bischinger.parrot.lib.command.animation.Ondulation;
-import de.bischinger.parrot.lib.command.animation.Slalom;
-import de.bischinger.parrot.lib.command.animation.SlowShake;
-import de.bischinger.parrot.lib.command.animation.Spin;
-import de.bischinger.parrot.lib.command.animation.SpinJump;
-import de.bischinger.parrot.lib.command.animation.SpinToPosture;
-import de.bischinger.parrot.lib.command.animation.Spiral;
-import de.bischinger.parrot.lib.command.animation.StopAnimation;
-import de.bischinger.parrot.lib.command.animation.Tap;
-import de.bischinger.parrot.lib.command.common.Disconnect;
-import de.bischinger.parrot.lib.command.movement.Jump;
-import de.bischinger.parrot.lib.command.movement.Pcmd;
-import de.bischinger.parrot.lib.command.multimedia.AudioTheme;
-import de.bischinger.parrot.lib.command.multimedia.VideoStreaming;
-import de.bischinger.parrot.lib.command.multimedia.Volume;
-import de.bischinger.parrot.lib.listener.BatteryListener;
-import de.bischinger.parrot.lib.listener.BatteryState;
-import de.bischinger.parrot.lib.listener.CriticalBatteryListener;
-import de.bischinger.parrot.lib.listener.OutdoorSpeedListener;
-import de.bischinger.parrot.lib.listener.PCMDListener;
-import de.bischinger.parrot.lib.listener.VideoListener;
-import de.bischinger.parrot.lib.network.DroneConnection;
+import de.devoxx4kids.dronecontroller.command.Command;
+import de.devoxx4kids.dronecontroller.command.animation.Metronome;
+import de.devoxx4kids.dronecontroller.command.animation.Ondulation;
+import de.devoxx4kids.dronecontroller.command.animation.Slalom;
+import de.devoxx4kids.dronecontroller.command.animation.SlowShake;
+import de.devoxx4kids.dronecontroller.command.animation.Spin;
+import de.devoxx4kids.dronecontroller.command.animation.SpinJump;
+import de.devoxx4kids.dronecontroller.command.animation.SpinToPosture;
+import de.devoxx4kids.dronecontroller.command.animation.Spiral;
+import de.devoxx4kids.dronecontroller.command.animation.StopAnimation;
+import de.devoxx4kids.dronecontroller.command.animation.Tap;
+import de.devoxx4kids.dronecontroller.command.common.Disconnect;
+import de.devoxx4kids.dronecontroller.command.movement.Jump;
+import de.devoxx4kids.dronecontroller.command.movement.Pcmd;
+import de.devoxx4kids.dronecontroller.command.multimedia.AudioTheme;
+import de.devoxx4kids.dronecontroller.command.multimedia.VideoStreaming;
+import de.devoxx4kids.dronecontroller.command.multimedia.Volume;
+import de.devoxx4kids.dronecontroller.listener.BatteryListener;
+import de.devoxx4kids.dronecontroller.listener.BatteryState;
+import de.devoxx4kids.dronecontroller.listener.CriticalBatteryListener;
+import de.devoxx4kids.dronecontroller.listener.OutdoorSpeedListener;
+import de.devoxx4kids.dronecontroller.listener.PCMDListener;
+import de.devoxx4kids.dronecontroller.listener.VideoListener;
+import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
 import java.io.IOException;
 
@@ -31,9 +31,6 @@ import java.lang.invoke.MethodHandles;
 
 import java.util.function.Consumer;
 import java.util.logging.Logger;
-
-import static de.bischinger.parrot.lib.command.movement.Jump.Type.High;
-import static de.bischinger.parrot.lib.command.movement.Jump.Type.Long;
 
 
 /**
@@ -137,7 +134,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController jumpHigh() throws IOException {
 
-        this.droneConnection.sendCommand(Jump.jump(High));
+        this.droneConnection.sendCommand(Jump.jump(Jump.Type.High));
 
         return this;
     }
@@ -145,7 +142,7 @@ public class DroneController implements AutoCloseable {
 
     public DroneController jumpLong() throws IOException {
 
-        this.droneConnection.sendCommand(Jump.jump(Long));
+        this.droneConnection.sendCommand(Jump.jump(Jump.Type.Long));
 
         return this;
     }

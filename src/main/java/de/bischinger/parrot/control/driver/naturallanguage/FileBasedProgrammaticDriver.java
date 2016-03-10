@@ -1,7 +1,8 @@
 package de.bischinger.parrot.control.driver.naturallanguage;
 
 import de.bischinger.parrot.control.DroneController;
-import de.bischinger.parrot.lib.network.DroneConnection;
+
+import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class FileBasedProgrammaticDriver {
 
         drone = new DroneController(droneConnection);
 
-        // FIXME
+        // FIXMERobot
         // drone.addBatteryListener(b -> System.out.println("BatteryState: " + b));
         drone.pcmd(0, 0);
 
