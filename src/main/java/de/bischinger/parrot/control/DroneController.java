@@ -56,7 +56,7 @@ public class DroneController implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
 
         droneConnection.sendCommand(Disconnect.disconnect());
     }
