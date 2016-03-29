@@ -12,8 +12,6 @@ import org.mockito.Mock;
 
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.IOException;
-
 import static de.bischinger.parrot.Main.SINGLETON;
 
 import static org.mockito.Mockito.times;
@@ -33,7 +31,7 @@ public class SwingBasedProgrammaticDriverTest {
     private DroneConnection droneConnection;
 
     @Test
-    public void test() throws IOException, InterruptedException {
+    public void test() throws InterruptedException {
 
         SINGLETON = droneController;
 

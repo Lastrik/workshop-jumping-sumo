@@ -2,6 +2,7 @@ package de.bischinger.parrot.control.driver.programmatic;
 
 import de.bischinger.parrot.control.DroneController;
 
+import de.devoxx4kids.dronecontroller.command.flip.DownsideDown;
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
 import org.slf4j.Logger;
@@ -30,13 +31,12 @@ public class ProgrammaticDriver {
 
         drone = new DroneController(droneConnection);
 
-        drone.addOutdoorSpeedListener(b -> LOGGER.info("Speed: " + b));
         drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
         drone.addBatteryListener(aByte -> LOGGER.info("Batterylevel: " + aByte.toString() + "%"));
     }
 
     public void drive() throws IOException, InterruptedException {
 
-        drone.metronome().tap().right().left();
+        drone.send(DownsideDown.downsideDown()).right().left();
     }
 }

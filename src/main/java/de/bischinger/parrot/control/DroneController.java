@@ -17,17 +17,14 @@ import de.devoxx4kids.dronecontroller.command.movement.Pcmd;
 import de.devoxx4kids.dronecontroller.command.multimedia.AudioTheme;
 import de.devoxx4kids.dronecontroller.command.multimedia.VideoStreaming;
 import de.devoxx4kids.dronecontroller.command.multimedia.Volume;
-import de.devoxx4kids.dronecontroller.listener.BatteryListener;
-import de.devoxx4kids.dronecontroller.listener.BatteryState;
-import de.devoxx4kids.dronecontroller.listener.CriticalBatteryListener;
-import de.devoxx4kids.dronecontroller.listener.OutdoorSpeedListener;
-import de.devoxx4kids.dronecontroller.listener.PCMDListener;
-import de.devoxx4kids.dronecontroller.listener.VideoListener;
+import de.devoxx4kids.dronecontroller.listener.common.BatteryListener;
+import de.devoxx4kids.dronecontroller.listener.common.PCMDListener;
+import de.devoxx4kids.dronecontroller.listener.multimedia.VideoListener;
+import de.devoxx4kids.dronecontroller.network.ConnectionException;
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
 
@@ -46,12 +43,16 @@ public class DroneController implements AutoCloseable {
 
     private final DroneConnection droneConnection;
 
-    public DroneController(DroneConnection droneConnection) throws IOException {
+    public DroneController(DroneConnection droneConnection) {
 
         LOGGER.info("Creating DroneController");
         this.droneConnection = droneConnection;
 
-        droneConnection.connect();
+        try {
+            droneConnection.connect();
+        } catch (ConnectionException e) {
+            LOGGER.error("Could not establish connection to drone");
+        }
     }
 
     @Override
@@ -61,7 +62,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController send(Command command) throws IOException {
+    public DroneController send(Command command) {
 
         this.droneConnection.sendCommand(command);
 
@@ -69,7 +70,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController pcmd(int speed, int degree) throws IOException {
+    public DroneController pcmd(int speed, int degree) {
 
         this.droneConnection.sendCommand(Pcmd.pcmd(speed, degree));
 
@@ -77,7 +78,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController forward() throws IOException {
+    public DroneController forward() {
 
         pcmd(40, 0);
 
@@ -85,7 +86,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController backward() throws IOException {
+    public DroneController backward() {
 
         pcmd(-40, 0);
 
@@ -93,7 +94,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController left() throws IOException {
+    public DroneController left() {
 
         left(90);
 
@@ -101,7 +102,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController left(int degrees) throws IOException {
+    public DroneController left(int degrees) {
 
         pcmd(0, -degrees);
 
@@ -109,7 +110,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController right(int degrees) throws IOException {
+    public DroneController right(int degrees) {
 
         pcmd(0, degrees);
 
@@ -117,7 +118,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController right() throws IOException {
+    public DroneController right() {
 
         right(90);
 
@@ -125,7 +126,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController jump(Jump.Type jumpType) throws IOException {
+    public DroneController jump(Jump.Type jumpType) {
 
         this.droneConnection.sendCommand(Jump.jump(jumpType));
 
@@ -133,23 +134,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController jumpHigh() throws IOException {
-
-        this.droneConnection.sendCommand(Jump.jump(Jump.Type.High));
-
-        return this;
-    }
-
-
-    public DroneController jumpLong() throws IOException {
-
-        this.droneConnection.sendCommand(Jump.jump(Jump.Type.Long));
-
-        return this;
-    }
-
-
-    public DroneController stopAnimation() throws IOException {
+    public DroneController stopAnimation() {
 
         this.droneConnection.sendCommand(StopAnimation.stopAnimation());
 
@@ -157,7 +142,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController spin() throws IOException {
+    public DroneController spin() {
 
         this.droneConnection.sendCommand(Spin.spin());
 
@@ -165,7 +150,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController tap() throws IOException {
+    public DroneController tap() {
 
         this.droneConnection.sendCommand(Tap.tap());
 
@@ -173,7 +158,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController slowShake() throws IOException {
+    public DroneController slowShake() {
 
         this.droneConnection.sendCommand(SlowShake.slowShake());
 
@@ -181,7 +166,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController metronome() throws IOException {
+    public DroneController metronome() {
 
         this.droneConnection.sendCommand(Metronome.metronome());
 
@@ -189,7 +174,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController ondulation() throws IOException {
+    public DroneController ondulation() {
 
         this.droneConnection.sendCommand(Ondulation.ondulation());
 
@@ -197,7 +182,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController spinJump() throws IOException {
+    public DroneController spinJump() {
 
         this.droneConnection.sendCommand(SpinJump.spinJump());
 
@@ -205,7 +190,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController spinToPosture() throws IOException {
+    public DroneController spinToPosture() {
 
         this.droneConnection.sendCommand(SpinToPosture.spinToPosture());
 
@@ -213,7 +198,7 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController spiral() throws IOException {
+    public DroneController spiral() {
 
         this.droneConnection.sendCommand(Spiral.spiral());
 
@@ -221,17 +206,9 @@ public class DroneController implements AutoCloseable {
     }
 
 
-    public DroneController slalom() throws IOException {
+    public DroneController slalom() {
 
         this.droneConnection.sendCommand(Slalom.slalom());
-
-        return this;
-    }
-
-
-    public DroneController addCriticalBatteryListener(Consumer<BatteryState> consumer) {
-
-        droneConnection.addEventListener(CriticalBatteryListener.criticalBatteryListener(consumer));
 
         return this;
     }
@@ -248,14 +225,6 @@ public class DroneController implements AutoCloseable {
     public DroneController addPCMDListener(Consumer<String> consumer) {
 
         droneConnection.addEventListener(PCMDListener.pcmdlistener(consumer));
-
-        return this;
-    }
-
-
-    public DroneController addOutdoorSpeedListener(Consumer<String> consumer) {
-
-        droneConnection.addEventListener(OutdoorSpeedListener.outdoorSpeedListener(consumer));
 
         return this;
     }
@@ -281,7 +250,7 @@ public class DroneController implements AutoCloseable {
             this.droneController = droneController;
         }
 
-        public AudioController theme(AudioTheme.Theme theme) throws IOException {
+        public AudioController theme(AudioTheme.Theme theme) {
 
             droneConnection.sendCommand(AudioTheme.audioTheme(theme));
 
@@ -289,7 +258,7 @@ public class DroneController implements AutoCloseable {
         }
 
 
-        public AudioController volume(int volume) throws IOException {
+        public AudioController volume(int volume) {
 
             droneConnection.sendCommand(Volume.volume(volume));
 
@@ -297,7 +266,7 @@ public class DroneController implements AutoCloseable {
         }
 
 
-        public AudioController mute() throws IOException {
+        public AudioController mute() {
 
             volume(0);
 
@@ -305,7 +274,7 @@ public class DroneController implements AutoCloseable {
         }
 
 
-        public AudioController unmute() throws IOException {
+        public AudioController unmute() {
 
             volume(100);
 
@@ -328,7 +297,7 @@ public class DroneController implements AutoCloseable {
             this.droneController = droneController;
         }
 
-        public VideoController enableVideo() throws IOException {
+        public VideoController enableVideo() {
 
             droneConnection.addEventListener(VideoListener.videoListener());
             droneConnection.sendCommand(VideoStreaming.enableVideoStreaming());
@@ -337,7 +306,7 @@ public class DroneController implements AutoCloseable {
         }
 
 
-        public VideoController disableVideo() throws IOException {
+        public VideoController disableVideo() {
 
             droneConnection.sendCommand(VideoStreaming.disableVideoStreaming());
 

@@ -6,7 +6,6 @@ import de.devoxx4kids.dronecontroller.command.movement.Jump;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
 
@@ -77,7 +76,7 @@ public class CommandInputConsumer implements Consumer<String> {
                         LOGGER.info("Kommando nicht implementiert: " + command);
                     }
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -13,10 +13,8 @@ import de.devoxx4kids.dronecontroller.command.animation.Tap;
 import de.devoxx4kids.dronecontroller.command.common.Disconnect;
 import de.devoxx4kids.dronecontroller.command.movement.Jump;
 import de.devoxx4kids.dronecontroller.command.movement.Pcmd;
-import de.devoxx4kids.dronecontroller.listener.BatteryListener;
-import de.devoxx4kids.dronecontroller.listener.CriticalBatteryListener;
-import de.devoxx4kids.dronecontroller.listener.OutdoorSpeedListener;
-import de.devoxx4kids.dronecontroller.listener.PCMDListener;
+import de.devoxx4kids.dronecontroller.listener.common.BatteryListener;
+import de.devoxx4kids.dronecontroller.listener.common.PCMDListener;
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
 import org.junit.Before;
@@ -250,16 +248,6 @@ public class DroneControllerTest {
 
 
     @Test
-    public void addCriticalBatteryListener() {
-
-        DroneController droneController = sut.addCriticalBatteryListener(b -> { });
-        assertThat(droneController, is(sut));
-
-        verify(droneConnectionMock).addEventListener(any(CriticalBatteryListener.class));
-    }
-
-
-    @Test
     public void addBatteryListener() {
 
         DroneController droneController = sut.addBatteryListener(b -> { });
@@ -276,16 +264,6 @@ public class DroneControllerTest {
         assertThat(droneController, is(sut));
 
         verify(droneConnectionMock).addEventListener(any(PCMDListener.class));
-    }
-
-
-    @Test
-    public void addOutdoorSpeedListener() {
-
-        DroneController droneController = sut.addOutdoorSpeedListener(b -> { });
-        assertThat(droneController, is(sut));
-
-        verify(droneConnectionMock).addEventListener(any(OutdoorSpeedListener.class));
     }
 
 

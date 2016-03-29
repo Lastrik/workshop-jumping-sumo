@@ -31,17 +31,17 @@ public class JumpingSumoLang {
 
         LOGGER.info(CMD);
 
-        de.bischinger.parrot.driver.naturallanguage.JumpingSumoLexer lexer =
-            new de.bischinger.parrot.driver.naturallanguage.JumpingSumoLexer(new ANTLRInputStream(CMD));
+        de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoLexer lexer =
+            new de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoLexer(new ANTLRInputStream(CMD));
 
-        de.bischinger.parrot.driver.naturallanguage.JumpingSumoParser parser =
-            new de.bischinger.parrot.driver.naturallanguage.JumpingSumoParser(new CommonTokenStream(lexer));
+        de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoParser parser =
+            new de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoParser(new CommonTokenStream(lexer));
 
-        parser.addParseListener(new de.bischinger.parrot.driver.naturallanguage.JumpingSumoBaseListener() {
+        parser.addParseListener(new de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoBaseListener() {
 
                 @Override
                 public void exitInstructionDelay(
-                    de.bischinger.parrot.driver.naturallanguage.JumpingSumoParser.InstructionDelayContext ctx) {
+                    de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoParser.InstructionDelayContext ctx) {
 
                     int delayParam = Integer.parseInt(ctx.paramMs.getText());
                     LOGGER.info("delay(" + delayParam + ")");
@@ -50,7 +50,7 @@ public class JumpingSumoLang {
 
                 @Override
                 public void exitInstructionForward(
-                    de.bischinger.parrot.driver.naturallanguage.JumpingSumoParser.InstructionForwardContext ctx) {
+                    de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoParser.InstructionForwardContext ctx) {
 
                     int delayParam = Integer.parseInt(ctx.paramMs.getText());
                     LOGGER.info("forward(" + delayParam + ")");
@@ -59,7 +59,7 @@ public class JumpingSumoLang {
 
                 @Override
                 public void exitInstructionBackward(
-                    de.bischinger.parrot.driver.naturallanguage.JumpingSumoParser.InstructionBackwardContext ctx) {
+                    de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoParser.InstructionBackwardContext ctx) {
 
                     int delayParam = Integer.parseInt(ctx.paramMs.getText());
                     LOGGER.info("backward(" + delayParam + ")");
@@ -68,7 +68,7 @@ public class JumpingSumoLang {
 
                 @Override
                 public void exitInstructionLeft(
-                    de.bischinger.parrot.driver.naturallanguage.JumpingSumoParser.InstructionLeftContext ctx) {
+                    de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoParser.InstructionLeftContext ctx) {
 
                     int delayParam = Integer.parseInt(ctx.degrees.getText());
                     LOGGER.info("left(" + delayParam + ")");
@@ -77,7 +77,7 @@ public class JumpingSumoLang {
 
                 @Override
                 public void exitInstructionRight(
-                    de.bischinger.parrot.driver.naturallanguage.JumpingSumoParser.InstructionRightContext ctx) {
+                    de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoParser.InstructionRightContext ctx) {
 
                     int delayParam = Integer.parseInt(ctx.degrees.getText());
                     LOGGER.info("right(" + delayParam + ")");
@@ -86,7 +86,7 @@ public class JumpingSumoLang {
 
                 @Override
                 public void exitInstructionJump(
-                    de.bischinger.parrot.driver.naturallanguage.JumpingSumoParser.InstructionJumpContext ctx) {
+                    de.bischinger.parrot.control.driver.naturallanguage.JumpingSumoParser.InstructionJumpContext ctx) {
 
                     LOGGER.info("jump(" + ctx.type.getText() + ")");
                 }

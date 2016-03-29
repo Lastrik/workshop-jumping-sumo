@@ -6,11 +6,10 @@ import net.openhft.compiler.CachedCompiler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-
-import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
 
@@ -72,7 +71,6 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         this.pack();
 
         drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
-        drone.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
         drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
     }
 
@@ -93,25 +91,18 @@ public class SwingBasedProgrammaticDriver extends JFrame {
 
         startOperation =
             text -> {
-            long currentTimeMillis = System.currentTimeMillis();
-
             text = text.replaceAll("(?i)jumpingsumo\\.", "");
 
-            String className = "mypackage.MyClass" + currentTimeMillis;
+            String className = "mypackage.MyClass";
             String javaCode = String.format("package mypackage;\n"
                     + "import de.bischinger.parrot.Main;\n"
-                    + "import java.io.IOException;\n"
-                    + "public class MyClass" + currentTimeMillis + " implements Runnable {\n"
+                    + "public class MyClass implements Runnable {\n"
                     + "    public void run() {\n"
-                    + "        try {\n"
                     +
 
                     // COOL STUFF coming
 
-                    "           Main.SINGLETON.%s;\n"
-                    + "        } catch (IOException e) {\n"
-                    + "                e.printStackTrace();\n"
-                    + "            }\n"
+                    "     Main.SINGLETON.%s;\n"
                     + "    }\n"
                     + "}\n", text);
 

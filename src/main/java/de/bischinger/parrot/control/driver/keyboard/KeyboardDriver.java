@@ -17,7 +17,6 @@ import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
 
-
 import static java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager;
 import static java.awt.event.KeyEvent.KEY_PRESSED;
 import static java.awt.event.KeyEvent.KEY_RELEASED;
@@ -51,8 +50,8 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
-    public static final int DEFAULT_TURN_DEGREE = 25;
-    public static final int DEFAULT_SPEED = 50;
+    public static final int DEFAULT_TURN_DEGREE = 50;
+    public static final int DEFAULT_SPEED = 100;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -79,10 +78,10 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
         new KeyboardDriverFrame();
         new Thread(this).start();
 
-        droneController.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
-        droneController.addCriticalBatteryListener(b -> LOGGER.info("Critical-BatteryState: " + b));
-        droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
-        droneController.addOutdoorSpeedListener(b -> LOGGER.info("Speed: " + b));
+        droneController.addBatteryListener(b -> LOGGER.info("BatteryState: {}%", b));
+        // droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+
+        droneController.video().disableVideo();
 
         getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
     }
@@ -93,7 +92,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
         while (true) {
             try {
-                MILLISECONDS.sleep(100);
+                MILLISECONDS.sleep(10);
 
                 // set speed
                 int speed = 0;
@@ -116,7 +115,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                 if (speed != 0 || degrees != 0) {
                     droneController.send(Pcmd.pcmd(speed, degrees, 0));
                 }
-            } catch (IOException | InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
