@@ -4,6 +4,9 @@ import de.bischinger.parrot.control.DroneController;
 
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -21,7 +24,6 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 
 /**
@@ -29,7 +31,7 @@ import java.util.logging.Logger;
  */
 public class FileBasedProgrammaticDriver {
 
-    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private static final String FILENAME = "programm.txt";
 
     private final DroneController drone;

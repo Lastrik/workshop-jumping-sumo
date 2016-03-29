@@ -10,6 +10,9 @@ import de.bischinger.parrot.control.driver.programmatic.ProgrammaticDriver;
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 import de.devoxx4kids.dronecontroller.network.WirelessLanDroneConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.AWTException;
 
 import java.io.File;
@@ -21,14 +24,13 @@ import java.lang.invoke.MethodHandles;
 import java.net.URISyntaxException;
 
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import static java.lang.Integer.valueOf;
 
 
 public final class Main {
 
-    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public static DroneController SINGLETON;
 
@@ -36,9 +38,6 @@ public final class Main {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException, AWTException {
-
-        System.setProperty("java.util.logging.SimpleFormatter.format",
-            "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n");
 
         String ip = "192.168.2.1";
         int port = 44444;
@@ -55,7 +54,7 @@ public final class Main {
             wlanName = properties.getProperty("wlan");
         }
 
-        String driver = "program";
+        String driver = "keyboard";
 
         if (args.length >= 1) {
             driver = args[0].toLowerCase();

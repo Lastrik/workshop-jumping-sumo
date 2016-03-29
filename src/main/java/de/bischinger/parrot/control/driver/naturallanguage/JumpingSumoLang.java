@@ -3,18 +3,19 @@ package de.bischinger.parrot.control.driver.naturallanguage;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.AWTException;
 
 import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
 
-import java.util.logging.Logger;
-
 
 public class JumpingSumoLang {
 
-    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final String CMD = "/*\r\n" + "* A simple example demonstrating the basic features.\r\n" + "*/\r\n"
         + "delay 300; // sleep for 300ms\r\n"

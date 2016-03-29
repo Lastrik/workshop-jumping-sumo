@@ -4,11 +4,12 @@ import de.bischinger.parrot.control.DroneController;
 
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
-
-import java.util.logging.Logger;
 
 
 /**
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class ProgrammaticDriver {
 
-    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final DroneController drone;
 

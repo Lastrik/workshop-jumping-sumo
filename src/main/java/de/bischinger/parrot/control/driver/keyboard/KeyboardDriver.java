@@ -7,6 +7,9 @@ import de.devoxx4kids.dronecontroller.command.movement.Pcmd;
 import de.devoxx4kids.dronecontroller.command.multimedia.AudioTheme;
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.KeyEventDispatcher;
 import java.awt.event.KeyEvent;
 
@@ -14,7 +17,6 @@ import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
 
-import java.util.logging.Logger;
 
 import static java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager;
 import static java.awt.event.KeyEvent.KEY_PRESSED;
@@ -52,7 +54,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
     public static final int DEFAULT_TURN_DEGREE = 25;
     public static final int DEFAULT_SPEED = 50;
 
-    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final DroneController droneController;
     private final int straightSpeed;

@@ -4,6 +4,8 @@ import de.bischinger.parrot.control.DroneController;
 
 import net.openhft.compiler.CachedCompiler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,7 +15,6 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
 import java.util.function.Consumer;
-import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,12 +30,13 @@ import static java.util.stream.Stream.of;
 
 public class SwingBasedProgrammaticDriver extends JFrame {
 
-    private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
     private final DroneController drone;
     private Consumer<String> startOperation;
     private JTextArea textArea;
 
-    public SwingBasedProgrammaticDriver(DroneController drone) throws IOException {
+    public SwingBasedProgrammaticDriver(DroneController drone) {
 
         this.drone = drone;
 
