@@ -26,8 +26,6 @@ import org.mockito.Mock;
 
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.IOException;
-
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -52,14 +50,14 @@ public class DroneControllerTest {
     private DroneConnection droneConnectionMock;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         sut = new DroneController(droneConnectionMock);
     }
 
 
     @Test
-    public void close() throws Exception {
+    public void close() {
 
         sut.close();
 
@@ -68,7 +66,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void pcmd() throws IOException {
+    public void pcmd() {
 
         DroneController droneController = sut.pcmd(100, 180);
         assertThat(droneController, is(sut));
@@ -78,7 +76,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void forward() throws IOException {
+    public void forward() {
 
         DroneController droneController = sut.forward();
         assertThat(droneController, is(sut));
@@ -88,7 +86,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void backward() throws IOException {
+    public void backward() {
 
         DroneController droneController = sut.backward();
         assertThat(droneController, is(sut));
@@ -98,7 +96,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void left() throws IOException {
+    public void left() {
 
         DroneController droneController = sut.left();
         assertThat(droneController, is(sut));
@@ -108,7 +106,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void leftWithArguments() throws IOException {
+    public void leftWithArguments() {
 
         DroneController droneController = sut.left(90);
         assertThat(droneController, is(sut));
@@ -118,7 +116,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void right() throws IOException {
+    public void right() {
 
         DroneController droneController = sut.right();
         assertThat(droneController, is(sut));
@@ -128,7 +126,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void rightWithArguments() throws IOException {
+    public void rightWithArguments() {
 
         DroneController droneController = sut.right(100);
         assertThat(droneController, is(sut));
@@ -138,7 +136,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void jump() throws IOException {
+    public void jump() {
 
         DroneController droneController = sut.jump(Jump.Type.Long);
         assertThat(droneController, is(sut));
@@ -148,7 +146,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void stopAnimation() throws IOException {
+    public void stopAnimation() {
 
         DroneController droneController = sut.stopAnimation();
         assertThat(droneController, is(sut));
@@ -158,7 +156,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void spin() throws IOException {
+    public void spin() {
 
         DroneController droneController = sut.spin();
         assertThat(droneController, is(sut));
@@ -168,7 +166,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void tap() throws IOException {
+    public void tap() {
 
         DroneController droneController = sut.tap();
         assertThat(droneController, is(sut));
@@ -178,7 +176,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void slowShake() throws IOException {
+    public void slowShake() {
 
         DroneController droneController = sut.slowShake();
         assertThat(droneController, is(sut));
@@ -188,7 +186,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void metronome() throws IOException {
+    public void metronome() {
 
         DroneController droneController = sut.metronome();
         assertThat(droneController, is(sut));
@@ -198,7 +196,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void ondulation() throws IOException {
+    public void ondulation() {
 
         DroneController droneController = sut.ondulation();
         assertThat(droneController, is(sut));
@@ -208,7 +206,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void spinJump() throws IOException {
+    public void spinJump() {
 
         DroneController droneController = sut.spinJump();
         assertThat(droneController, is(sut));
@@ -218,7 +216,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void spinToPosture() throws IOException {
+    public void spinToPosture() {
 
         DroneController droneController = sut.spinToPosture();
         assertThat(droneController, is(sut));
@@ -228,7 +226,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void spiral() throws IOException {
+    public void spiral() {
 
         DroneController droneController = sut.spiral();
         assertThat(droneController, is(sut));
@@ -238,7 +236,7 @@ public class DroneControllerTest {
 
 
     @Test
-    public void slalom() throws IOException {
+    public void slalom() {
 
         DroneController droneController = sut.slalom();
         assertThat(droneController, is(sut));
