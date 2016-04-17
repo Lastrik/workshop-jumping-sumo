@@ -91,12 +91,14 @@ public class SwingBasedProgrammaticDriver extends JFrame {
 
         startOperation =
             text -> {
+            long currentTimeMillis = System.currentTimeMillis();
+
             text = text.replaceAll("(?i)jumpingsumo\\.", "");
 
-            String className = "mypackage.MyClass";
+            String className = "mypackage.MyClass" + currentTimeMillis;
             String javaCode = String.format("package mypackage;\n"
                     + "import de.bischinger.parrot.Main;\n"
-                    + "public class MyClass implements Runnable {\n"
+                    + "public class MyClass" + currentTimeMillis + " implements Runnable {\n"
                     + "    public void run() {\n"
                     +
 
