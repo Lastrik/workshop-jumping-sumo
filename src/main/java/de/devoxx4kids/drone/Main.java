@@ -3,7 +3,6 @@ package de.devoxx4kids.drone;
 import de.devoxx4kids.drone.control.DroneController;
 import de.devoxx4kids.drone.control.driver.keyboard.KeyboardDriver;
 import de.devoxx4kids.drone.control.driver.naturallanguage.FileBasedProgrammaticDriver;
-import de.devoxx4kids.drone.control.driver.naturallanguage.JumpingSumoLang;
 import de.devoxx4kids.drone.control.driver.naturallanguage.SwingBasedProgrammaticDriver;
 import de.devoxx4kids.drone.control.driver.programmatic.ProgrammaticDriver;
 
@@ -81,10 +80,6 @@ public final class Main {
             case "swing":
                 SINGLETON = new DroneController(droneConnection);
                 new SwingBasedProgrammaticDriver(SINGLETON).withDynamicCompilation().setVisible(true);
-                break;
-
-            case "ant4lr":
-                new JumpingSumoLang().execute();
                 break;
 
             default:
