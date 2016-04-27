@@ -146,6 +146,26 @@ public class DroneControllerTest {
 
 
     @Test
+    public void jumpHigh() {
+
+        DroneController droneController = sut.jumpHigh();
+        assertThat(droneController, is(sut));
+
+        verify(droneConnectionMock).sendCommand(any(Jump.class));
+    }
+
+
+    @Test
+    public void jumpLong() {
+
+        DroneController droneController = sut.jumpLong();
+        assertThat(droneController, is(sut));
+
+        verify(droneConnectionMock).sendCommand(any(Jump.class));
+    }
+
+
+    @Test
     public void stopAnimation() {
 
         DroneController droneController = sut.stopAnimation();

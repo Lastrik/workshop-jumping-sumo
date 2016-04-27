@@ -133,6 +133,15 @@ public class DroneController implements AutoCloseable {
         return this;
     }
 
+    public DroneController jumpHigh() {
+
+        return jump(Jump.Type.High);
+    }
+
+    public DroneController jumpLong() {
+
+        return jump(Jump.Type.Long);
+    }
 
     public DroneController stopAnimation() {
 
