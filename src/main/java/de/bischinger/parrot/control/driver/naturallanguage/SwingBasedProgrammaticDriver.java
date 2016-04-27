@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 import java.lang.invoke.MethodHandles;
 
@@ -65,9 +66,12 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         JScrollPane scrollPane = new JScrollPane(textArea);
         this.add(scrollPane, CENTER);
 
-        JButton jbStart = new JButton("Start");
-        jbStart.addActionListener(e -> fire());
-        this.add(jbStart, SOUTH);
+        JButton startButton = new JButton("Start");
+        startButton.addActionListener(e -> fire());
+        startButton.setPreferredSize(new Dimension(40, 60));
+        startButton.setMnemonic(KeyEvent.VK_ENTER);
+
+        this.add(startButton, SOUTH);
         this.pack();
 
         drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
