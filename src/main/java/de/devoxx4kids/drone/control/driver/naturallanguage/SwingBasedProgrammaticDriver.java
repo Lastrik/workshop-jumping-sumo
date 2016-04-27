@@ -1,6 +1,6 @@
-package de.bischinger.parrot.control.driver.naturallanguage;
+package de.devoxx4kids.drone.control.driver.naturallanguage;
 
-import de.bischinger.parrot.control.DroneController;
+import de.devoxx4kids.drone.control.DroneController;
 
 import net.openhft.compiler.CachedCompiler;
 
@@ -97,7 +97,7 @@ public class SwingBasedProgrammaticDriver extends JFrame {
 
             String className = "mypackage.MyClass" + currentTimeMillis;
             String javaCode = String.format("package mypackage;\n"
-                    + "import de.bischinger.parrot.Main;\n"
+                    + "import Main;\n"
                     + "public class MyClass" + currentTimeMillis + " implements Runnable {\n"
                     + "    public void run() {\n"
                     +

@@ -1,4 +1,4 @@
-package de.bischinger.parrot.control.driver.naturallanguage;
+package de.devoxx4kids.drone.control.driver.naturallanguage;
 
 import net.openhft.compiler.CachedCompiler;
 

@@ -1,4 +1,4 @@
-package de.bischinger.parrot.control;
+package de.devoxx4kids.drone.control;
 
 import de.devoxx4kids.dronecontroller.command.Command;
 import de.devoxx4kids.dronecontroller.command.animation.Metronome;
@@ -144,15 +144,18 @@ public class DroneController implements AutoCloseable {
         return this;
     }
 
+
     public DroneController jumpHigh() {
 
         return jump(Jump.Type.High);
     }
 
+
     public DroneController jumpLong() {
 
         return jump(Jump.Type.Long);
     }
+
 
     public DroneController stopAnimation() {
 

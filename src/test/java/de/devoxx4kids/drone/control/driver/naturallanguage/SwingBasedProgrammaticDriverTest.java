@@ -1,6 +1,7 @@
-package de.bischinger.parrot.control.driver.naturallanguage;
+package de.devoxx4kids.drone.control.driver.naturallanguage;
 
-import de.bischinger.parrot.control.DroneController;
+import de.devoxx4kids.drone.Main;
+import de.devoxx4kids.drone.control.DroneController;
 
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
@@ -11,8 +12,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static de.bischinger.parrot.Main.SINGLETON;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -33,10 +32,10 @@ public class SwingBasedProgrammaticDriverTest {
     @Test
     public void test() throws InterruptedException {
 
-        SINGLETON = droneController;
+        Main.SINGLETON = droneController;
 
         SwingBasedProgrammaticDriver swingBasedProgrammaticDriver =
-            new SwingBasedProgrammaticDriver(SINGLETON).withDynamicCompilation();
+            new SwingBasedProgrammaticDriver(Main.SINGLETON).withDynamicCompilation();
         swingBasedProgrammaticDriver.setText("JumpingSumo.spinJump()");
         swingBasedProgrammaticDriver.fire();
         verify(droneController, times(1)).spinJump();

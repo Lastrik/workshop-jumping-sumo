@@ -1,4 +1,4 @@
-package de.bischinger.parrot.control;
+package de.devoxx4kids.drone.control;
 
 import de.devoxx4kids.dronecontroller.command.animation.Metronome;
 import de.devoxx4kids.dronecontroller.command.animation.Ondulation;

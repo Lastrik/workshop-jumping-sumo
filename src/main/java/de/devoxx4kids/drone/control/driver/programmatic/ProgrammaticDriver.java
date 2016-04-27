@@ -1,6 +1,6 @@
-package de.bischinger.parrot.control.driver.programmatic;
+package de.devoxx4kids.drone.control.driver.programmatic;
 
-import de.bischinger.parrot.control.DroneController;
+import de.devoxx4kids.drone.control.DroneController;
 
 import de.devoxx4kids.dronecontroller.command.flip.DownsideDown;
 import de.devoxx4kids.dronecontroller.network.DroneConnection;

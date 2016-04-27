@@ -1,4 +1,4 @@
-package de.bischinger.parrot.control;
+package de.devoxx4kids.drone.control;
 
 import de.devoxx4kids.dronecontroller.command.multimedia.AudioTheme;
 import de.devoxx4kids.dronecontroller.command.multimedia.Volume;

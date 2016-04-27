@@ -5,7 +5,7 @@ before_script:
 
 language: java
 
-script: mvn clean antlr4:antlr4 test jacoco:report coveralls:report
+script: mvn clean test jacoco:report coveralls:report
 
 jdk:
   - oraclejdk8

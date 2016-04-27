@@ -1,6 +1,6 @@
-package de.bischinger.parrot.control.driver.naturallanguage;
+package de.devoxx4kids.drone.control.driver.naturallanguage;
 
-import de.bischinger.parrot.control.DroneController;
+import de.devoxx4kids.drone.control.DroneController;
 
 import de.devoxx4kids.dronecontroller.command.movement.Jump;
 

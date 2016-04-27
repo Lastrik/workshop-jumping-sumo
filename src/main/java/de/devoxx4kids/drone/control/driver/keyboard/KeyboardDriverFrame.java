@@ -1,4 +1,4 @@
-package de.bischinger.parrot.control.driver.keyboard;
+package de.devoxx4kids.drone.control.driver.keyboard;
 
 import java.awt.image.BufferedImage;
 

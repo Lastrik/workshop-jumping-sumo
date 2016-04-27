@@ -14,12 +14,7 @@ to start.
 
 ## How to start
 
-First of all you have to compile antrl and then package everything together as a jar to get started:
-```
-mvn clean antlr4:antlr4 package
-```
-
-Now you compiled and packaged everything in the jar file
+You compiled and packaged everything in the jar file
 ```
 jumpingSumo-jar-with-dependencies.jar
 ```

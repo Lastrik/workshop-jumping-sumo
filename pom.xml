@@ -28,11 +28,6 @@
             <artifactId>compiler</artifactId>
             <version>2.2.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4-runtime</artifactId>
-            <version>4.5.2-1</version>
-        </dependency>
 
         <!-- logging -->
         <dependency>
@@ -78,7 +73,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>de.bischinger.parrot.Main</mainClass>
+                            <mainClass>de.devoxx4kids.drone.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -88,18 +83,6 @@
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-maven-plugin</artifactId>
-                <version>4.5.1-1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>antlr4</goal>
                         </goals>
                     </execution>
                 </executions>
