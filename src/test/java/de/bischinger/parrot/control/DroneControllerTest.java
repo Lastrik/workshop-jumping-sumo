@@ -10,7 +10,6 @@ import de.devoxx4kids.dronecontroller.command.animation.SpinToPosture;
 import de.devoxx4kids.dronecontroller.command.animation.Spiral;
 import de.devoxx4kids.dronecontroller.command.animation.StopAnimation;
 import de.devoxx4kids.dronecontroller.command.animation.Tap;
-import de.devoxx4kids.dronecontroller.command.common.Disconnect;
 import de.devoxx4kids.dronecontroller.command.movement.Jump;
 import de.devoxx4kids.dronecontroller.command.movement.Pcmd;
 import de.devoxx4kids.dronecontroller.listener.common.BatteryListener;
@@ -61,7 +60,7 @@ public class DroneControllerTest {
 
         sut.close();
 
-        verify(droneConnectionMock).sendCommand(any(Disconnect.class));
+        verify(droneConnectionMock).disconnect();
     }
 
 

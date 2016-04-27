@@ -11,7 +11,6 @@ import de.devoxx4kids.dronecontroller.command.animation.SpinToPosture;
 import de.devoxx4kids.dronecontroller.command.animation.Spiral;
 import de.devoxx4kids.dronecontroller.command.animation.StopAnimation;
 import de.devoxx4kids.dronecontroller.command.animation.Tap;
-import de.devoxx4kids.dronecontroller.command.common.Disconnect;
 import de.devoxx4kids.dronecontroller.command.movement.Jump;
 import de.devoxx4kids.dronecontroller.command.movement.Pcmd;
 import de.devoxx4kids.dronecontroller.command.multimedia.AudioTheme;
@@ -48,6 +47,18 @@ public class DroneController implements AutoCloseable {
         LOGGER.info("Creating DroneController");
         this.droneConnection = droneConnection;
 
+        connect();
+    }
+
+    @Override
+    public void close() {
+
+        disconnect();
+    }
+
+
+    public void connect() {
+
         try {
             droneConnection.connect();
         } catch (ConnectionException e) {
@@ -55,10 +66,10 @@ public class DroneController implements AutoCloseable {
         }
     }
 
-    @Override
-    public void close() {
 
-        droneConnection.sendCommand(Disconnect.disconnect());
+    public void disconnect() {
+
+        droneConnection.disconnect();
     }
 
 

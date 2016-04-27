@@ -31,6 +31,7 @@ import static java.awt.event.KeyEvent.VK_7;
 import static java.awt.event.KeyEvent.VK_8;
 import static java.awt.event.KeyEvent.VK_9;
 import static java.awt.event.KeyEvent.VK_A;
+import static java.awt.event.KeyEvent.VK_B;
 import static java.awt.event.KeyEvent.VK_D;
 import static java.awt.event.KeyEvent.VK_DOWN;
 import static java.awt.event.KeyEvent.VK_H;
@@ -42,6 +43,7 @@ import static java.awt.event.KeyEvent.VK_P;
 import static java.awt.event.KeyEvent.VK_RIGHT;
 import static java.awt.event.KeyEvent.VK_S;
 import static java.awt.event.KeyEvent.VK_UP;
+import static java.awt.event.KeyEvent.VK_V;
 import static java.awt.event.KeyEvent.VK_X;
 import static java.awt.event.KeyEvent.VK_Y;
 
@@ -81,7 +83,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
         droneController.addBatteryListener(b -> LOGGER.info("BatteryState: {}%", b));
         // droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
 
-        droneController.video().disableVideo();
+        droneController.video().enableVideo();
 
         getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
     }
@@ -260,6 +262,14 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
             case VK_X:
                 droneController.audio().unmute();
+                break;
+
+            case VK_V:
+                droneController.connect();
+                break;
+
+            case VK_B:
+                droneController.disconnect();
                 break;
         }
     }

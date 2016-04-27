@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.bischinger</groupId>
-    <artifactId>jumpingsumoprot</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>de.devoxx4kids.workshop</groupId>
+    <artifactId>jumping-sumo</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>de.devoxx4kids</groupId>
             <artifactId>dronecontroller</artifactId>
-            <version>0.1.0</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.openhft</groupId>
