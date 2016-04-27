@@ -2,6 +2,8 @@ package de.devoxx4kids.drone.control.driver.naturallanguage;
 
 import de.devoxx4kids.drone.control.DroneController;
 
+import de.devoxx4kids.dronecontroller.network.DroneConnection;
+
 import net.openhft.compiler.CachedCompiler;
 
 import org.slf4j.Logger;
@@ -24,6 +26,8 @@ import javax.swing.WindowConstants;
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.SOUTH;
 
+import static java.lang.String.format;
+
 import static java.util.stream.Stream.of;
 
 
@@ -31,13 +35,16 @@ public class SwingBasedProgrammaticDriver extends JFrame {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    protected static DroneController DRONE_CONTROLLER;
+
     private final DroneController drone;
     private Consumer<String> startOperation;
     private JTextArea textArea;
 
-    public SwingBasedProgrammaticDriver(DroneController drone) {
+    public SwingBasedProgrammaticDriver(DroneConnection droneConnection) {
 
-        this.drone = drone;
+        drone = new DroneController(droneConnection);
+        DRONE_CONTROLLER = drone;
 
         // Default Operation uses old text base consumer
         startOperation = text ->
@@ -90,30 +97,27 @@ public class SwingBasedProgrammaticDriver extends JFrame {
     public SwingBasedProgrammaticDriver withDynamicCompilation() {
 
         startOperation =
-            text -> {
+            code -> {
             long currentTimeMillis = System.currentTimeMillis();
 
-            text = text.replaceAll("(?i)jumpingsumo\\.", "");
+            code = code.replaceAll("(?i)jumpingsumo\\.", "");
 
-            String className = "mypackage.MyClass" + currentTimeMillis;
-            String javaCode = String.format("package mypackage;\n"
-                    + "import Main;\n"
-                    + "public class MyClass" + currentTimeMillis + " implements Runnable {\n"
-                    + "    public void run() {\n"
-                    +
+            String javaCode = format("package de.devoxx4kids.drone.control.driver.naturallanguage;\n"
+                    + "public class SwingRunner%s implements Runnable {\n"
+                    + "  public void run() {\n"
+                    + "    SwingBasedProgrammaticDriver.DRONE_CONTROLLER.%s;\n"
+                    + "  }\n"
+                    + "}\n", currentTimeMillis, code);
 
-                    // COOL STUFF coming
-
-                    "     Main.SINGLETON.%s;\n"
-                    + "    }\n"
-                    + "}\n", text);
+            String className = format("de.devoxx4kids.drone.control.driver.naturallanguage.SwingRunner%s",
+                    currentTimeMillis);
 
             try {
                 Class aClass = new CachedCompiler(null, null).loadFromJava(className, javaCode);
                 Runnable runner = (Runnable) aClass.newInstance();
                 runner.run();
-            } catch (Exception e1) {
-                e1.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         };
 
