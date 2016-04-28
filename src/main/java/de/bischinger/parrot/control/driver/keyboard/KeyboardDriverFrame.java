@@ -46,9 +46,11 @@ public class KeyboardDriverFrame extends JFrame {
                     try {
                         BufferedImage myPicture = ImageIO.read(frame);
 
-                        jLabel.setIcon(new ImageIcon(myPicture));
-                        jLabel.repaint();
-                        jLabel.revalidate();
+                        if (myPicture != null) {
+                            jLabel.setIcon(new ImageIcon(myPicture));
+                            jLabel.repaint();
+                            jLabel.revalidate();
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
