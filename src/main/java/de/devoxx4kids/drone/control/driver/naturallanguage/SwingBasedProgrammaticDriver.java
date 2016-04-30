@@ -19,6 +19,10 @@ import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
@@ -75,6 +79,20 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         JButton jbStart = new JButton("Start");
         jbStart.addActionListener(e -> fire());
         this.add(jbStart, SOUTH);
+
+        JMenuBar jMenuBar = new JMenuBar();
+        JMenu jMenu = new JMenu("Jumping Sumo");
+        JMenuItem jMenuItem = new JMenuItem("Neu Verbinden");
+        jMenuItem.addActionListener(e -> drone.connect());
+        jMenu.add(jMenuItem);
+        jMenu.add(new JPopupMenu.Separator());
+
+        JMenuItem exitItem = new JMenuItem("Beenden");
+        exitItem.addActionListener(e -> System.exit(0));
+        jMenu.add(exitItem);
+        jMenuBar.add(jMenu);
+        this.setJMenuBar(jMenuBar);
+
         this.pack();
 
         drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
