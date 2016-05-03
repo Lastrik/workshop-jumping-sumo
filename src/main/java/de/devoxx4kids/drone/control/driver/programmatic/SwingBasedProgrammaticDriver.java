@@ -1,4 +1,4 @@
-package de.devoxx4kids.drone.control.driver.naturallanguage;
+package de.devoxx4kids.drone.control.driver.programmatic;
 
 import de.devoxx4kids.drone.control.DroneController;
 

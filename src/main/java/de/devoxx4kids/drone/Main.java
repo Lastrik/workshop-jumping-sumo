@@ -1,9 +1,8 @@
 package de.devoxx4kids.drone;
 
 import de.devoxx4kids.drone.control.driver.keyboard.KeyboardDriver;
-import de.devoxx4kids.drone.control.driver.naturallanguage.FileBasedProgrammaticDriver;
-import de.devoxx4kids.drone.control.driver.naturallanguage.SwingBasedProgrammaticDriver;
 import de.devoxx4kids.drone.control.driver.programmatic.ProgrammaticDriver;
+import de.devoxx4kids.drone.control.driver.programmatic.SwingBasedProgrammaticDriver;
 
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 import de.devoxx4kids.dronecontroller.network.WirelessLanDroneConnection;
@@ -64,10 +63,6 @@ public final class Main {
 
             case "program":
                 new ProgrammaticDriver(droneConnection).drive();
-                break;
-
-            case "file":
-                new FileBasedProgrammaticDriver(droneConnection);
                 break;
 
             case "swing":
