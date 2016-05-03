@@ -50,7 +50,7 @@ public final class Main {
             wlanName = properties.getProperty("wlan");
         }
 
-        String driver = "keyboard";
+        String driver = "swing";
 
         if (args.length >= 1) {
             driver = args[0].toLowerCase();

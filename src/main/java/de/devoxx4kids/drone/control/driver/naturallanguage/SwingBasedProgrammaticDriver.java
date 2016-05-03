@@ -29,6 +29,7 @@ import javax.swing.WindowConstants;
 
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.SOUTH;
+import static java.awt.event.KeyEvent.VK_ENTER;
 
 import static java.lang.String.format;
 
@@ -61,24 +62,25 @@ public class SwingBasedProgrammaticDriver extends JFrame {
     private void initComponents() {
 
         setResizable(true);
-        setUndecorated(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
-        setPreferredSize(new Dimension(1200, 800));
+        setPreferredSize(new Dimension(1000, 600));
 
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         textArea = new JTextArea("", 5, 10);
-        textArea.setPreferredSize(new Dimension(600, 700));
+        textArea.setPreferredSize(new Dimension(600, 600));
         textArea.setFont(new Font("serif", Font.PLAIN, 20));
 
         JScrollPane scrollPane = new JScrollPane(textArea);
         this.add(scrollPane, CENTER);
 
-        JButton jbStart = new JButton("Start");
-        jbStart.addActionListener(e -> fire());
-        this.add(jbStart, SOUTH);
+        JButton startButton = new JButton("Start (Alt+Enter)");
+        startButton.addActionListener(e -> fire());
+        startButton.setPreferredSize(new Dimension(40, 60));
+        startButton.setMnemonic(VK_ENTER);
+
+        this.add(startButton, SOUTH);
 
         JMenuBar jMenuBar = new JMenuBar();
         JMenu jMenu = new JMenu("Jumping Sumo");
