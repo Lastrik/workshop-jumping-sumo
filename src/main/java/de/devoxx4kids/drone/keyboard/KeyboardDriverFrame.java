@@ -5,6 +5,8 @@ import de.devoxx4kids.drone.DroneController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -35,25 +37,30 @@ public class KeyboardDriverFrame extends JFrame {
     public KeyboardDriverFrame(DroneController droneController) {
 
         setResizable(false);
-        setUndecorated(true);
         setSize(640, 480);
         setVisible(true);
 
         // Menu
-        JMenuBar menuBar = new JMenuBar();
         JMenu jsMenu = new JMenu("Menu");
+        add(jsMenu, e -> droneController.video().enableVideo(), "Enable Video");
+        add(jsMenu, e -> droneController.video().disableVideo(), "Disable Video");
+        add(jsMenu, e -> droneController.audio().mute(), "Mute Sound");
+        add(jsMenu, e -> droneController.audio().unmute(), "Unmute Sound");
+        addSeparator(jsMenu);
 
-        JMenuItem reconnectItem = new JMenuItem("Reconnect");
-        reconnectItem.addActionListener(e -> droneController.connect());
-        jsMenu.add(reconnectItem);
-        jsMenu.add(new JPopupMenu.Separator());
+        add(jsMenu, e -> droneController.connect(), "Reconnect");
+        addSeparator(jsMenu);
 
-        JMenuItem exitItem = new JMenuItem("Exit");
-        exitItem.addActionListener(e -> System.exit(0));
-        jsMenu.add(exitItem);
+        add(jsMenu, e -> System.exit(0), "Exit");
 
+        JMenuBar menuBar = new JMenuBar();
         menuBar.add(jsMenu);
         this.setJMenuBar(menuBar);
+
+        addLivePicture();
+    }
+
+    private void addLivePicture() {
 
         JLabel livePicture = new JLabel();
         add(livePicture);
@@ -83,5 +90,19 @@ public class KeyboardDriverFrame extends JFrame {
                 }
             }
         }).start();
+    }
+
+
+    private Component addSeparator(JMenu jsMenu) {
+
+        return jsMenu.add(new JPopupMenu.Separator());
+    }
+
+
+    private void add(JMenu jsMenu, ActionListener actionListener, String text) {
+
+        JMenuItem enableVideo = new JMenuItem(text);
+        enableVideo.addActionListener(actionListener);
+        jsMenu.add(enableVideo);
     }
 }
