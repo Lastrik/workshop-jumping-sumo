@@ -1,4 +1,4 @@
-package de.devoxx4kids.drone.control;
+package de.devoxx4kids.drone;
 
 import de.devoxx4kids.dronecontroller.command.Command;
 import de.devoxx4kids.dronecontroller.command.animation.Metronome;

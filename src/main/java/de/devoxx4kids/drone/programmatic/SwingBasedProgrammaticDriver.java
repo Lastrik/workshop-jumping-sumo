@@ -1,6 +1,6 @@
-package de.devoxx4kids.drone.control.driver.programmatic;
+package de.devoxx4kids.drone.programmatic;
 
-import de.devoxx4kids.drone.control.DroneController;
+import de.devoxx4kids.drone.DroneController;
 
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 
@@ -121,15 +121,14 @@ public class SwingBasedProgrammaticDriver extends JFrame {
 
             code = code.replaceAll("(?i)jumpingsumo\\.", "");
 
-            String javaCode = format("package de.devoxx4kids.drone.control.driver.programmatic;\n"
+            String javaCode = format("package de.devoxx4kids.drone.programmatic;\n"
                     + "public class SwingRunner%s implements Runnable {\n"
                     + "  public void run() {\n"
                     + "    SwingBasedProgrammaticDriver.DRONE_CONTROLLER.%s;\n"
                     + "  }\n"
                     + "}\n", currentTimeMillis, code);
 
-            String className = format("de.devoxx4kids.drone.control.driver.programmatic.SwingRunner%s",
-                    currentTimeMillis);
+            String className = format("de.devoxx4kids.drone.programmatic.SwingRunner%s", currentTimeMillis);
 
             try {
                 Class aClass = new CachedCompiler(null, null).loadFromJava(className, javaCode);

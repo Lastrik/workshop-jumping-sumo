@@ -1,6 +1,6 @@
-package de.devoxx4kids.drone.control.driver.keyboard;
+package de.devoxx4kids.drone.keyboard;
 
-import de.devoxx4kids.drone.control.DroneController;
+import de.devoxx4kids.drone.DroneController;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

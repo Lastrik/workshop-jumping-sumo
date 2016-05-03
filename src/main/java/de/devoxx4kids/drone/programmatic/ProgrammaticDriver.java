@@ -1,6 +1,6 @@
-package de.devoxx4kids.drone.control.driver.programmatic;
+package de.devoxx4kids.drone.programmatic;
 
-import de.devoxx4kids.drone.control.DroneController;
+import de.devoxx4kids.drone.DroneController;
 
 import de.devoxx4kids.dronecontroller.command.flip.DownsideDown;
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
