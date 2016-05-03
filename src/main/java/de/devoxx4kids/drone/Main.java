@@ -16,8 +16,6 @@ import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
 
-import static java.lang.Integer.valueOf;
-
 
 public final class Main {
 
@@ -36,16 +34,17 @@ public final class Main {
         switch (config.getDriver()) {
             case KEYBOARD:
 
-                int speedConfig = args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
-                int turnConfig = args.length > 2 ? valueOf(args[2]) : KeyboardDriver.DEFAULT_TURN_DEGREE;
-                new KeyboardDriver(droneConnection, speedConfig, turnConfig);
+                LOGGER.info("Starting Keyboard driver");
+                new KeyboardDriver(droneConnection, config.getSpeed(), config.getTurn());
                 break;
 
             case PROGRAM:
+                LOGGER.info("Starting Program driver");
                 new ProgrammaticDriver(droneConnection).drive();
                 break;
 
             case SWING:
+                LOGGER.info("Starting Swing driver");
                 new SwingBasedProgrammaticDriver(droneConnection);
                 break;
 

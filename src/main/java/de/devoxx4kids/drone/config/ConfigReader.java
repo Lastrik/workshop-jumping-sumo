@@ -1,6 +1,6 @@
 package de.devoxx4kids.drone.config;
 
-import org.jetbrains.annotations.NotNull;
+import de.devoxx4kids.drone.keyboard.KeyboardDriver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +26,13 @@ public class ConfigReader {
     private static final String DEFAULT_IP = "192.168.2.1";
     private static final int DEFAULT_PORT = 4444;
     private static final String DEFAULT_WLAN = "JumpingSumo";
+    private static final Driver DEFAULT_DRIVER = Driver.KEYBOARD;
 
     public Config get(String[] args) {
 
         Driver driver = getDriver(args);
+        int speed = getSpeed(args);
+        int turn = getTurn(args);
 
         Config configuration = null;
         File configFile = new File("config.properties");
@@ -43,9 +46,9 @@ public class ConfigReader {
                 int port = valueOf(properties.getProperty("port"));
                 String wlanName = properties.getProperty("wlan");
 
-                configuration = new Config(ip, port, wlanName, driver);
+                configuration = new Config(ip, port, wlanName, driver, speed, turn);
             } catch (IOException e) {
-                configuration = new Config(DEFAULT_IP, DEFAULT_PORT, DEFAULT_WLAN, driver);
+                configuration = new Config(DEFAULT_IP, DEFAULT_PORT, DEFAULT_WLAN, driver, speed, turn);
                 LOGGER.error("Could not create configuration, use default values - " + driver, e);
             }
         }
@@ -54,10 +57,21 @@ public class ConfigReader {
     }
 
 
-    @NotNull
+    private int getTurn(String[] args) {
+
+        return args.length > 2 ? valueOf(args[2]) : KeyboardDriver.DEFAULT_TURN_DEGREE;
+    }
+
+
+    private int getSpeed(String[] args) {
+
+        return args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
+    }
+
+
     private Driver getDriver(String[] args) {
 
-        Driver driver = Driver.KEYBOARD;
+        Driver driver = DEFAULT_DRIVER;
 
         if (args.length >= 1) {
             driver = Driver.valueOf(args[0].toLowerCase());

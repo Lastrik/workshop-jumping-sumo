@@ -11,13 +11,17 @@ public final class Config {
     private final int port;
     private final String wlanName;
     private final Driver driver;
+    private final int speed;
+    private final int turn;
 
-    public Config(String ip, int port, String wlanName, Driver driver) {
+    Config(String ip, int port, String wlanName, Driver driver, int speed, int turn) {
 
         this.ip = ip;
         this.port = port;
         this.wlanName = wlanName;
         this.driver = driver;
+        this.speed = speed;
+        this.turn = turn;
     }
 
     public String getIp() {
@@ -44,6 +48,18 @@ public final class Config {
     }
 
 
+    public int getSpeed() {
+
+        return speed;
+    }
+
+
+    public int getTurn() {
+
+        return turn;
+    }
+
+
     @Override
     public String toString() {
 
@@ -51,6 +67,8 @@ public final class Config {
             + "ip='" + ip + '\''
             + ", port=" + port
             + ", wlanName='" + wlanName + '\''
-            + ", driver=" + driver + '}';
+            + ", driver=" + driver
+            + ", speed=" + speed
+            + ", turn=" + turn + '}';
     }
 }
