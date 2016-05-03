@@ -1,9 +1,14 @@
 package de.devoxx4kids.drone.control.driver.keyboard;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.image.BufferedImage;
 
 import java.io.File;
 import java.io.IOException;
+
+import java.lang.invoke.MethodHandles;
 
 import javax.imageio.ImageIO;
 
@@ -19,6 +24,8 @@ import javax.swing.WindowConstants;
  * @author  Tobias Schneider
  */
 public class KeyboardDriverFrame extends JFrame {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public KeyboardDriverFrame() {
 
@@ -52,7 +59,7 @@ public class KeyboardDriverFrame extends JFrame {
                             jLabel.revalidate();
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        LOGGER.warn("Could not process picture", e);
                     }
                 }
             }

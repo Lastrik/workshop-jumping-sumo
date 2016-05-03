@@ -11,15 +11,11 @@ import de.devoxx4kids.dronecontroller.network.WirelessLanDroneConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.AWTException;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
-
-import java.net.URISyntaxException;
 
 import java.util.Properties;
 
@@ -33,7 +29,7 @@ public final class Main {
     private Main() {
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException, AWTException {
+    public static void main(String[] args) throws IOException {
 
         String ip = "192.168.2.1";
         int port = 44444;
@@ -50,7 +46,7 @@ public final class Main {
             wlanName = properties.getProperty("wlan");
         }
 
-        String driver = "swing";
+        String driver = "keyboard";
 
         if (args.length >= 1) {
             driver = args[0].toLowerCase();

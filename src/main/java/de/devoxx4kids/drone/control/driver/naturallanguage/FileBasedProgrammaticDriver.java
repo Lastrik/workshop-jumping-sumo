@@ -12,8 +12,6 @@ import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
 
-import java.net.URISyntaxException;
-
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,6 +25,8 @@ import java.util.List;
 
 
 /**
+ * FileBased Driver.
+ *
  * @author  Alexander Bischof
  */
 public class FileBasedProgrammaticDriver {
@@ -36,12 +36,9 @@ public class FileBasedProgrammaticDriver {
 
     private final DroneController drone;
 
-    public FileBasedProgrammaticDriver(DroneConnection droneConnection) throws IOException, URISyntaxException {
+    public FileBasedProgrammaticDriver(DroneConnection droneConnection) {
 
         drone = new DroneController(droneConnection);
-
-        // FIXMERobot
-        // drone.addBatteryListener(b -> System.out.println("BatteryState: " + b));
         drone.pcmd(0, 0);
 
         new Thread(this::startFileWatcher).start();
@@ -62,8 +59,6 @@ public class FileBasedProgrammaticDriver {
                 for (WatchEvent<?> event : wk.pollEvents()) {
                     final Path changed = (Path) event.context();
 
-                    // FIXME
-                    // System.out.println(changed + " " + changed.equals(FILENAME) + " " + FILENAME);
                     if (changed.endsWith(FILENAME)) {
                         LOGGER.info("programm.txt has changed");
                         readCommands();
@@ -73,18 +68,22 @@ public class FileBasedProgrammaticDriver {
                 boolean valid = wk.reset();
 
                 if (!valid) {
-                    LOGGER.info("Key has been unregisterede");
+                    LOGGER.info("Key has been unregistered!");
                 }
             }
-        } catch (URISyntaxException | IOException | InterruptedException e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
+            LOGGER.warn("Something went wrong", e);
         }
     }
 
 
-    private void readCommands() throws URISyntaxException, IOException {
+    private void readCommands() {
 
-        List<String> commands = Files.readAllLines(Paths.get(FILENAME));
-        commands.forEach(new CommandInputConsumer(drone));
+        try {
+            List<String> commands = Files.readAllLines(Paths.get(FILENAME));
+            commands.forEach(new CommandInputConsumer(drone));
+        } catch (IOException e) {
+            LOGGER.warn("Could not read from file", e);
+        }
     }
 }

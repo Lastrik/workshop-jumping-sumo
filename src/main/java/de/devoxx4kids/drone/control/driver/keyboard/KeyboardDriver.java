@@ -66,7 +66,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
     private boolean isLeftPressed;
     private boolean isRightPressed;
 
-    public KeyboardDriver(DroneConnection droneConnection, int straightSpeed, int turnDegrees) throws IOException {
+    public KeyboardDriver(DroneConnection droneConnection, int straightSpeed, int turnDegrees) {
 
         this.straightSpeed = straightSpeed;
         this.turnDegrees = turnDegrees;

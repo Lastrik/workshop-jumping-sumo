@@ -8,8 +8,6 @@ import de.devoxx4kids.dronecontroller.network.DroneConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-
 import java.lang.invoke.MethodHandles;
 
 
@@ -27,7 +25,7 @@ public class ProgrammaticDriver {
 
     private final DroneController drone;
 
-    public ProgrammaticDriver(DroneConnection droneConnection) throws IOException {
+    public ProgrammaticDriver(DroneConnection droneConnection) {
 
         drone = new DroneController(droneConnection);
 
@@ -35,7 +33,7 @@ public class ProgrammaticDriver {
         drone.addBatteryListener(aByte -> LOGGER.info("Batterylevel: " + aByte.toString() + "%"));
     }
 
-    public void drive() throws IOException, InterruptedException {
+    public void drive() {
 
         drone.send(DownsideDown.downsideDown()).right().left();
     }
