@@ -1,5 +1,7 @@
 package de.devoxx4kids.drone;
 
+import de.devoxx4kids.drone.config.Config;
+import de.devoxx4kids.drone.config.ConfigReader;
 import de.devoxx4kids.drone.keyboard.KeyboardDriver;
 import de.devoxx4kids.drone.programmatic.ProgrammaticDriver;
 import de.devoxx4kids.drone.programmatic.SwingBasedProgrammaticDriver;
@@ -10,13 +12,9 @@ import de.devoxx4kids.dronecontroller.network.WirelessLanDroneConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import java.lang.invoke.MethodHandles;
-
-import java.util.Properties;
 
 import static java.lang.Integer.valueOf;
 
@@ -30,30 +28,12 @@ public final class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String ip = "192.168.2.1";
-        int port = 44444;
-        String wlanName = "JS-Alex";
+        Config config = new ConfigReader().get(args);
 
-        File configFile = new File("config.properties");
+        DroneConnection droneConnection = new WirelessLanDroneConnection(config.getIp(), config.getPort(),
+                config.getWlanName());
 
-        if (configFile.exists()) {
-            Properties properties = new Properties();
-            properties.load(new FileReader(configFile));
-
-            ip = properties.getProperty("ip");
-            port = valueOf(properties.getProperty("port"));
-            wlanName = properties.getProperty("wlan");
-        }
-
-        Driver driver = Driver.KEYBOARD;
-
-        if (args.length >= 1) {
-            driver = Driver.valueOf(args[0].toLowerCase());
-        }
-
-        DroneConnection droneConnection = new WirelessLanDroneConnection(ip, port, wlanName);
-
-        switch (driver) {
+        switch (config.getDriver()) {
             case KEYBOARD:
 
                 int speedConfig = args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
