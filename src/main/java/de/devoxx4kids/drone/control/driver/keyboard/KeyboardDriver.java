@@ -77,7 +77,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
     private void initComponents() {
 
-        new KeyboardDriverFrame();
+        new KeyboardDriverFrame(droneController);
         new Thread(this).start();
 
         droneController.addBatteryListener(b -> LOGGER.info("BatteryState: {}%", b));
