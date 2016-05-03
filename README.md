@@ -29,7 +29,7 @@ Now your device can reach the Jumping Sumo over the ip '192.168.2.1'and the port
 There are _3 ways_ to control the Jumping Sumo:
 
 ```
-java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|file|swing>
+java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|swing>
 ```
 
 ### Keyboard-Driven - _keyboard_
@@ -59,16 +59,8 @@ java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|file|swing>
 :construction: will follow :construction:
 
 
-### Natural Language - _file_ or _swing_
+### Natural Language - _swing_
 
-#### Textfile
-
-If you just want to type your commands in  text file so use _file_ and lay next to your jar file the following text file:
-
-```
-programm.txt
-```
-This file will be polled after a command change, which will directly send to the Jumping Sumo.
 
 #### Swing
 If you want to program in natural language via a swing based window then use _swing_ and a window will open in
