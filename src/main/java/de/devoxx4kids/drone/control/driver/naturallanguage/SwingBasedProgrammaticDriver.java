@@ -99,6 +99,9 @@ public class SwingBasedProgrammaticDriver extends JFrame {
 
         drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
         drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+
+        // disable video and mute the drone
+        drone.video().disableVideo().drone().audio().mute();
     }
 
 
