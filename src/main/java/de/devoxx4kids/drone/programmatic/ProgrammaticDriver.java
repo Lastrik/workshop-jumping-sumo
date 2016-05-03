@@ -29,8 +29,11 @@ public class ProgrammaticDriver {
 
         drone = new DroneController(droneConnection);
 
-        drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
+        // enable battery listener
         drone.addBatteryListener(aByte -> LOGGER.info("Batterylevel: " + aByte.toString() + "%"));
+
+        // disable video and mute the drone
+        drone.video().disableVideo().drone().audio().mute();
     }
 
     public void drive() {
