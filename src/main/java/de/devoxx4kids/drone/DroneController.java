@@ -268,7 +268,7 @@ public class DroneController implements AutoCloseable {
 
         private final DroneController droneController;
 
-        public AudioController(DroneController droneController) {
+        AudioController(DroneController droneController) {
 
             this.droneController = droneController;
         }
@@ -315,7 +315,7 @@ public class DroneController implements AutoCloseable {
 
         private final DroneController droneController;
 
-        public VideoController(DroneController droneController) {
+        VideoController(DroneController droneController) {
 
             this.droneController = droneController;
         }
