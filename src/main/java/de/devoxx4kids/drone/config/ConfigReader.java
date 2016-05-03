@@ -23,6 +23,7 @@ public class ConfigReader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    private static final String CONFIG_PROPERTIES = "config.properties";
     private static final String DEFAULT_IP = "192.168.2.1";
     private static final int DEFAULT_PORT = 4444;
     private static final String DEFAULT_WLAN = "JumpingSumo";
@@ -37,7 +38,7 @@ public class ConfigReader {
         int turn = getTurn(args);
 
         Config configuration = null;
-        File configFile = new File("config.properties");
+        File configFile = new File(CONFIG_PROPERTIES);
 
         if (configFile.exists()) {
             try {
@@ -51,7 +52,7 @@ public class ConfigReader {
                 configuration = new Config(ip, port, wlanName, driver, speed, turn);
             } catch (IOException e) {
                 configuration = new Config(DEFAULT_IP, DEFAULT_PORT, DEFAULT_WLAN, driver, speed, turn);
-                LOGGER.error("Could not create configuration, use default values - " + driver, e);
+                LOGGER.error("Could not create configuration, use default values - " + configuration, e);
             }
         }
 
