@@ -81,9 +81,6 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
         new Thread(this).start();
 
         droneController.addBatteryListener(b -> LOGGER.info("BatteryState: {}%", b));
-        // droneController.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
-
-        droneController.video().enableVideo();
 
         getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
     }

@@ -10,7 +10,7 @@ Dieser Prototyp verbindet sich aktuell statisch zu einem JumpingSumo, d.h. 192.1
 
 Beinhaltet die folgenden 3 Modi:
 
-```java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|file|swing>```
+```java -jar jumpingSumo-jar-with-dependencies.jar <keyboard|program|swing>```
 
 ## Tastatur (KeyboardDriver)
   - Pfeiltasten: Vorwärts, Rückwärts, Links, Rechts
@@ -38,9 +38,7 @@ Beinhaltet die folgenden 3 Modi:
 :construction: in Arbeit :construction:
 
 
-## Natührliche Sprache (FileBasedProgrammaticDriver/SwingBasedProgrammaticDriver)
-
-```programm.txt``` wird nach Command-Änderung gepollt, die direkt auf dem JumpingSumo weitergeleitet werden
+## Natürliche Sprache (SwingBasedProgrammaticDriver)
 
 
 | Befehl       | Jumpin Sumo führt aus:                              |
