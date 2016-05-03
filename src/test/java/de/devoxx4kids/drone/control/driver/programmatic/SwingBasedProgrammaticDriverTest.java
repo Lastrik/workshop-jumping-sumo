@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.any;
 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 
@@ -30,12 +31,11 @@ public class SwingBasedProgrammaticDriverTest {
     @Test
     public void test() throws InterruptedException {
 
-        SwingBasedProgrammaticDriver sut = new SwingBasedProgrammaticDriver(droneConnectionMock)
-            .withDynamicCompilation();
+        SwingBasedProgrammaticDriver sut = new SwingBasedProgrammaticDriver(droneConnectionMock);
 
         sut.setText("JumpingSumo.spinJump()");
         sut.fire();
 
-        verify(droneConnectionMock).sendCommand(any(SpinJump.class));
+        verify(droneConnectionMock, times(3)).sendCommand(any(SpinJump.class));
     }
 }

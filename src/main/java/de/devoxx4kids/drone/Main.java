@@ -66,7 +66,7 @@ public final class Main {
                 break;
 
             case "swing":
-                new SwingBasedProgrammaticDriver(droneConnection).withDynamicCompilation().setVisible(true);
+                new SwingBasedProgrammaticDriver(droneConnection);
                 break;
 
             default:

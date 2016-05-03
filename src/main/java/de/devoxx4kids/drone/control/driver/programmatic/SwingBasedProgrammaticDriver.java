@@ -33,8 +33,6 @@ import static java.awt.event.KeyEvent.VK_ENTER;
 
 import static java.lang.String.format;
 
-import static java.util.stream.Stream.of;
-
 
 public class SwingBasedProgrammaticDriver extends JFrame {
 
@@ -49,17 +47,21 @@ public class SwingBasedProgrammaticDriver extends JFrame {
     public SwingBasedProgrammaticDriver(DroneConnection droneConnection) {
 
         drone = new DroneController(droneConnection);
+
+        // needed to be static for dynamic compilation
         DRONE_CONTROLLER = drone;
 
-        // Default Operation uses old text base consumer
-        startOperation = text ->
-                of(text.split("\\r?\\n")).map(c -> c.toLowerCase().trim())
-                .forEach(new CommandInputConsumer(drone));
+        // enable battery listener
+        drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
 
-        initComponents();
+        // disable video and mute the drone
+        drone.video().disableVideo().drone().audio().mute();
+
+        initFrame();
+        initDynamicCompilation();
     }
 
-    private void initComponents() {
+    private void initFrame() {
 
         setResizable(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -96,12 +98,6 @@ public class SwingBasedProgrammaticDriver extends JFrame {
         this.setJMenuBar(jMenuBar);
 
         this.pack();
-
-        drone.addBatteryListener(b -> LOGGER.info("BatteryState: " + b));
-        drone.addPCMDListener(b -> LOGGER.info("PCMD: " + b));
-
-        // disable video and mute the drone
-        drone.video().disableVideo().drone().audio().mute();
     }
 
 
@@ -117,7 +113,7 @@ public class SwingBasedProgrammaticDriver extends JFrame {
     }
 
 
-    public SwingBasedProgrammaticDriver withDynamicCompilation() {
+    private void initDynamicCompilation() {
 
         startOperation =
             code -> {
@@ -125,14 +121,14 @@ public class SwingBasedProgrammaticDriver extends JFrame {
 
             code = code.replaceAll("(?i)jumpingsumo\\.", "");
 
-            String javaCode = format("package de.devoxx4kids.drone.control.driver.naturallanguage;\n"
+            String javaCode = format("package de.devoxx4kids.drone.control.driver.programmatic;\n"
                     + "public class SwingRunner%s implements Runnable {\n"
                     + "  public void run() {\n"
                     + "    SwingBasedProgrammaticDriver.DRONE_CONTROLLER.%s;\n"
                     + "  }\n"
                     + "}\n", currentTimeMillis, code);
 
-            String className = format("de.devoxx4kids.drone.control.driver.naturallanguage.SwingRunner%s",
+            String className = format("de.devoxx4kids.drone.control.driver.programmatic.SwingRunner%s",
                     currentTimeMillis);
 
             try {
@@ -143,7 +139,5 @@ public class SwingBasedProgrammaticDriver extends JFrame {
                 e.printStackTrace();
             }
         };
-
-        return this;
     }
 }
