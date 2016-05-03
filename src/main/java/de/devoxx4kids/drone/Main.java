@@ -26,16 +26,15 @@ public final class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Config config = new ConfigReader().get(args);
+        Config cfg = new ConfigReader().get(args);
 
-        DroneConnection droneConnection = new WirelessLanDroneConnection(config.getIp(), config.getPort(),
-                config.getWlanName());
+        DroneConnection droneConnection = new WirelessLanDroneConnection(cfg.getIp(), cfg.getPort(), cfg.getWlanName());
 
-        switch (config.getDriver()) {
+        switch (cfg.getDriver()) {
             case KEYBOARD:
 
                 LOGGER.info("Starting Keyboard driver");
-                new KeyboardDriver(droneConnection, config.getSpeed(), config.getTurn());
+                new KeyboardDriver(droneConnection, cfg.getSpeed(), cfg.getTurn());
                 break;
 
             case PROGRAM:

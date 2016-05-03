@@ -1,7 +1,5 @@
 package de.devoxx4kids.drone.config;
 
-import de.devoxx4kids.drone.keyboard.KeyboardDriver;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +10,8 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
 import java.util.Properties;
+
+import static de.devoxx4kids.drone.config.Driver.KEYBOARD;
 
 import static java.lang.Integer.valueOf;
 
@@ -26,7 +26,9 @@ public class ConfigReader {
     private static final String DEFAULT_IP = "192.168.2.1";
     private static final int DEFAULT_PORT = 4444;
     private static final String DEFAULT_WLAN = "JumpingSumo";
-    private static final Driver DEFAULT_DRIVER = Driver.KEYBOARD;
+    private static final Driver DEFAULT_DRIVER = KEYBOARD;
+    private static final int DEFAULT_TURN_DEGREE = 50;
+    private static final int DEFAULT_SPEED = 100;
 
     public Config get(String[] args) {
 
@@ -59,13 +61,13 @@ public class ConfigReader {
 
     private int getTurn(String[] args) {
 
-        return args.length > 2 ? valueOf(args[2]) : KeyboardDriver.DEFAULT_TURN_DEGREE;
+        return args.length > 2 ? valueOf(args[2]) : DEFAULT_TURN_DEGREE;
     }
 
 
     private int getSpeed(String[] args) {
 
-        return args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
+        return args.length > 1 ? valueOf(args[1]) : DEFAULT_SPEED;
     }
 
 
