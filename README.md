@@ -80,3 +80,4 @@ These commands are available:
 | Springe weit | Jumps far                                 |
 
 Hint: At this time the commands are only available in german language.
+
