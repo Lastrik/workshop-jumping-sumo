@@ -8,6 +8,13 @@
     <artifactId>jumping-sumo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -18,6 +25,13 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.github.Lastrik</groupId>
+            <artifactId>drone-controller</artifactId>
+            <version>0.3.0</version>
+        </dependency>
+        <!--
         <dependency>
             <groupId>de.devoxx4kids</groupId>
             <artifactId>dronecontroller</artifactId>
@@ -28,6 +42,7 @@
             <artifactId>compiler</artifactId>
             <version>2.2.4</version>
         </dependency>
+        -->
 
         <!-- logging -->
         <dependency>
@@ -46,7 +61,7 @@
             <version>${log4j.version}</version>
         </dependency>
 
-        <!-- Test -->
+        <!-- Test
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -59,6 +74,7 @@
             <version>2.0.43-beta</version>
             <scope>test</scope>
         </dependency>
+        -->
     </dependencies>
 
     <build>
@@ -88,7 +104,6 @@
                 </executions>
             </plugin>
 
-            <!-- Test -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

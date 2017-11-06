@@ -1,9 +1,6 @@
 package de.devoxx4kids.drone;
 
 import de.devoxx4kids.drone.keyboard.KeyboardDriver;
-import de.devoxx4kids.drone.programmatic.ProgrammaticDriver;
-import de.devoxx4kids.drone.programmatic.SwingBasedProgrammaticDriver;
-
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
 import de.devoxx4kids.dronecontroller.network.WirelessLanDroneConnection;
 
@@ -49,7 +46,5 @@ public final class Main {
         int speedConfig = args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
         int turnConfig = args.length > 2 ? valueOf(args[2]) : KeyboardDriver.DEFAULT_TURN_DEGREE;
         new KeyboardDriver(droneConnection, speedConfig, turnConfig);
-        break;
-
     }
 }
