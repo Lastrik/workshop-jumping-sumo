@@ -6,7 +6,7 @@
 
     <groupId>de.devoxx4kids.workshop</groupId>
     <artifactId>jumping-sumo</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <repositories>
         <repository>
