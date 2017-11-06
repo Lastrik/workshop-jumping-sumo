@@ -21,6 +21,7 @@ import de.devoxx4kids.dronecontroller.listener.common.PCMDListener;
 import de.devoxx4kids.dronecontroller.listener.multimedia.VideoListener;
 import de.devoxx4kids.dronecontroller.network.ConnectionException;
 import de.devoxx4kids.dronecontroller.network.DroneConnection;
+import java.awt.image.BufferedImage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -320,9 +321,9 @@ public class DroneController implements AutoCloseable {
             this.droneController = droneController;
         }
 
-        public VideoController enableVideo() {
+        public VideoController enableVideo(Consumer<BufferedImage> consumer) {
 
-            droneConnection.addEventListener(VideoListener.videoListener());
+            droneConnection.addEventListener(VideoListener.videoListener(consumer));
             droneConnection.sendCommand(VideoStreaming.enableVideoStreaming());
 
             return this;

@@ -9,12 +9,7 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-import java.io.File;
-import java.io.IOException;
-
 import java.lang.invoke.MethodHandles;
-
-import javax.imageio.ImageIO;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,85 +19,63 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-
 /**
  * Small swing component as interceptor for the key events.
  *
- * @author  Tobias Schneider
+ * @author Tobias Schneider
  */
 public class KeyboardDriverFrame extends JFrame {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+	private JLabel livePicture = null;
 
-    public KeyboardDriverFrame(DroneController droneController) {
+	public KeyboardDriverFrame(DroneController droneController) {
 
-        setResizable(false);
-        setSize(640, 480);
-        setVisible(true);
+		setResizable(false);
+		setSize(640, 480);
+		
+		// Image
+		livePicture = new JLabel();
+		add(livePicture);
 
-        // Menu
-        JMenu jsMenu = new JMenu("Menu");
-        add(jsMenu, e -> droneController.video().enableVideo(), "Enable Video");
-        add(jsMenu, e -> droneController.video().disableVideo(), "Disable Video");
-        add(jsMenu, e -> droneController.audio().mute(), "Mute Sound");
-        add(jsMenu, e -> droneController.audio().unmute(), "Unmute Sound");
-        addSeparator(jsMenu);
+		// Menu
+		JMenu jsMenu = new JMenu("Menu");
+		add(jsMenu, e -> droneController.video().enableVideo((t) -> {
+			addLivePicture(t);
+		}), "Enable Video");
+		add(jsMenu, e -> droneController.video().disableVideo(), "Disable Video");
+		add(jsMenu, e -> droneController.audio().mute(), "Mute Sound");
+		add(jsMenu, e -> droneController.audio().unmute(), "Unmute Sound");
+		addSeparator(jsMenu);
 
-        add(jsMenu, e -> droneController.connect(), "Reconnect");
-        addSeparator(jsMenu);
+		add(jsMenu, e -> droneController.connect(), "Reconnect");
+		addSeparator(jsMenu);
 
-        add(jsMenu, e -> System.exit(0), "Exit");
+		add(jsMenu, e -> System.exit(0), "Exit");
 
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(jsMenu);
-        this.setJMenuBar(menuBar);
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.add(jsMenu);
+		setJMenuBar(menuBar);
 
-        addLivePicture();
-    }
+		setVisible(true);
+	}
 
-    private void addLivePicture() {
+	private void addLivePicture(BufferedImage bi) {
+		if (bi != null) {
+			livePicture.setIcon(new ImageIcon(bi));
+			livePicture.repaint();
+		}
+	}
 
-        JLabel livePicture = new JLabel();
-        add(livePicture);
+	private Component addSeparator(JMenu jsMenu) {
 
-        new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+		return jsMenu.add(new JPopupMenu.Separator());
+	}
 
-                File frame = new File("frame.jpg");
+	private void add(JMenu jsMenu, ActionListener actionListener, String text) {
 
-                if (frame.exists()) {
-                    try {
-                        BufferedImage myPicture = ImageIO.read(frame);
-
-                        if (myPicture != null) {
-                            livePicture.setIcon(new ImageIcon(myPicture));
-                            livePicture.repaint();
-                            livePicture.revalidate();
-                        }
-                    } catch (IOException e) {
-                        LOGGER.warn("Could not process picture", e);
-                    }
-                }
-            }
-        }).start();
-    }
-
-
-    private Component addSeparator(JMenu jsMenu) {
-
-        return jsMenu.add(new JPopupMenu.Separator());
-    }
-
-
-    private void add(JMenu jsMenu, ActionListener actionListener, String text) {
-
-        JMenuItem enableVideo = new JMenuItem(text);
-        enableVideo.addActionListener(actionListener);
-        jsMenu.add(enableVideo);
-    }
+		JMenuItem enableVideo = new JMenuItem(text);
+		enableVideo.addActionListener(actionListener);
+		jsMenu.add(enableVideo);
+	}
 }

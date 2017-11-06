@@ -91,7 +91,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
         while (true) {
             try {
-                MILLISECONDS.sleep(10);
+                MILLISECONDS.sleep(1);
 
                 // set speed
                 int speed = 0;
@@ -112,7 +112,7 @@ public class KeyboardDriver implements Runnable, KeyEventDispatcher {
                 }
 
                 if (speed != 0 || degrees != 0) {
-                    droneController.send(Pcmd.pcmd(speed, degrees, 0));
+                    droneController.send(Pcmd.pcmd(speed, degrees, 100));
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

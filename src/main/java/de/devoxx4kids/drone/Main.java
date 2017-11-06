@@ -20,7 +20,6 @@ import java.util.Properties;
 
 import static java.lang.Integer.valueOf;
 
-
 public final class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -45,32 +44,12 @@ public final class Main {
             wlanName = properties.getProperty("wlan");
         }
 
-        Driver driver = Driver.KEYBOARD;
-
-        if (args.length >= 1) {
-            driver = Driver.valueOf(args[0].toLowerCase());
-        }
-
         DroneConnection droneConnection = new WirelessLanDroneConnection(ip, port, wlanName);
 
-        switch (driver) {
-            case KEYBOARD:
+        int speedConfig = args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
+        int turnConfig = args.length > 2 ? valueOf(args[2]) : KeyboardDriver.DEFAULT_TURN_DEGREE;
+        new KeyboardDriver(droneConnection, speedConfig, turnConfig);
+        break;
 
-                int speedConfig = args.length > 1 ? valueOf(args[1]) : KeyboardDriver.DEFAULT_SPEED;
-                int turnConfig = args.length > 2 ? valueOf(args[2]) : KeyboardDriver.DEFAULT_TURN_DEGREE;
-                new KeyboardDriver(droneConnection, speedConfig, turnConfig);
-                break;
-
-            case PROGRAM:
-                new ProgrammaticDriver(droneConnection).drive();
-                break;
-
-            case SWING:
-                new SwingBasedProgrammaticDriver(droneConnection);
-                break;
-
-            default:
-                LOGGER.info("Argument unbekannt: keyboard | program | swing");
-        }
     }
 }
