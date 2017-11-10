@@ -49,225 +49,224 @@ import static java.awt.event.KeyEvent.VK_Y;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
-
 public class KeyboardDriver implements Runnable, KeyEventDispatcher {
 
-    public static final int DEFAULT_TURN_DEGREE = 50;
-    public static final int DEFAULT_SPEED = 100;
+	public static final int DEFAULT_TURN_DEGREE = 50;
+	public static final int DEFAULT_SPEED = 100;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private final DroneController droneController;
-    private final int straightSpeed;
-    private final int turnDegrees;
+	private final DroneController droneController;
+	private final int straightSpeed;
+	private final int turnDegrees;
 
-    private boolean isUpPressed;
-    private boolean isDownPressed;
-    private boolean isLeftPressed;
-    private boolean isRightPressed;
+	private boolean isUpPressed;
+	private boolean isDownPressed;
+	private boolean isLeftPressed;
+	private boolean isRightPressed;
 
-    public KeyboardDriver(DroneConnection droneConnection, int straightSpeed, int turnDegrees) {
+	public KeyboardDriver(DroneConnection droneConnection, int straightSpeed, int turnDegrees) {
 
-        this.straightSpeed = straightSpeed;
-        this.turnDegrees = turnDegrees;
-        this.droneController = new DroneController(droneConnection);
+		this.straightSpeed = straightSpeed;
+		this.turnDegrees = turnDegrees;
+		this.droneController = new DroneController(droneConnection);
 
-        initComponents();
-    }
+		initComponents();
+	}
 
-    private void initComponents() {
+	private void initComponents() {
 
-        new KeyboardDriverFrame(droneController);
-        new Thread(this).start();
+		new KeyboardDriverFrame(droneController);
+		new Thread(this).start();
 
-        droneController.addBatteryListener(b -> LOGGER.info("BatteryState: {}%", b));
+		droneController.addBatteryListener(b -> LOGGER.info("BatteryState: {}%", b));
 
-        getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
-    }
+		getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
+	}
 
+	@Override
+	public void run() {
 
-    @Override
-    public void run() {
+		while (true) {
+			try {
+				MILLISECONDS.sleep(2);
 
-        while (true) {
-            try {
-                MILLISECONDS.sleep(1);
+				// set speed
+				int speed = 0;
 
-                // set speed
-                int speed = 0;
+				if (isUpPressed) {
+					speed = this.straightSpeed;
+				} else if (isDownPressed) {
+					speed = -1 * this.straightSpeed;
+				}
 
-                if (isUpPressed) {
-                    speed = this.straightSpeed;
-                } else if (isDownPressed) {
-                    speed = -1 * this.straightSpeed;
-                }
+				// set turn degrees
+				int degrees = 0;
 
-                // set turn degrees
-                int degrees = 0;
+				if (isLeftPressed) {
+					degrees = isDownPressed ? turnDegrees : -turnDegrees;
+				} else if (isRightPressed) {
+					degrees = isDownPressed ? -turnDegrees : turnDegrees;
+				}
 
-                if (isLeftPressed) {
-                    degrees = isDownPressed ? turnDegrees : -turnDegrees;
-                } else if (isRightPressed) {
-                    degrees = isDownPressed ? -turnDegrees : turnDegrees;
-                }
+				if (speed != 0 || degrees != 0) {
+					droneController.send(Pcmd.pcmd(speed, degrees, 100));
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-                if (speed != 0 || degrees != 0) {
-                    droneController.send(Pcmd.pcmd(speed, degrees, 100));
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent e) {
 
+		int keyCode = e.getKeyCode();
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent e) {
+		if (e.getID() == KEY_PRESSED) {
+			try {
+				handleKeyPressed(keyCode);
+			} catch (IOException | InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		} else if (e.getID() == KEY_RELEASED) {
+			handleKeyReleased(keyCode);
+		}
 
-        int keyCode = e.getKeyCode();
+		return true;
+	}
 
-        if (e.getID() == KEY_PRESSED) {
-            try {
-                handleKeyPressed(keyCode);
-            } catch (IOException | InterruptedException e1) {
-                e1.printStackTrace();
-            }
-        } else if (e.getID() == KEY_RELEASED) {
-            handleKeyReleased(keyCode);
-        }
+	private void handleKeyReleased(int keyCode) {
 
-        return true;
-    }
+		switch (keyCode) {
+			case VK_UP:
+				isUpPressed = false;
+				droneController.stopAnimation();
+				break;
 
+			case VK_DOWN:
+				isDownPressed = false;
+				droneController.stopAnimation();
+				break;
 
-    private void handleKeyReleased(int keyCode) {
+			case VK_LEFT:
+				isLeftPressed = false;
+				droneController.stopAnimation();
+				break;
 
-        switch (keyCode) {
-            case VK_UP:
-                isUpPressed = false;
-                break;
+			case VK_RIGHT:
+				isRightPressed = false;
+				droneController.stopAnimation();
+				break;
+		}
+	}
 
-            case VK_DOWN:
-                isDownPressed = false;
-                break;
+	private void handleKeyPressed(int keyCode) throws IOException, InterruptedException {
 
-            case VK_LEFT:
-                isLeftPressed = false;
-                break;
+		switch (keyCode) {
+			case VK_UP:
+				isUpPressed = true;
+				break;
 
-            case VK_RIGHT:
-                isRightPressed = false;
-                break;
-        }
-    }
+			case VK_DOWN:
+				isDownPressed = true;
+				break;
 
+			case VK_LEFT:
+				isLeftPressed = true;
+				break;
 
-    private void handleKeyPressed(int keyCode) throws IOException, InterruptedException {
+			case VK_RIGHT:
+				isRightPressed = true;
+				break;
 
-        switch (keyCode) {
-            case VK_UP:
-                isUpPressed = true;
-                break;
+			case VK_H:
+				droneController.jump(Jump.Type.High);
+				break;
 
-            case VK_DOWN:
-                isDownPressed = true;
-                break;
+			case VK_J:
+				droneController.jump(Jump.Type.Long);
+				break;
 
-            case VK_LEFT:
-                isLeftPressed = true;
-                break;
+			case VK_1:
+				droneController.spin();
+				break;
 
-            case VK_RIGHT:
-                isRightPressed = true;
-                break;
+			case VK_2:
+				droneController.tap();
+				break;
 
-            case VK_H:
-                droneController.jump(Jump.Type.High);
-                break;
+			case VK_3:
+				droneController.slowShake();
+				break;
 
-            case VK_J:
-                droneController.jump(Jump.Type.Long);
-                break;
+			case VK_4:
+				droneController.metronome();
+				break;
 
-            case VK_1:
-                droneController.spin();
-                break;
+			case VK_5:
+				droneController.ondulation();
+				break;
 
-            case VK_2:
-                droneController.tap();
-                break;
+			case VK_6:
+				droneController.spinJump();
+				break;
 
-            case VK_3:
-                droneController.slowShake();
-                break;
+			case VK_7:
+				droneController.spinToPosture();
+				break;
 
-            case VK_4:
-                droneController.metronome();
-                break;
+			case VK_8:
+				droneController.spiral();
+				break;
 
-            case VK_5:
-                droneController.ondulation();
-                break;
+			case VK_9:
+				droneController.slalom();
+				break;
 
-            case VK_6:
-                droneController.spinJump();
-                break;
+			case VK_0:
+				droneController.stopAnimation();
+				break;
 
-            case VK_7:
-                droneController.spinToPosture();
-                break;
+			case VK_A:
+				droneController.pcmd(0, -90);
+				break;
 
-            case VK_8:
-                droneController.spiral();
-                break;
+			case VK_D:
+				droneController.pcmd(0, 90);
+				break;
 
-            case VK_9:
-                droneController.slalom();
-                break;
+			case VK_S:
+				droneController.pcmd(0, 180);
+				break;
 
-            case VK_0:
-                droneController.stopAnimation();
-                break;
+			case VK_I:
+				droneController.audio().theme(AudioTheme.Theme.Monster);
+				break;
 
-            case VK_A:
-                droneController.pcmd(0, -90);
-                break;
+			case VK_O:
+				droneController.audio().theme(AudioTheme.Theme.Insect);
+				break;
 
-            case VK_D:
-                droneController.pcmd(0, 90);
-                break;
+			case VK_P:
+				droneController.audio().theme(AudioTheme.Theme.Robot);
+				break;
 
-            case VK_S:
-                droneController.pcmd(0, 180);
-                break;
+			case VK_Y:
+				droneController.audio().mute();
+				break;
 
-            case VK_I:
-                droneController.audio().theme(AudioTheme.Theme.Monster);
-                break;
+			case VK_X:
+				droneController.audio().unmute();
+				break;
 
-            case VK_O:
-                droneController.audio().theme(AudioTheme.Theme.Insect);
-                break;
+			case VK_V:
+				droneController.connect();
+				break;
 
-            case VK_P:
-                droneController.audio().theme(AudioTheme.Theme.Robot);
-                break;
-
-            case VK_Y:
-                droneController.audio().mute();
-                break;
-
-            case VK_X:
-                droneController.audio().unmute();
-                break;
-
-            case VK_V:
-                droneController.connect();
-                break;
-
-            case VK_B:
-                droneController.disconnect();
-                break;
-        }
-    }
+			case VK_B:
+				droneController.disconnect();
+				break;
+		}
+	}
 }
