@@ -22,7 +22,7 @@ import javax.swing.JPopupMenu;
 /**
  * Small swing component as interceptor for the key events.
  *
- * @author Tobias Schneider
+ * @author Brian Vonlanthen
  */
 public class KeyboardDriverFrame extends JFrame {
 
